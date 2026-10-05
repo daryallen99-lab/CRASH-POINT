@@ -1,0 +1,3355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#050914">
+<title>CRASH POINT</title>
+
+<style>
+:root{
+  --bg:#050914;
+  --bg2:#080f1d;
+  --panel:#0b1425;
+  --panel2:#101b30;
+  --line:rgba(255,255,255,.08);
+  --text:#f5f7ff;
+  --muted:#8793aa;
+  --green:#20e487;
+  --green2:#10b96c;
+  --purple:#743cff;
+  --purple2:#a66bff;
+  --blue:#358cff;
+  --red:#ff4e68;
+  --yellow:#ffc857;
+  --cyan:#30d9ff;
+  --radius:18px;
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button,input,select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* =========================
+   APP LAYOUT
+========================= */
+
+.app{
+  min-height:100vh;
+  display:flex;
+  background:
+    radial-gradient(circle at 55% -10%,rgba(116,60,255,.13),transparent 30%),
+    var(--bg);
+}
+
+.sidebar{
+  width:220px;
+  min-height:100vh;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  padding:22px 14px;
+  background:#070d19;
+  border-right:1px solid var(--line);
+  z-index:40;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:4px 8px 25px;
+}
+
+.brand-icon{
+  width:39px;
+  height:39px;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,var(--purple),#a843ff);
+  box-shadow:0 8px 25px rgba(116,60,255,.3);
+  font-size:21px;
+}
+
+.brand-name{
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:.3px;
+}
+
+.brand-name span{
+  color:var(--purple2);
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.nav button{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#9ba7bc;
+  padding:12px;
+  border-radius:11px;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.nav button:hover,
+.nav button.active{
+  color:#fff;
+  background:linear-gradient(90deg,rgba(116,60,255,.25),rgba(116,60,255,.06));
+}
+
+.nav-icon{
+  width:22px;
+  text-align:center;
+  font-size:17px;
+}
+
+.sidebar-bottom{
+  position:absolute;
+  left:14px;
+  right:14px;
+  bottom:20px;
+}
+
+.demo-badge{
+  padding:11px;
+  border-radius:12px;
+  background:rgba(33,228,135,.06);
+  border:1px solid rgba(33,228,135,.12);
+  color:var(--green);
+  font-size:10px;
+  line-height:1.4;
+  text-align:center;
+}
+
+.main{
+  margin-left:220px;
+  width:calc(100% - 220px);
+  min-height:100vh;
+}
+
+.topbar{
+  height:72px;
+  position:sticky;
+  top:0;
+  z-index:30;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 25px;
+  background:rgba(5,9,20,.88);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
+
+.top-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.page-title{
+  font-size:15px;
+  font-weight:800;
+}
+
+.online{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  color:var(--green);
+  font-size:10px;
+}
+
+.online-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 9px var(--green);
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.balance-pill{
+  padding:9px 14px;
+  border-radius:10px;
+  background:#0c1728;
+  border:1px solid var(--line);
+  font-size:12px;
+  font-weight:800;
+}
+
+.balance-pill span{
+  color:var(--green);
+}
+
+.top-btn{
+  border:1px solid var(--line);
+  background:#0c1728;
+  color:#dfe6f4;
+  padding:9px 13px;
+  border-radius:10px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.top-btn.deposit{
+  background:var(--green);
+  color:#03150c;
+  border-color:var(--green);
+}
+
+.content{
+  padding:20px;
+  max-width:1500px;
+  margin:auto;
+}
+
+.screen{
+  display:none;
+}
+
+.screen.active{
+  display:block;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.game-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 315px;
+  gap:15px;
+}
+
+.game-column{
+  min-width:0;
+}
+
+.side-column{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+/* HISTORY MULTIPLIERS */
+
+.multiplier-history{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:10px;
+  display:flex;
+  gap:7px;
+  overflow:hidden;
+  margin-bottom:15px;
+}
+
+.multiplier-chip{
+  flex-shrink:0;
+  padding:7px 10px;
+  border-radius:8px;
+  background:#101c31;
+  color:#91a0ba;
+  font-size:10px;
+  font-weight:900;
+}
+
+.multiplier-chip.green{
+  color:var(--green);
+  background:rgba(32,228,135,.08);
+}
+
+.multiplier-chip.purple{
+  color:#ad8aff;
+  background:rgba(116,60,255,.12);
+}
+
+.multiplier-chip.red{
+  color:#ff6c80;
+  background:rgba(255,78,104,.08);
+}
+
+.multiplier-chip.blue{
+  color:#69a8ff;
+  background:rgba(53,140,255,.08);
+}
+
+/* GRAPH */
+
+.graph-card{
+  background:
+    radial-gradient(circle at 55% 45%,rgba(116,60,255,.09),transparent 38%),
+    var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  position:relative;
+}
+
+.graph-head{
+  position:absolute;
+  left:20px;
+  right:20px;
+  top:17px;
+  z-index:4;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.round-info{
+  font-size:10px;
+  color:var(--muted);
+}
+
+.round-info strong{
+  color:#fff;
+  font-size:12px;
+}
+
+.graph-status{
+  padding:7px 10px;
+  border-radius:8px;
+  background:rgba(255,255,255,.04);
+  color:var(--muted);
+  font-size:10px;
+}
+
+.graph{
+  height:390px;
+  position:relative;
+  overflow:hidden;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:55px 55px;
+}
+
+.graph::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(to bottom,transparent 70%,rgba(5,9,20,.4)),
+    linear-gradient(to right,rgba(5,9,20,.35),transparent 20%,transparent 80%,rgba(5,9,20,.45));
+  pointer-events:none;
+}
+
+.graph-labels{
+  position:absolute;
+  left:12px;
+  top:55px;
+  bottom:40px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  color:#56637b;
+  font-size:9px;
+  z-index:2;
+}
+
+.graph-time{
+  position:absolute;
+  left:45px;
+  right:15px;
+  bottom:12px;
+  display:flex;
+  justify-content:space-between;
+  color:#56637b;
+  font-size:9px;
+  z-index:2;
+}
+
+#curve{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:3;
+}
+
+.multiplier-center{
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:5;
+  pointer-events:none;
+}
+
+.big-multiplier{
+  font-size:58px;
+  font-weight:1000;
+  letter-spacing:-3px;
+  text-shadow:0 0 35px rgba(166,107,255,.32);
+}
+
+.big-multiplier.crashed{
+  color:var(--red);
+  text-shadow:0 0 35px rgba(255,78,104,.25);
+}
+
+.countdown{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+/* CONTROLS */
+
+.controls{
+  margin-top:15px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:15px;
+}
+
+.mode-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  padding:4px;
+  background:#07101e;
+  border-radius:10px;
+  margin-bottom:14px;
+}
+
+.mode-tabs button{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:9px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.mode-tabs button.active{
+  background:#192541;
+  color:#fff;
+}
+
+.control-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.control-group label{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-bottom:7px;
+}
+
+.input-row{
+  display:flex;
+  gap:5px;
+}
+
+.control-input{
+  width:100%;
+  border:1px solid var(--line);
+  background:#07101d;
+  color:#fff;
+  border-radius:10px;
+  padding:11px;
+  outline:0;
+  font-size:12px;
+}
+
+.small-btn{
+  border:1px solid var(--line);
+  background:#101c30;
+  color:#a9b6ca;
+  border-radius:8px;
+  padding:0 9px;
+  font-size:10px;
+}
+
+.quick-buttons{
+  display:flex;
+  gap:5px;
+  margin-top:5px;
+}
+
+.quick-buttons button{
+  flex:1;
+  border:0;
+  background:#111d31;
+  color:#8795ad;
+  padding:7px 4px;
+  border-radius:7px;
+  font-size:9px;
+}
+
+.bet-button{
+  width:100%;
+  margin-top:13px;
+  border:0;
+  border-radius:11px;
+  padding:14px;
+  background:linear-gradient(135deg,var(--green),#12ca76);
+  color:#02150c;
+  font-weight:1000;
+  font-size:14px;
+  box-shadow:0 10px 25px rgba(32,228,135,.12);
+}
+
+.bet-button.cashout{
+  background:linear-gradient(135deg,#ffb52e,#ff7b31);
+  color:#160900;
+}
+
+/* PANELS */
+
+.panel{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:16px;
+}
+
+.panel-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:13px;
+}
+
+.panel-title h3{
+  margin:0;
+  font-size:14px;
+}
+
+.panel-title span{
+  color:var(--muted);
+  font-size:10px;
+}
+
+/* DEPOSIT */
+
+.deposit-address{
+  padding:11px;
+  background:#07101d;
+  border:1px solid var(--line);
+  border-radius:10px;
+  word-break:break-all;
+  color:var(--green);
+  font-size:10px;
+  line-height:1.5;
+}
+
+.copy-btn{
+  width:100%;
+  margin-top:8px;
+  border:1px solid rgba(32,228,135,.18);
+  background:rgba(32,228,135,.07);
+  color:var(--green);
+  padding:10px;
+  border-radius:9px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.network{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin:10px 0;
+  color:var(--green);
+  font-size:10px;
+}
+
+.network-dot{
+  width:7px;
+  height:7px;
+  background:var(--green);
+  border-radius:50%;
+}
+
+.deposit-note{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.5;
+}
+
+/* PROMO */
+
+.promo{
+  background:
+    radial-gradient(circle at top right,rgba(116,60,255,.27),transparent 50%),
+    linear-gradient(145deg,#11182d,#0c1222);
+}
+
+.promo-icon{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.promo h3{
+  margin:0 0 7px;
+  font-size:17px;
+}
+
+.promo p{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.5;
+  margin:0;
+}
+
+.promo-list{
+  margin-top:15px;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+
+.promo-item{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#b4bfd2;
+  font-size:10px;
+}
+
+.promo-item b{
+  color:var(--purple2);
+}
+
+/* TABLE */
+
+.table-panel{
+  margin-top:15px;
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.table th{
+  color:#68758d;
+  font-size:9px;
+  text-align:left;
+  font-weight:700;
+  padding:8px;
+  border-bottom:1px solid var(--line);
+}
+
+.table td{
+  padding:9px 8px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  font-size:10px;
+}
+
+.user-cell{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.user-avatar{
+  width:24px;
+  height:24px;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#18243a;
+  color:#8fa4c5;
+  font-size:9px;
+  font-weight:800;
+}
+
+.result{
+  padding:4px 7px;
+  border-radius:6px;
+  font-weight:800;
+}
+
+.result.win{
+  background:rgba(32,228,135,.08);
+  color:var(--green);
+}
+
+.result.loss{
+  background:rgba(255,78,104,.08);
+  color:var(--red);
+}
+
+/* =========================
+   OTHER SCREENS
+========================= */
+
+.section-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+
+.section-head h2{
+  margin:0 0 4px;
+  font-size:23px;
+}
+
+.section-head p{
+  margin:0;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+}
+
+.info-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:17px;
+}
+
+.info-card-icon{
+  width:39px;
+  height:39px;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(116,60,255,.12);
+  color:var(--purple2);
+  margin-bottom:11px;
+}
+
+.info-card h3{
+  margin:0 0 5px;
+  font-size:13px;
+}
+
+.info-card p{
+  margin:0;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.5;
+}
+
+/* GAME LIST */
+
+.game-list{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.game-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:19px;
+  padding:20px;
+  min-height:160px;
+  position:relative;
+  overflow:hidden;
+}
+
+.game-card::before{
+  content:"";
+  position:absolute;
+  width:100px;
+  height:100px;
+  right:-30px;
+  top:-30px;
+  border-radius:50%;
+  background:rgba(116,60,255,.13);
+  filter:blur(2px);
+}
+
+.game-card h3{
+  position:relative;
+  margin:0 0 7px;
+}
+
+.game-card p{
+  position:relative;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.5;
+}
+
+.game-status{
+  position:relative;
+  display:inline-block;
+  margin-top:10px;
+  padding:5px 8px;
+  background:rgba(32,228,135,.07);
+  color:var(--green);
+  border-radius:6px;
+  font-size:9px;
+  font-weight:800;
+}
+
+/* HISTORY SCREEN */
+
+.history-full{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:19px;
+  overflow:hidden;
+}
+
+.history-row{
+  display:grid;
+  grid-template-columns:1.2fr .8fr .8fr .8fr;
+  padding:13px 15px;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  font-size:11px;
+}
+
+.history-row.header{
+  color:#66738a;
+  font-size:9px;
+}
+
+/* PROFILE */
+
+.profile-layout{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:15px;
+}
+
+.profile-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:25px;
+  text-align:center;
+}
+
+.avatar-large{
+  width:78px;
+  height:78px;
+  border-radius:25px;
+  margin:auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,var(--purple),var(--blue));
+  font-size:27px;
+  font-weight:900;
+}
+
+.profile-card h2{
+  margin:13px 0 3px;
+}
+
+.profile-card p{
+  color:var(--muted);
+  margin:0;
+  font-size:11px;
+}
+
+.profile-stat{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.profile-stat div{
+  background:#07101d;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:11px;
+}
+
+.profile-stat small{
+  display:block;
+  color:var(--muted);
+  font-size:8px;
+  margin-bottom:5px;
+}
+
+.profile-stat strong{
+  font-size:12px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-top{
+  display:none;
+}
+
+.bottom-nav{
+  display:none;
+}
+
+@media(max-width:900px){
+
+  .sidebar{
+    display:none;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding-bottom:72px;
+  }
+
+  .topbar{
+    height:62px;
+    padding:0 13px;
+  }
+
+  .page-title{
+    display:none;
+  }
+
+  .top-actions{
+    gap:5px;
+  }
+
+  .balance-pill{
+    padding:8px 9px;
+    font-size:10px;
+  }
+
+  .top-btn{
+    padding:8px 9px;
+    font-size:9px;
+  }
+
+  .content{
+    padding:12px;
+  }
+
+  .game-layout{
+    grid-template-columns:1fr;
+  }
+
+  .side-column{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+
+  .table{
+    min-width:650px;
+  }
+
+  .table-panel{
+    overflow-x:auto;
+  }
+
+  .bottom-nav{
+    position:fixed;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    left:0;
+    right:0;
+    bottom:0;
+    height:67px;
+    background:rgba(6,11,20,.97);
+    border-top:1px solid var(--line);
+    z-index:100;
+  }
+
+  .bottom-nav button{
+    border:0;
+    background:transparent;
+    color:#77849a;
+    font-size:8px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:4px;
+  }
+
+  .bottom-nav button.active{
+    color:var(--green);
+  }
+
+  .bottom-nav .bi{
+    font-size:17px;
+  }
+
+  .cards-grid,
+  .game-list{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .profile-layout{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:580px){
+
+  .brand-name{
+    font-size:14px;
+  }
+
+  .brand-icon{
+    width:33px;
+    height:33px;
+    font-size:16px;
+  }
+
+  .top-btn.withdraw{
+    display:none;
+  }
+
+  .game-layout{
+    display:block;
+  }
+
+  .graph{
+    height:315px;
+  }
+
+  .big-multiplier{
+    font-size:50px;
+  }
+
+  .control-grid{
+    grid-template-columns:1fr;
+  }
+
+  .side-column{
+    display:flex;
+  }
+
+  .table-panel{
+    display:none;
+  }
+
+  .cards-grid,
+  .game-list{
+    grid-template-columns:1fr;
+  }
+
+  .history-row{
+    grid-template-columns:1fr .7fr .7fr;
+  }
+
+  .history-row div:nth-child(4){
+    display:none;
+  }
+
+  .multiplier-history{
+    margin-left:-2px;
+    margin-right:-2px;
+  }
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+.pulse{
+  animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:1}
+  50%{opacity:.5}
+}
+
+.shake{
+  animation:shake .35s ease;
+}
+
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-5px)}
+  75%{transform:translateX(5px)}
+}
+
+.fade{
+  animation:fade .3s ease;
+}
+
+@keyframes fade{
+  from{opacity:0}
+  to{opacity:1}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+  <div class="brand">
+    <div class="brand-icon">🚀</div>
+    <div class="brand-name">CRASH <span>POINT</span></div>
+  </div>
+
+  <nav class="nav">
+
+    <button class="active" onclick="showScreen('home',this)">
+      <span class="nav-icon">⌂</span>
+      Inicio
+    </button>
+
+    <button onclick="showScreen('games',this)">
+      <span class="nav-icon">🎮</span>
+      Juegos
+    </button>
+
+    <button onclick="showScreen('bets',this)">
+      <span class="nav-icon">▣</span>
+      Mis partidas
+    </button>
+
+    <button onclick="showScreen('history',this)">
+      <span class="nav-icon">◷</span>
+      Historial
+    </button>
+
+    <button onclick="showScreen('stats',this)">
+      <span class="nav-icon">◈</span>
+      Estadísticas
+    </button>
+
+    <button onclick="showScreen('profile',this)">
+      <span class="nav-icon">♙</span>
+      Perfil
+    </button>
+
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="demo-badge">
+      MODO SIMULACIÓN<br>
+      SALDO VIRTUAL
+    </div>
+  </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+<header class="topbar">
+
+  <div class="top-left">
+
+    <div class="page-title">
+      Crash Point
+    </div>
+
+    <div class="online">
+      <span class="online-dot"></span>
+      SERVIDOR ACTIVO
+    </div>
+
+  </div>
+
+  <div class="top-actions">
+
+    <div class="balance-pill">
+      💰 <span id="topBalance">1000.00 USDT</span>
+    </div>
+
+    <button class="top-btn deposit" onclick="openDeposit()">
+      Depositar
+    </button>
+
+    <button class="top-btn withdraw" onclick="openWithdraw()">
+      Retirar
+    </button>
+
+    <button class="top-btn">
+      ♧
+    </button>
+
+  </div>
+
+</header>
+
+
+<div class="content">
+
+<!-- =========================
+     HOME
+========================= -->
+
+<section id="screen-home" class="screen active">
+
+<div class="game-layout">
+
+<div class="game-column">
+
+  <!-- MULTIPLIERS -->
+
+  <div id="multiplierHistory" class="multiplier-history"></div>
+
+
+  <!-- GRAPH -->
+
+  <div class="graph-card">
+
+    <div class="graph-head">
+
+      <div class="round-info">
+        RONDA <strong id="roundNumber">#0001</strong>
+      </div>
+
+      <div id="gameStatus" class="graph-status">
+        PREPARANDO
+      </div>
+
+    </div>
+
+
+    <div class="graph">
+
+      <div class="graph-labels">
+        <span>10x</span>
+        <span>5x</span>
+        <span>3x</span>
+        <span>2x</span>
+        <span>1x</span>
+      </div>
+
+      <canvas id="curve"></canvas>
+
+      <div class="multiplier-center">
+
+        <div id="bigMultiplier" class="big-multiplier">
+          1.00x
+        </div>
+
+        <div id="countdown" class="countdown">
+          Próxima ronda
+        </div>
+
+      </div>
+
+      <div class="graph-time">
+        <span>0s</span>
+        <span>5s</span>
+        <span>10s</span>
+        <span>15s</span>
+        <span>20s</span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- CONTROLS -->
+
+  <div class="controls">
+
+    <div class="mode-tabs">
+
+      <button id="manualMode" class="active" onclick="setMode('manual')">
+        Manual
+      </button>
+
+      <button id="autoMode" onclick="setMode('auto')">
+        Automático
+      </button>
+
+    </div>
+
+
+    <div class="control-grid">
+
+      <div class="control-group">
+
+        <label>
+          APUESTA VIRTUAL
+        </label>
+
+        <div class="input-row">
+
+          <input
+            id="betAmount"
+            class="control-input"
+            type="number"
+            min="1"
+            value="10"
+          >
+
+          <button class="small-btn" onclick="setMaxBet()">
+            MAX
+          </button>
+
+        </div>
+
+        <div class="quick-buttons">
+
+          <button onclick="changeBet(.5)">
+            ÷2
+          </button>
+
+          <button onclick="changeBet(2)">
+            ×2
+          </button>
+
+          <button onclick="setBet(10)">
+            10
+          </button>
+
+          <button onclick="setBet(50)">
+            50
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="control-group">
+
+        <label>
+          AUTO CASH-OUT
+        </label>
+
+        <div class="input-row">
+
+          <input
+            id="autoCashout"
+            class="control-input"
+            type="number"
+            min="1.01"
+            step=".01"
+            value="2.00"
+          >
+
+        </div>
+
+        <div class="quick-buttons">
+
+          <button onclick="setCashout(1.5)">
+            1.5x
+          </button>
+
+          <button onclick="setCashout(2)">
+            2x
+          </button>
+
+          <button onclick="setCashout(3)">
+            3x
+          </button>
+
+          <button onclick="setCashout(5)">
+            5x
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button id="betButton" class="bet-button" onclick="placeBet()">
+      🚀 APOSTAR
+    </button>
+
+  </div>
+
+
+  <!-- RECENT BETS -->
+
+  <div class="panel table-panel">
+
+    <div class="panel-title">
+      <h3>Partidas recientes</h3>
+      <span>Tiempo real</span>
+    </div>
+
+    <table class="table">
+
+      <thead>
+        <tr>
+          <th>Jugador</th>
+          <th>Apuesta</th>
+          <th>Multiplicador</th>
+          <th>Resultado</th>
+          <th>Ganancia</th>
+          <th>Hora</th>
+        </tr>
+      </thead>
+
+      <tbody id="recentBets"></tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     RIGHT SIDE
+========================= -->
+
+<aside class="side-column">
+
+  <!-- DEPOSIT -->
+
+  <div class="panel">
+
+    <div class="panel-title">
+      <h3>Depósito</h3>
+      <span>USDT</span>
+    </div>
+
+    <div class="deposit-address">
+      0xfaDc8989b805B5606236aa9f0C2D353ac80cB232
+    </div>
+
+    <button class="copy-btn" onclick="copyAddress()">
+      ⧉ COPIAR DIRECCIÓN
+    </button>
+
+    <div class="network">
+      <span class="network-dot"></span>
+      Red Binance Smart Chain · BEP-20
+    </div>
+
+    <div class="deposit-note">
+      Dirección mostrada como referencia dentro de esta
+      interfaz. Las partidas utilizan saldo virtual.
+    </div>
+
+  </div>
+
+
+  <!-- PROMO -->
+
+  <div class="panel promo">
+
+    <div class="promo-icon">
+      🚀
+    </div>
+
+    <h3>
+      Crash Point
+    </h3>
+
+    <p>
+      Observa cómo aumenta el multiplicador y decide
+      cuándo detener tu partida virtual.
+    </p>
+
+    <div class="promo-list">
+
+      <div class="promo-item">
+        <b>◆</b>
+        Multiplicadores variables
+      </div>
+
+      <div class="promo-item">
+        <b>◆</b>
+        Cash-out manual
+      </div>
+
+      <div class="promo-item">
+        <b>◆</b>
+        Auto cash-out
+      </div>
+
+      <div class="promo-item">
+        <b>◆</b>
+        Historial completo
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ROUND INFO -->
+
+  <div class="panel">
+
+    <div class="panel-title">
+      <h3>Ronda actual</h3>
+      <span id="sideRound">#0001</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+
+      <div class="info-card" style="padding:11px">
+        <div style="font-size:9px;color:var(--muted)">
+          ESTADO
+        </div>
+        <strong id="sideStatus" style="font-size:11px">
+          Preparando
+        </strong>
+      </div>
+
+      <div class="info-card" style="padding:11px">
+        <div style="font-size:9px;color:var(--muted)">
+          JUGADORES
+        </div>
+        <strong id="playerCount" style="font-size:11px">
+          128
+        </strong>
+      </div>
+
+    </div>
+
+  </div>
+
+</aside>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     GAMES
+========================= -->
+
+<section id="screen-games" class="screen">
+
+  <div class="section-head">
+    <div>
+      <h2>Juegos</h2>
+      <p>Selecciona una experiencia.</p>
+    </div>
+  </div>
+
+  <div class="game-list">
+
+    <div class="game-card">
+      <h3>🚀 Crash Point</h3>
+      <p>
+        Multiplicador ascendente con cash-out manual
+        y automático.
+      </p>
+      <span class="game-status">ACTIVO</span>
+    </div>
+
+    <div class="game-card">
+      <h3>⚡ Turbo Crash</h3>
+      <p>
+        Rondas cortas y multiplicadores de ritmo rápido.
+      </p>
+      <span class="game-status">PRÓXIMAMENTE</span>
+    </div>
+
+    <div class="game-card">
+      <h3>🌌 Space Crash</h3>
+      <p>
+        Una variante visual con temática espacial.
+      </p>
+      <span class="game-status">PRÓXIMAMENTE</span>
+    </div>
+
+    <div class="game-card">
+      <h3>🔥 Inferno Crash</h3>
+      <p>
+        Interfaz alternativa con rondas especiales.
+      </p>
+      <span class="game-status">PRÓXIMAMENTE</span>
+    </div>
+
+    <div class="game-card">
+      <h3>💎 Diamond Crash</h3>
+      <p>
+        Variante con estadísticas y multiplicadores
+        especiales.
+      </p>
+      <span class="game-status">PRÓXIMAMENTE</span>
+    </div>
+
+    <div class="game-card">
+      <h3>🌀 Chaos Crash</h3>
+      <p>
+        Modo experimental con secuencias variables.
+      </p>
+      <span class="game-status">PRÓXIMAMENTE</span>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     MY BETS
+========================= -->
+
+<section id="screen-bets" class="screen">
+
+  <div class="section-head">
+    <div>
+      <h2>Mis partidas</h2>
+      <p>Actividad de tu sesión.</p>
+    </div>
+  </div>
+
+  <div id="myBets" class="history-full"></div>
+
+</section>
+
+
+<!-- =========================
+     HISTORY
+========================= -->
+
+<section id="screen-history" class="screen">
+
+  <div class="section-head">
+    <div>
+      <h2>Historial</h2>
+      <p>Resultados de las rondas anteriores.</p>
+    </div>
+  </div>
+
+  <div id="roundHistory" class="history-full"></div>
+
+</section>
+
+
+<!-- =========================
+     STATS
+========================= -->
+
+<section id="screen-stats" class="screen">
+
+  <div class="section-head">
+    <div>
+      <h2>Estadísticas</h2>
+      <p>Información de tu actividad virtual.</p>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+
+    <div class="info-card">
+      <div class="info-card-icon">🎯</div>
+      <h3>Partidas</h3>
+      <p id="statBets">0</p>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-icon">🚀</div>
+      <h3>Mejor multiplicador</h3>
+      <p id="statBest">0.00x</p>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-icon">💰</div>
+      <h3>Resultado</h3>
+      <p id="statProfit">0.00 USDT</p>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-icon">🏆</div>
+      <h3>Victorias</h3>
+      <p id="statWins">0</p>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-icon">💥</div>
+      <h3>Pérdidas</h3>
+      <p id="statLosses">0</p>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-icon">📊</div>
+      <h3>Promedio</h3>
+      <p id="statAverage">0.00x</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PROFILE
+========================= -->
+
+<section id="screen-profile" class="screen">
+
+  <div class="section-head">
+    <div>
+      <h2>Perfil</h2>
+      <p>Información de la cuenta.</p>
+    </div>
+  </div>
+
+  <div class="profile-layout">
+
+    <div class="profile-card">
+
+      <div class="avatar-large">
+        DG
+      </div>
+
+      <h2>Jugador</h2>
+
+      <p>
+        Cuenta virtual
+      </p>
+
+      <div class="profile-stat">
+
+        <div>
+          <small>BALANCE</small>
+          <strong id="profileBalance">
+            1000.00
+          </strong>
+        </div>
+
+        <div>
+          <small>PARTIDAS</small>
+          <strong id="profileBets">
+            0
+          </strong>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div style="display:flex;flex-direction:column;gap:15px">
+
+      <div class="panel">
+
+        <div class="panel-title">
+          <h3>Cuenta</h3>
+        </div>
+
+        <div class="info-card">
+          <div style="color:var(--muted);font-size:9px">
+            ESTADO
+          </div>
+
+          <div style="margin-top:5px;color:var(--green);font-size:12px;font-weight:800">
+            ● ACTIVA
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="panel">
+
+        <div class="panel-title">
+          <h3>Configuración</h3>
+        </div>
+
+        <button
+          class="copy-btn"
+          onclick="resetVirtualBalance()"
+        >
+          RESTABLECER SALDO VIRTUAL
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+</div>
+
+</main>
+
+</div>
+
+
+<!-- MOBILE NAV -->
+
+<nav class="bottom-nav">
+
+  <button class="active" onclick="showScreen('home',this)">
+    <span class="bi">⌂</span>
+    Inicio
+  </button>
+
+  <button onclick="showScreen('games',this)">
+    <span class="bi">🎮</span>
+    Juegos
+  </button>
+
+  <button onclick="showScreen('bets',this)">
+    <span class="bi">▣</span>
+    Partidas
+  </button>
+
+  <button onclick="showScreen('history',this)">
+    <span class="bi">◷</span>
+    Historial
+  </button>
+
+  <button onclick="showScreen('profile',this)">
+    <span class="bi">♙</span>
+    Perfil
+  </button>
+
+</nav>
+
+
+<script>
+
+/* =========================================================
+   ESTADO DEL JUEGO
+========================================================= */
+
+const DEPOSIT_ADDRESS =
+"0xfaDc8989b805B5606236aa9f0C2D353ac80cB232";
+
+let balance = 1000;
+
+let currentMultiplier = 1;
+
+let crashPoint = 1;
+
+let roundNumber = 1;
+
+let gameState = "waiting";
+
+let gameStart = 0;
+
+let animationFrame = null;
+
+let timer = null;
+
+let hasBet = false;
+
+let cashedOut = false;
+
+let currentBet = 0;
+
+let currentBetResult = null;
+
+let mode = "manual";
+
+let history = [];
+
+let myBets = [];
+
+let recentPlayers = [];
+
+let toastTimer;
+
+
+/* =========================================================
+   UTILIDADES
+========================================================= */
+
+function $(id){
+  return document.getElementById(id);
+}
+
+
+function random(min,max){
+  return Math.random()*(max-min)+min;
+}
+
+
+function randomInt(min,max){
+  return Math.floor(random(min,max+1));
+}
+
+
+function money(value){
+  return Number(value).toFixed(2);
+}
+
+
+function formatTime(){
+
+  const d = new Date();
+
+  return d.toLocaleTimeString(
+    "es-ES",
+    {
+      hour:"2-digit",
+      minute:"2-digit",
+      second:"2-digit"
+    }
+  );
+
+}
+
+
+/* =========================================================
+   MULTIPLICADORES VARIADOS
+========================================================= */
+
+function generateCrashPoint(){
+
+  /*
+    Secuencia puramente virtual.
+    La distribución cambia continuamente.
+  */
+
+  const r = Math.random();
+
+  let value;
+
+  if(r < .10){
+    value = random(1.01,1.18);
+  }
+  else if(r < .22){
+    value = random(1.18,1.45);
+  }
+  else if(r < .38){
+    value = random(1.45,2.05);
+  }
+  else if(r < .57){
+    value = random(2.05,3.30);
+  }
+  else if(r < .73){
+    value = random(3.30,5.50);
+  }
+  else if(r < .87){
+    value = random(5.50,9);
+  }
+  else if(r < .95){
+    value = random(9,16);
+  }
+  else if(r < .985){
+    value = random(16,35);
+  }
+  else{
+    value = random(35,100);
+  }
+
+  return Number(value.toFixed(2));
+}
+
+
+/* =========================================================
+   HISTORIAL DE MULTIPLICADORES
+========================================================= */
+
+function multiplierClass(value){
+
+  if(value < 1.3)
+    return "red";
+
+  if(value < 2)
+    return "blue";
+
+  if(value < 5)
+    return "green";
+
+  return "purple";
+
+}
+
+
+function addMultiplierHistory(value){
+
+  history.unshift(value);
+
+  if(history.length > 18)
+    history.pop();
+
+  renderMultiplierHistory();
+
+}
+
+
+function renderMultiplierHistory(){
+
+  $("multiplierHistory").innerHTML =
+    history.map(value=>`
+
+      <div class="multiplier-chip ${multiplierClass(value)}">
+        ${money(value)}x
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   JUGADORES SIMULADOS
+========================================================= */
+
+const fakeNames = [
+  "Alex",
+  "CryptoMax",
+  "Luna",
+  "TraderX",
+  "Maverick",
+  "Dani",
+  "Satoshi",
+  "Rocket",
+  "Nova",
+  "Leo",
+  "BitKing",
+  "Carlos",
+  "Mia",
+  "DarkWolf",
+  "Neo"
+];
+
+
+function generatePlayers(){
+
+  recentPlayers = [];
+
+  const count = randomInt(6,13);
+
+  for(let i=0;i<count;i++){
+
+    recentPlayers.push({
+
+      name:
+        fakeNames[randomInt(0,fakeNames.length-1)],
+
+      bet:
+        randomInt(5,120),
+
+      cashout:
+        random(1.1,8),
+
+      result:
+        Math.random()>.28
+
+    });
+
+  }
+
+}
+
+
+function renderRecentPlayers(){
+
+  let html="";
+
+  recentPlayers.forEach(player=>{
+
+    const win =
+      player.result;
+
+    const profit =
+      win
+        ? player.bet*(player.cashout-1)
+        : -player.bet;
+
+
+    html += `
+
+      <tr>
+
+        <td>
+
+          <div class="user-cell">
+
+            <div class="user-avatar">
+              ${player.name.charAt(0)}
+            </div>
+
+            ${player.name}
+
+          </div>
+
+        </td>
+
+        <td>
+          ${money(player.bet)} USDT
+        </td>
+
+        <td>
+          ${money(player.cashout)}x
+        </td>
+
+        <td>
+          <span class="result ${win?'win':'loss'}">
+            ${win?'GANÓ':'CRASH'}
+          </span>
+        </td>
+
+        <td class="${profit>=0?'green':'red'}">
+          ${profit>=0?'+':''}${money(profit)}
+        </td>
+
+        <td>
+          ${formatTime()}
+        </td>
+
+      </tr>
+
+    `;
+
+  });
+
+  $("recentBets").innerHTML = html;
+
+}
+
+
+/* =========================================================
+   ROUND
+========================================================= */
+
+function startRound(){
+
+  cancelAnimationFrame(animationFrame);
+
+  gameState = "running";
+
+  currentMultiplier = 1;
+
+  crashPoint = generateCrashPoint();
+
+  roundNumber++;
+
+  $("roundNumber").textContent =
+    "#"+String(roundNumber).padStart(4,"0");
+
+  $("sideRound").textContent =
+    "#"+String(roundNumber).padStart(4,"0");
+
+  $("gameStatus").textContent =
+    "EN CURSO";
+
+  $("sideStatus").textContent =
+    "En curso";
+
+  $("bigMultiplier")
+    .classList.remove("crashed");
+
+  hasBet = false;
+
+  cashedOut = false;
+
+  currentBet = 0;
+
+  currentBetResult = null;
+
+  $("betButton").textContent =
+    "🚀 APOSTAR";
+
+  $("betButton").classList.remove("cashout");
+
+  generatePlayers();
+
+  renderRecentPlayers();
+
+  gameStart = performance.now();
+
+  animateGame();
+
+}
+
+
+function animateGame(){
+
+  if(gameState !== "running")
+    return;
+
+  const now = performance.now();
+
+  const elapsed =
+    (now-gameStart)/1000;
+
+  /*
+    Crecimiento progresivo.
+  */
+
+  currentMultiplier =
+    Math.pow(
+      1.045,
+      elapsed*10
+    );
+
+  currentMultiplier =
+    Number(currentMultiplier.toFixed(2));
+
+
+  if(
+    mode==="auto" &&
+    hasBet &&
+    !cashedOut
+  ){
+
+    const auto =
+      parseFloat($("autoCashout").value);
+
+    if(
+      Number.isFinite(auto) &&
+      currentMultiplier >= auto
+    ){
+
+      cashOut();
+
+    }
+
+  }
+
+
+  if(
+    currentMultiplier >= crashPoint
+  ){
+
+    currentMultiplier =
+      crashPoint;
+
+    updateGraph();
+
+    crashRound();
+
+    return;
+
+  }
+
+
+  updateGraph();
+
+  animationFrame =
+    requestAnimationFrame(
+      animateGame
+    );
+
+}
+
+
+/* =========================================================
+   GRÁFICA
+========================================================= */
+
+const canvas = $("curve");
+
+const ctx =
+  canvas.getContext("2d");
+
+
+function resizeCanvas(){
+
+  const rect =
+    canvas.getBoundingClientRect();
+
+  canvas.width =
+    rect.width *
+    window.devicePixelRatio;
+
+  canvas.height =
+    rect.height *
+    window.devicePixelRatio;
+
+  ctx.scale(
+    window.devicePixelRatio,
+    window.devicePixelRatio
+  );
+
+}
+
+
+function updateGraph(){
+
+  const width =
+    canvas.clientWidth;
+
+  const height =
+    canvas.clientHeight;
+
+  ctx.clearRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+
+  const gradient =
+    ctx.createLinearGradient(
+      0,
+      height,
+      width,
+      0
+    );
+
+  gradient.addColorStop(
+    0,
+    "#30d9ff"
+  );
+
+  gradient.addColorStop(
+    .5,
+    "#743cff"
+  );
+
+  gradient.addColorStop(
+    1,
+    "#a66bff"
+  );
+
+
+  ctx.beginPath();
+
+  ctx.lineWidth = 3;
+
+  ctx.strokeStyle =
+    gradient;
+
+
+  const progress =
+    Math.min(
+      1,
+      (currentMultiplier-1) /
+      Math.max(
+        1,
+        crashPoint-1
+      )
+    );
+
+
+  const points =
+    Math.max(
+      2,
+      Math.floor(
+        progress*100
+      )
+    );
+
+
+  for(let i=0;i<=points;i++){
+
+    const t =
+      i/100;
+
+    const x =
+      45+
+      t*(width-65);
+
+
+    const value =
+      1+
+      Math.pow(
+        t,
+        1.75
+      )*
+      Math.max(
+        1,
+        currentMultiplier-1
+      );
+
+
+    const maxVisual =
+      Math.max(
+        5,
+        Math.min(
+          12,
+          crashPoint*1.15
+        )
+      );
+
+
+    const y =
+      height-
+      35-
+      (
+        Math.min(
+          value,
+          maxVisual
+        ) /
+        maxVisual
+      )*
+      (height-65);
+
+
+    if(i===0)
+      ctx.moveTo(x,y);
+    else
+      ctx.lineTo(x,y);
+
+  }
+
+
+  ctx.stroke();
+
+
+  /*
+    Rocket / punto final
+  */
+
+  const lastT =
+    progress;
+
+  const rocketX =
+    45+
+    lastT*(width-65);
+
+  const rocketValue =
+    Math.min(
+      currentMultiplier,
+      12
+    );
+
+  const maxVisual =
+    Math.max(
+      5,
+      Math.min(
+        12,
+        crashPoint*1.15
+      )
+    );
+
+  const rocketY =
+    height-
+    35-
+    (
+      rocketValue/
+      maxVisual
+    )*
+    (height-65);
+
+
+  ctx.font =
+    "25px Arial";
+
+  ctx.fillText(
+    gameState==="crashed"
+      ? "💥"
+      : "🚀",
+    rocketX-12,
+    rocketY+8
+  );
+
+
+  $("bigMultiplier").textContent =
+    money(currentMultiplier)+"x";
+
+}
+
+
+/* =========================================================
+   CRASH
+========================================================= */
+
+function crashRound(){
+
+  cancelAnimationFrame(animationFrame);
+
+  gameState = "crashed";
+
+  $("gameStatus").textContent =
+    "CRASH";
+
+  $("sideStatus").textContent =
+    "Crash";
+
+  $("bigMultiplier")
+    .classList.add("crashed");
+
+  $("countdown").textContent =
+    "La ronda terminó";
+
+
+  if(hasBet && !cashedOut){
+
+    currentBetResult = {
+
+      amount:currentBet,
+
+      multiplier:crashPoint,
+
+      win:false,
+
+      profit:-currentBet
+
+    };
+
+    myBets.unshift(currentBetResult);
+
+    $("betButton").textContent =
+      "💥 PERDISTE";
+
+    $("betButton").classList.add("cashout");
+
+  }
+
+
+  if(hasBet)
+    renderMyBets();
+
+
+  addMultiplierHistory(crashPoint);
+
+  renderRoundHistory();
+
+  updateStats();
+
+  setTimeout(
+    startWaiting,
+    2200
+  );
+
+}
+
+
+/* =========================================================
+   ESPERA
+========================================================= */
+
+function startWaiting(){
+
+  gameState = "waiting";
+
+  currentMultiplier = 1;
+
+  $("gameStatus").textContent =
+    "PREPARANDO";
+
+  $("sideStatus").textContent =
+    "Preparando";
+
+  $("bigMultiplier")
+    .classList.remove("crashed");
+
+  $("bigMultiplier").textContent =
+    "1.00x";
+
+  let remaining = 5;
+
+  $("countdown").textContent =
+    "Comienza en "+remaining+"s";
+
+
+  clearInterval(timer);
+
+  timer =
+    setInterval(()=>{
+
+      remaining--;
+
+      if(remaining<=0){
+
+        clearInterval(timer);
+
+        $("countdown").textContent =
+          "Ronda en curso";
+
+        startRound();
+
+      }else{
+
+        $("countdown").textContent =
+          "Comienza en "+remaining+"s";
+
+      }
+
+    },1000);
+
+}
+
+
+/* =========================================================
+   APOSTAR
+========================================================= */
+
+function placeBet(){
+
+  if(gameState==="running"){
+
+    if(
+      hasBet &&
+      !cashedOut
+    ){
+
+      cashOut();
+
+      return;
+
+    }
+
+    return;
+
+  }
+
+
+  if(gameState!=="waiting"){
+
+    toast(
+      "Espera a la siguiente ronda"
+    );
+
+    return;
+
+  }
+
+
+  const amount =
+    parseFloat(
+      $("betAmount").value
+    );
+
+
+  if(
+    !Number.isFinite(amount) ||
+    amount<=0
+  ){
+
+    toast(
+      "Introduce una cantidad válida"
+    );
+
+    return;
+
+  }
+
+
+  if(amount>balance){
+
+    toast(
+      "Saldo virtual insuficiente"
+    );
+
+    return;
+
+  }
+
+
+  balance -= amount;
+
+  currentBet = amount;
+
+  hasBet = true;
+
+  cashedOut = false;
+
+  $("betButton").textContent =
+    "🚀 APUESTA PREPARADA";
+
+  updateBalance();
+
+  toast(
+    "Apuesta virtual preparada"
+  );
+
+}
+
+
+/* =========================================================
+   CASH OUT
+========================================================= */
+
+function cashOut(){
+
+  if(
+    !hasBet ||
+    cashedOut ||
+    gameState!=="running"
+  ){
+
+    return;
+
+  }
+
+
+  cashedOut = true;
+
+
+  const win =
+    currentBet*
+    currentMultiplier;
+
+
+  const profit =
+    win-currentBet;
+
+
+  balance += win;
+
+
+  currentBetResult = {
+
+    amount:currentBet,
+
+    multiplier:currentMultiplier,
+
+    win:true,
+
+    profit:profit
+
+  };
+
+
+  myBets.unshift(
+    currentBetResult
+  );
+
+
+  $("betButton").textContent =
+    "✓ COBRADO "+money(currentMultiplier)+"x";
+
+  $("betButton").classList.remove(
+    "cashout"
+  );
+
+
+  updateBalance();
+
+  renderMyBets();
+
+  updateStats();
+
+  toast(
+    "Cash-out en "+money(currentMultiplier)+"x"
+  );
+
+}
+
+
+/* =========================================================
+   CONTROLES
+========================================================= */
+
+function setMode(value){
+
+  mode = value;
+
+  $("manualMode")
+    .classList.toggle(
+      "active",
+      value==="manual"
+    );
+
+  $("autoMode")
+    .classList.toggle(
+      "active",
+      value==="auto"
+    );
+
+}
+
+
+function changeBet(factor){
+
+  const input =
+    $("betAmount");
+
+  let value =
+    parseFloat(input.value)||1;
+
+  value *= factor;
+
+  value =
+    Math.max(
+      1,
+      Math.min(
+        balance,
+        value
+      )
+    );
+
+  input.value =
+    money(value);
+
+}
+
+
+function setBet(value){
+
+  $("betAmount").value =
+    Math.min(
+      value,
+      Math.max(1,balance)
+    );
+
+}
+
+
+function setMaxBet(){
+
+  $("betAmount").value =
+    money(balance);
+
+}
+
+
+function setCashout(value){
+
+  $("autoCashout").value =
+    value;
+
+}
+
+
+/* =========================================================
+   BALANCE
+========================================================= */
+
+function updateBalance(){
+
+  $("topBalance").textContent =
+    money(balance)+" USDT";
+
+  $("profileBalance").textContent =
+    money(balance);
+
+}
+
+
+/* =========================================================
+   HISTORIAL MIS PARTIDAS
+========================================================= */
+
+function renderMyBets(){
+
+  const box =
+    $("myBets");
+
+
+  if(!myBets.length){
+
+    box.innerHTML = `
+      <div style="padding:25px;text-align:center;color:var(--muted);font-size:11px">
+        Todavía no tienes partidas.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  let html = `
+
+    <div class="history-row header">
+      <div>Apuesta</div>
+      <div>Multiplicador</div>
+      <div>Resultado</div>
+      <div>Ganancia</div>
+    </div>
+
+  `;
+
+
+  myBets.forEach(item=>{
+
+    html += `
+
+      <div class="history-row">
+
+        <div>
+          ${money(item.amount)} USDT
+        </div>
+
+        <div>
+          ${money(item.multiplier)}x
+        </div>
+
+        <div>
+          <span class="result ${item.win?'win':'loss'}">
+            ${item.win?'GANÓ':'CRASH'}
+          </span>
+        </div>
+
+        <div class="${item.profit>=0?'green':'red'}">
+          ${item.profit>=0?'+':''}
+          ${money(item.profit)} USDT
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   HISTORIAL DE RONDAS
+========================================================= */
+
+function renderRoundHistory(){
+
+  const box =
+    $("roundHistory");
+
+
+  let values =
+    history.slice(
+      0,
+      30
+    );
+
+
+  if(!values.length){
+
+    box.innerHTML = `
+      <div style="padding:25px;text-align:center;color:var(--muted)">
+        Sin historial.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  let html = `
+
+    <div class="history-row header">
+      <div>Ronda</div>
+      <div>Multiplicador</div>
+      <div>Estado</div>
+      <div>Hora</div>
+    </div>
+
+  `;
+
+
+  values.forEach((value,index)=>{
+
+    html += `
+
+      <div class="history-row">
+
+        <div>
+          #${String(roundNumber-index).padStart(4,"0")}
+        </div>
+
+        <div class="${value>=2?'green':'red'}">
+          ${money(value)}x
+        </div>
+
+        <div>
+          <span class="result ${value>=2?'win':'loss'}">
+            ${value>=2?'ALTO':'BAJO'}
+          </span>
+        </div>
+
+        <div>
+          ${formatTime()}
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   ESTADÍSTICAS
+========================================================= */
+
+function updateStats(){
+
+  const bets =
+    myBets.length;
+
+
+  const wins =
+    myBets.filter(
+      x=>x.win
+    ).length;
+
+
+  const losses =
+    myBets.filter(
+      x=>!x.win
+    ).length;
+
+
+  const best =
+    myBets.length
+      ? Math.max(
+          ...myBets.map(
+            x=>x.multiplier
+          )
+        )
+      : 0;
+
+
+  const average =
+    history.length
+      ? history.reduce(
+          (a,b)=>a+b,
+          0
+        )/history.length
+      : 0;
+
+
+  const profit =
+    myBets.reduce(
+      (a,b)=>a+b.profit,
+      0
+    );
+
+
+  $("statBets").textContent =
+    bets;
+
+
+  $("statWins").textContent =
+    wins;
+
+
+  $("statLosses").textContent =
+    losses;
+
+
+  $("statBest").textContent =
+    money(best)+"x";
+
+
+  $("statAverage").textContent =
+    money(average)+"x";
+
+
+  $("statProfit").textContent =
+    (profit>=0?"+":"")+
+    money(profit)+
+    " USDT";
+
+
+  $("profileBets").textContent =
+    bets;
+
+}
+
+
+/* =========================================================
+   NAVEGACIÓN
+========================================================= */
+
+function showScreen(name,button){
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen=>{
+      screen.classList.remove("active");
+    });
+
+
+  const target =
+    $("screen-"+name);
+
+
+  if(target)
+    target.classList.add("active");
+
+
+  document
+    .querySelectorAll(
+      ".nav button,.bottom-nav button"
+    )
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
+
+  if(button)
+    button.classList.add("active");
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================================================
+   DEPÓSITO
+========================================================= */
+
+function openDeposit(){
+
+  showScreen(
+    "home"
+  );
+
+  toast(
+    "Dirección BEP-20 disponible en el panel de depósito"
+  );
+
+}
+
+
+function copyAddress(){
+
+  navigator.clipboard
+    .writeText(
+      DEPOSIT_ADDRESS
+    )
+    .then(()=>{
+
+      toast(
+        "Dirección BEP-20 copiada"
+      );
+
+    })
+    .catch(()=>{
+
+      toast(
+        "No se pudo copiar automáticamente"
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   RETIRO VIRTUAL
+========================================================= */
+
+function openWithdraw(){
+
+  toast(
+    "El retiro utiliza saldo virtual en esta versión"
+  );
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetVirtualBalance(){
+
+  balance = 1000;
+
+  myBets = [];
+
+  updateBalance();
+
+  renderMyBets();
+
+  updateStats();
+
+  toast(
+    "Saldo virtual restablecido"
+  );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message){
+
+  clearTimeout(toastTimer);
+
+  let element =
+    document.getElementById("toast");
+
+
+  if(!element){
+
+    element =
+      document.createElement("div");
+
+    element.id =
+      "toast";
+
+    element.style.position =
+      "fixed";
+
+    element.style.left =
+      "50%";
+
+    element.style.bottom =
+      "85px";
+
+    element.style.transform =
+      "translateX(-50%)";
+
+    element.style.background =
+      "#111d30";
+
+    element.style.border =
+      "1px solid rgba(255,255,255,.1)";
+
+    element.style.padding =
+      "11px 16px";
+
+    element.style.borderRadius =
+      "11px";
+
+    element.style.fontSize =
+      "11px";
+
+    element.style.zIndex =
+      "500";
+
+    element.style.boxShadow =
+      "0 15px 40px rgba(0,0,0,.4)";
+
+    document.body.appendChild(
+      element
+    );
+
+  }
+
+
+  element.textContent =
+    message;
+
+  element.style.opacity =
+    "1";
+
+
+  toastTimer =
+    setTimeout(()=>{
+
+      element.style.opacity =
+        "0";
+
+    },2200);
+
+}
+
+
+/* =========================================================
+   INICIO
+========================================================= */
+
+function initialize(){
+
+  resizeCanvas();
+
+  /*
+    Historial inicial variado.
+  */
+
+  const initial = [
+    1.21,
+    3.42,
+    1.08,
+    2.31,
+    8.76,
+    1.56,
+    4.27,
+    1.12,
+    15.84,
+    2.03,
+    1.44,
+    5.18,
+    1.03
+  ];
+
+
+  history =
+    initial.slice();
+
+
+  renderMultiplierHistory();
+
+  generatePlayers();
+
+  renderRecentPlayers();
+
+  renderMyBets();
+
+  renderRoundHistory();
+
+  updateStats();
+
+  updateBalance();
+
+  startWaiting();
+
+}
+
+
+window.addEventListener(
+  "resize",
+  ()=>{
+    resizeCanvas();
+  }
+);
+
+
+initialize();
+
+</script>
+
+</body>
+</html>
