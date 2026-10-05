@@ -1059,8 +1059,6 @@ td{
 
 <div class="app">
 
-<!-- SIDEBAR -->
-
 <aside class="sidebar" id="sidebar">
 
     <div class="logo">
@@ -1114,8 +1112,6 @@ td{
 
 </aside>
 
-<!-- MAIN -->
-
 <main class="main">
 
 <header class="topbar">
@@ -1145,8 +1141,6 @@ td{
     </div>
 
 </header>
-
-<!-- HOME -->
 
 <section class="page active" id="page-home">
 
@@ -1204,8 +1198,6 @@ td{
 
                 <div class="bet-grid">
 
-                    <!-- BET 1 -->
-
                     <div class="bet-card" id="betCard1">
 
                         <div class="bet-top">
@@ -1257,8 +1249,6 @@ td{
                         </button>
 
                     </div>
-
-                    <!-- BET 2 -->
 
                     <div class="bet-card" id="betCard2">
 
@@ -1363,8 +1353,6 @@ td{
 
 </section>
 
-<!-- GAMES -->
-
 <section class="page" id="page-games">
 
     <div class="page-title">Juegos</div>
@@ -1381,8 +1369,6 @@ td{
     </div>
 
 </section>
-
-<!-- MY GAMES -->
 
 <section class="page" id="page-mygames">
 
@@ -1411,8 +1397,6 @@ td{
 
 </section>
 
-<!-- HISTORY -->
-
 <section class="page" id="page-history">
 
     <div class="page-title">Historial</div>
@@ -1439,8 +1423,6 @@ td{
     </div>
 
 </section>
-
-<!-- STATS -->
 
 <section class="page" id="page-stats">
 
@@ -1493,8 +1475,6 @@ td{
 
 </section>
 
-<!-- DEPOSIT -->
-
 <section class="page" id="page-deposit">
 
     <div class="page-title">Agregar saldo</div>
@@ -1546,8 +1526,6 @@ td{
     </div>
 
 </section>
-
-<!-- PROFILE -->
 
 <section class="page" id="page-profile">
 
@@ -1610,8 +1588,6 @@ td{
 
 </section>
 
-<!-- SETTINGS -->
-
 <section class="page" id="page-settings">
 
     <div class="page-title">Configuración</div>
@@ -1661,24 +1637,14 @@ td{
 <script>
 "use strict";
 
-/* =========================================================
-   CONFIGURACIÓN
-========================================================= */
-
 const ADDRESS =
 "0xfaDc8989b805B5606236aa9f0C2D353ac80cB232";
 
 const MIN_BET = 0.30;
 const MAX_BET = 260;
-
-/* Mínimo para depósitos */
 const MIN_DEPOSIT = 1;
 
 const STORAGE_KEY = "crash_point_state_v1";
-
-/* =========================================================
-   ESTADO
-========================================================= */
 
 let state = {
     balance: 0,
@@ -1729,10 +1695,6 @@ let roundStartedAt = 0;
 let roundDuration = 0;
 let graphPoints = [];
 
-/* =========================================================
-   CARGAR ESTADO
-========================================================= */
-
 function loadState(){
 
     try{
@@ -1776,10 +1738,6 @@ function saveState(){
     }catch(e){}
 }
 
-/* =========================================================
-   UTILIDADES
-========================================================= */
-
 function money(n){
     return Number(n || 0).toFixed(2);
 }
@@ -1792,11 +1750,6 @@ function random(min,max){
     return Math.random()*(max-min)+min;
 }
 
-/*
-   Distribución aleatoria de multiplicadores.
-   No utiliza datos de las apuestas ni del jugador.
-*/
-
 function generateCrashPoint(){
 
     const r = Math.random();
@@ -1804,44 +1757,25 @@ function generateCrashPoint(){
     let value;
 
     if(r < .27){
-
         value = random(1.01,1.35);
-
     }else if(r < .50){
-
         value = random(1.35,2.00);
-
     }else if(r < .68){
-
         value = random(2.00,3.20);
-
     }else if(r < .80){
-
         value = random(3.20,5.00);
-
     }else if(r < .90){
-
         value = random(5.00,8.00);
-
     }else if(r < .965){
-
         value = random(8.00,14.00);
-
     }else if(r < .99){
-
         value = random(14.00,24.00);
-
     }else{
-
         value = random(24.00,32.00);
     }
 
     return Number(value.toFixed(2));
 }
-
-/* =========================================================
-   NAVEGACIÓN
-========================================================= */
 
 function showPage(page){
 
@@ -1894,10 +1828,6 @@ document
         }
     );
 
-/* =========================================================
-   SALDO
-========================================================= */
-
 function updateBalance(){
 
     const value =
@@ -1911,10 +1841,6 @@ function updateBalance(){
         "profileBalance"
     ).textContent=value;
 }
-
-/* =========================================================
-   APUESTAS
-========================================================= */
 
 function getAmount(slot){
 
@@ -2102,10 +2028,6 @@ function betAction(slot){
     );
 }
 
-/* =========================================================
-   CASH OUT
-========================================================= */
-
 function cashOut(slot){
 
     const bet =
@@ -2148,7 +2070,6 @@ function cashOut(slot){
     state.balance += payout;
 
     state.stats.wins++;
-
     state.stats.profit += profit;
 
     state.stats.bestCashout =
@@ -2183,10 +2104,6 @@ function cashOut(slot){
     beep("cashout");
 }
 
-/* =========================================================
-   AUTO CASH OUT
-========================================================= */
-
 function processAutoCashouts(){
 
     if(state.phase!=="RUNNING"){
@@ -2210,10 +2127,6 @@ function processAutoCashouts(){
 
     });
 }
-
-/* =========================================================
-   RONDAS
-========================================================= */
 
 function resetRoundBets(){
 
@@ -2329,12 +2242,6 @@ function startRunning(){
     roundStartedAt =
         performance.now();
 
-    /*
-       Duración visual proporcional al crash point.
-       El crash point fue determinado antes
-       de comenzar la ronda.
-    */
-
     roundDuration =
         Math.max(
             2300,
@@ -2385,12 +2292,6 @@ function animationLoop(now){
             0,
             1
         );
-
-    /*
-       Curva visual suave.
-       El resultado final permanece
-       independiente de las apuestas.
-    */
 
     const target =
         state.crashPoint;
@@ -2535,10 +2436,6 @@ function finishRound(){
     );
 }
 
-/* =========================================================
-   GRÁFICA
-========================================================= */
-
 function clearGraph(){
 
     graphPoints=[];
@@ -2649,10 +2546,6 @@ function drawGraph(progress){
             ((500-last.y)/5)+"%";
 }
 
-/* =========================================================
-   UI DE APUESTAS
-========================================================= */
-
 function updateBetUI(){
 
     [1,2].forEach(slot=>{
@@ -2752,10 +2645,6 @@ function updateBetUI(){
     });
 }
 
-/* =========================================================
-   HISTORIAL
-========================================================= */
-
 function addMultiplierHistory(value){
 
     state.history.unshift(
@@ -2825,10 +2714,6 @@ function addBetHistory(data){
     renderTables();
 }
 
-/* =========================================================
-   JUGADORES
-========================================================= */
-
 function generatePlayers(){
 
     const names=[
@@ -2892,10 +2777,6 @@ function generatePlayers(){
             container.appendChild(row);
         });
 }
-
-/* =========================================================
-   TABLAS
-========================================================= */
 
 function renderTables(){
 
@@ -2978,10 +2859,6 @@ function renderTables(){
         });
 }
 
-/* =========================================================
-   ESTADÍSTICAS
-========================================================= */
-
 function updateStats(){
 
     const s=state.stats;
@@ -3042,11 +2919,6 @@ function updateStats(){
    DEPÓSITO
 ========================================================= */
 
-/*
-   Comprueba que el TX hash tenga el formato estándar
-   de una transacción BSC:
-   0x + 64 caracteres hexadecimales.
-*/
 function isValidBscHash(hash){
 
     return /^0x[a-fA-F0-9]{64}$/.test(
@@ -3054,11 +2926,6 @@ function isValidBscHash(hash){
     );
 }
 
-/*
-   Comprueba si el hash ya fue utilizado anteriormente.
-   Se normaliza a minúsculas para impedir que el mismo hash
-   pueda reutilizarse cambiando mayúsculas/minúsculas.
-*/
 function hashAlreadyUsed(hash){
 
     const normalizedHash =
@@ -3094,12 +2961,6 @@ function submitDeposit(){
     status.className=
         "deposit-status";
 
-    /*
-       El depósito debe ser un número real,
-       mayor o igual a 1 USDT y no superar
-       el máximo permitido.
-    */
-
     if(
         !Number.isFinite(amount) ||
         amount < MIN_DEPOSIT ||
@@ -3113,17 +2974,12 @@ function submitDeposit(){
 
         notify(
             "Depósito incorrecto",
-            "El depósito mínimo es de 1 USDT.",
+            "La cantidad debe estar entre 1 y 260 USDT.",
             "red"
         );
 
         return;
     }
-
-    /*
-       Protección adicional contra valores
-       negativos, cero o no válidos.
-    */
 
     if(amount <= 0){
 
@@ -3141,10 +2997,6 @@ function submitDeposit(){
         return;
     }
 
-    /*
-       Validación del formato del hash BEP-20.
-    */
-
     if(!isValidBscHash(hash)){
 
         status.classList.add("error");
@@ -3160,10 +3012,6 @@ function submitDeposit(){
 
         return;
     }
-
-    /*
-       Impide utilizar el mismo TX hash más de una vez.
-    */
 
     if(hashAlreadyUsed(hash)){
 
@@ -3182,9 +3030,24 @@ function submitDeposit(){
     }
 
     /*
-       Registro local de la solicitud.
-       El hash queda guardado y no puede volver
-       a utilizarse en esta aplicación.
+       =====================================================
+       ACREDITAR EL DEPÓSITO
+       =====================================================
+
+       Una vez superadas las validaciones locales,
+       el monto se suma inmediatamente al saldo.
+    */
+
+    state.balance =
+        Number(
+            (
+                Number(state.balance || 0) +
+                amount
+            ).toFixed(2)
+        );
+
+    /*
+       Registrar el depósito.
     */
 
     state.deposits.unshift({
@@ -3193,29 +3056,38 @@ function submitDeposit(){
         network:"BEP-20",
         token:"USDT",
         date:new Date().toLocaleString(),
-        status:"PENDIENTE"
+        status:"ACREDITADO"
     });
 
     state.deposits =
         state.deposits.slice(0,50);
 
+    /*
+       Guardar saldo y depósito.
+    */
+
     saveState();
+
+    /*
+       Actualizar inmediatamente el saldo
+       superior y el saldo del perfil.
+    */
+
+    updateBalance();
+    updateAllUI();
 
     status.classList.add("success");
 
     status.textContent=
-        "Solicitud registrada correctamente. La transacción debe comprobarse antes de acreditar cualquier saldo.";
+        "Depósito validado correctamente. Se han acreditado "+
+        money(amount)+
+        " USDT a tu saldo.";
 
     notify(
-        "Solicitud registrada",
-        money(amount)+" USDT",
+        "Depósito acreditado",
+        "+"+money(amount)+" USDT",
         "green"
     );
-
-    /*
-       Limpiar los campos después de registrar
-       correctamente la solicitud.
-    */
 
     document.getElementById(
         "depositAmount"
@@ -3225,10 +3097,6 @@ function submitDeposit(){
         "txHash"
     ).value="";
 }
-
-/* =========================================================
-   COPIAR DIRECCIÓN
-========================================================= */
 
 async function copyAddress(){
 
@@ -3253,10 +3121,6 @@ async function copyAddress(){
         );
     }
 }
-
-/* =========================================================
-   NOTIFICACIONES
-========================================================= */
 
 function notify(title,message,type="green"){
 
@@ -3293,10 +3157,6 @@ function notify(title,message,type="green"){
         3000
     );
 }
-
-/* =========================================================
-   SONIDOS
-========================================================= */
 
 let audioContext=null;
 
@@ -3394,10 +3254,6 @@ function beep(type){
     );
 }
 
-/* =========================================================
-   SETTINGS
-========================================================= */
-
 function toggleSound(){
 
     state.settings.sound =
@@ -3446,10 +3302,6 @@ function resetData(){
     location.reload();
 }
 
-/* =========================================================
-   STATUS / UI GENERAL
-========================================================= */
-
 function setStatus(text,cls){
 
     const el =
@@ -3497,22 +3349,11 @@ function updateAllUI(){
         );
 }
 
-/* =========================================================
-   INICIALIZACIÓN
-========================================================= */
-
 loadState();
 
 generatePlayers();
 
 startWaiting();
-
-/*
-   Actualiza la lista visual de jugadores
-   periódicamente sin modificar ninguna
-   variable relacionada con las apuestas
-   del jugador.
-*/
 
 setInterval(
     generatePlayers,
