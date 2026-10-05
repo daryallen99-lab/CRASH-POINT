@@ -18,16 +18,15 @@
     --bg:#070b12;
     --panel:#0d131d;
     --panel2:#111925;
-    --border:#1d2939;
-    --text:#f5f7fa;
-    --muted:#7f8da0;
-    --green:#18e88a;
-    --green2:#0bbd70;
-    --red:#ff476f;
+    --line:#1c2735;
+    --text:#f4f7fb;
+    --muted:#8290a3;
+    --green:#18e58b;
+    --green2:#0cbf70;
+    --red:#ff4d67;
     --yellow:#ffc857;
-    --blue:#3d8bff;
-    --purple:#a66cff;
-    --cyan:#20d9ff;
+    --blue:#4d9cff;
+    --cyan:#22d3ee;
 }
 
 html,body{
@@ -35,7 +34,7 @@ html,body{
     min-height:100%;
     background:var(--bg);
     color:var(--text);
-    font-family:Inter,Arial,Helvetica,sans-serif;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
 
 body{
@@ -47,174 +46,233 @@ button,input{
 }
 
 button{
-    border:0;
     cursor:pointer;
+    border:0;
 }
 
 .app{
     min-height:100vh;
-    display:flex;
 }
 
 /* SIDEBAR */
 
 .sidebar{
-    width:235px;
-    min-height:100vh;
-    background:#090e16;
-    border-right:1px solid var(--border);
-    padding:18px 12px;
     position:fixed;
     left:0;
     top:0;
-    z-index:50;
+    bottom:0;
+    width:235px;
+    background:#090e16;
+    border-right:1px solid var(--line);
+    padding:22px 14px;
+    z-index:1000;
 }
 
 .logo{
     display:flex;
     align-items:center;
-    gap:10px;
-    padding:8px 10px 22px;
-    font-weight:900;
-    font-size:18px;
-    letter-spacing:.5px;
+    gap:11px;
+    padding:5px 9px 25px;
 }
 
-.logo-mark{
-    width:34px;
-    height:34px;
-    border-radius:10px;
-    background:linear-gradient(135deg,#18e88a,#137bff);
+.logo-icon{
+    width:39px;
+    height:39px;
+    border-radius:12px;
     display:flex;
     align-items:center;
     justify-content:center;
-    box-shadow:0 0 20px rgba(24,232,138,.22);
+    background:linear-gradient(145deg,#19ef91,#07975c);
+    color:#03140d;
+    font-size:21px;
+    font-weight:900;
+    box-shadow:0 0 25px rgba(24,229,139,.22);
+}
+
+.logo-text{
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.logo-text span{
+    color:var(--green);
+}
+
+.nav-title{
+    color:#536173;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    padding:8px 11px;
+    margin-top:5px;
 }
 
 .nav{
     display:flex;
     flex-direction:column;
-    gap:5px;
+    gap:4px;
 }
 
 .nav button{
     width:100%;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#8290a3;
     background:transparent;
-    color:#8996a7;
-    padding:12px 13px;
+    padding:12px 12px;
     border-radius:10px;
     text-align:left;
-    display:flex;
-    gap:11px;
-    align-items:center;
-    transition:.2s;
+    transition:.18s;
 }
 
-.nav button:hover,
-.nav button.active{
-    background:#111b28;
+.nav button:hover{
+    background:#101823;
     color:#fff;
 }
 
+.nav button.active{
+    background:rgba(24,229,139,.10);
+    color:var(--green);
+}
+
 .nav-icon{
-    width:20px;
+    width:22px;
     text-align:center;
+    font-size:17px;
 }
 
 .sidebar-bottom{
     position:absolute;
-    left:12px;
-    right:12px;
-    bottom:15px;
+    left:14px;
+    right:14px;
+    bottom:18px;
+}
+
+.network-mini{
+    background:#0d141e;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:12px;
+}
+
+.network-mini-top{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 8px var(--green);
+}
+
+.network-mini p{
+    color:#647286;
+    font-size:10px;
+    margin-top:6px;
 }
 
 /* MAIN */
 
 .main{
-    width:calc(100% - 235px);
     margin-left:235px;
     min-height:100vh;
 }
 
 .topbar{
-    height:68px;
-    border-bottom:1px solid var(--border);
-    background:rgba(7,11,18,.92);
-    backdrop-filter:blur(15px);
+    height:70px;
+    border-bottom:1px solid var(--line);
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 22px;
+    padding:0 24px;
+    background:rgba(7,11,18,.94);
     position:sticky;
     top:0;
-    z-index:30;
-}
-
-.top-left{
-    display:flex;
-    align-items:center;
-    gap:12px;
+    z-index:500;
+    backdrop-filter:blur(14px);
 }
 
 .mobile-menu{
     display:none;
-    background:#111925;
-    color:#fff;
-    width:38px;
-    height:38px;
+    width:40px;
+    height:40px;
     border-radius:10px;
-}
-
-.online{
-    display:flex;
-    align-items:center;
-    gap:7px;
-    font-size:12px;
-    color:#7f8da0;
-}
-
-.online-dot{
-    width:8px;
-    height:8px;
-    background:var(--green);
-    border-radius:50%;
-    box-shadow:0 0 12px var(--green);
+    background:#101722;
+    color:#fff;
+    font-size:20px;
 }
 
 .balance-box{
     display:flex;
     align-items:center;
     gap:10px;
-    background:#101722;
-    border:1px solid var(--border);
-    padding:7px 12px;
-    border-radius:11px;
 }
 
 .balance-label{
+    color:#647286;
     font-size:11px;
-    color:var(--muted);
 }
 
 .balance-value{
+    font-weight:900;
+    font-size:16px;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.deposit-top,
+.withdraw-top{
+    padding:10px 15px;
+    border-radius:10px;
+    font-size:12px;
     font-weight:800;
-    font-size:14px;
 }
 
 .deposit-top{
+    color:#04130c;
     background:var(--green);
-    color:#04150d;
-    padding:9px 14px;
-    border-radius:9px;
-    font-weight:800;
-    font-size:12px;
 }
 
-/* PAGES */
+.withdraw-top{
+    color:#fff;
+    background:#172231;
+    border:1px solid #263547;
+}
+
+.profile-mini{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:linear-gradient(145deg,#1b2737,#0d141e);
+    border:1px solid #263447;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+}
+
+/* CONTENT */
+
+.content{
+    padding:22px;
+    max-width:1500px;
+    margin:auto;
+}
 
 .page{
     display:none;
-    padding:20px;
 }
 
 .page.active{
@@ -222,725 +280,768 @@ button{
 }
 
 .page-title{
+    margin-bottom:18px;
+}
+
+.page-title h1{
     font-size:24px;
     font-weight:900;
-    margin-bottom:5px;
 }
 
-.page-subtitle{
+.page-title p{
     color:var(--muted);
-    font-size:13px;
-    margin-bottom:20px;
+    font-size:12px;
+    margin-top:5px;
 }
 
-/* GAME */
+/* GAME GRID */
 
 .game-layout{
     display:grid;
-    grid-template-columns:minmax(0,1fr) 340px;
+    grid-template-columns:minmax(0,1fr) 310px;
     gap:16px;
 }
 
-.left-game{
+.game-main{
     min-width:0;
 }
 
-.crash-panel{
+.game-card{
     background:var(--panel);
-    border:1px solid var(--border);
+    border:1px solid var(--line);
     border-radius:16px;
     overflow:hidden;
+}
+
+/* CHART */
+
+.chart-wrap{
     position:relative;
+    height:420px;
+    background:
+        radial-gradient(circle at 50% 65%,rgba(24,229,139,.055),transparent 38%),
+        #090f17;
+    overflow:hidden;
 }
 
-.crash-header{
-    height:54px;
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 15px;
+.chart-grid{
+    position:absolute;
+    inset:0;
+    background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:58px 58px;
 }
 
-.round-info{
-    color:var(--muted);
-    font-size:12px;
+#gameSvg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
 }
 
-.round-info b{
-    color:#fff;
+.multiplier{
+    position:absolute;
+    left:50%;
+    top:48%;
+    transform:translate(-50%,-50%);
+    font-size:57px;
+    line-height:1;
+    font-weight:950;
+    letter-spacing:-2px;
+    text-shadow:0 0 30px rgba(24,229,139,.2);
+    z-index:4;
 }
 
-.status{
-    padding:6px 9px;
-    border-radius:7px;
-    font-size:10px;
-    font-weight:800;
-    letter-spacing:.4px;
-    background:#17202d;
-    color:#aeb9c7;
-}
-
-.status.running{
-    background:rgba(24,232,138,.12);
+.multiplier.green{
     color:var(--green);
 }
 
-.status.crashed{
-    background:rgba(255,71,111,.12);
+.multiplier.red{
     color:var(--red);
 }
 
-.chart{
-    height:420px;
-    position:relative;
-    overflow:hidden;
-    background:
-        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),
-        radial-gradient(circle at 50% 45%,rgba(30,110,255,.08),transparent 55%);
-    background-size:45px 45px,45px 45px,100% 100%;
+.multiplier.wait{
+    color:#dfe6ee;
 }
 
-.chart-line{
+.round-status{
     position:absolute;
-    left:0;
-    bottom:0;
-    width:100%;
-    height:100%;
-    pointer-events:none;
-}
-
-svg{
-    width:100%;
-    height:100%;
-}
-
-#graphPath{
-    fill:none;
-    stroke:var(--green);
-    stroke-width:4;
-    stroke-linecap:round;
-    filter:drop-shadow(0 0 8px rgba(24,232,138,.6));
-}
-
-#graphFill{
-    fill:url(#graphGradient);
-    opacity:.14;
+    left:50%;
+    top:61%;
+    transform:translateX(-50%);
+    color:#718096;
+    font-size:11px;
+    font-weight:700;
+    z-index:5;
 }
 
 .rocket{
     position:absolute;
     width:34px;
     height:34px;
-    border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:rgba(24,232,138,.12);
-    border:1px solid rgba(24,232,138,.25);
-    box-shadow:0 0 25px rgba(24,232,138,.35);
-    transform:translate(-50%,50%);
-    transition:left .05s linear,bottom .05s linear;
-    font-size:18px;
-}
-
-.multiplier{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    font-size:64px;
-    font-weight:950;
-    letter-spacing:-3px;
+    font-size:25px;
     z-index:3;
+    filter:drop-shadow(0 0 8px rgba(24,229,139,.5));
+    transform:rotate(-25deg);
 }
 
-.multiplier.crashed{
-    color:var(--red);
-    text-shadow:0 0 30px rgba(255,71,111,.3);
-}
-
-.countdown{
+.chart-bottom{
     position:absolute;
-    top:15px;
-    left:50%;
-    transform:translateX(-50%);
-    color:var(--muted);
-    font-size:13px;
+    left:16px;
+    right:16px;
+    bottom:14px;
+    display:flex;
+    justify-content:space-between;
+    color:#536173;
+    font-size:9px;
     z-index:4;
 }
 
-.crash-message{
-    position:absolute;
-    left:50%;
-    bottom:40px;
-    transform:translateX(-50%);
-    color:var(--red);
-    font-weight:900;
-    opacity:0;
-    transition:.25s;
-}
+/* BET AREA */
 
-.crash-message.show{
-    opacity:1;
-}
-
-/* BET PANEL */
-
-.bet-panel{
-    margin-top:15px;
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:16px;
-    padding:15px;
-}
-
-.bet-grid{
+.bets-area{
+    padding:14px;
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:12px;
+    border-top:1px solid var(--line);
 }
 
 .bet-card{
-    background:#0a1018;
-    border:1px solid var(--border);
+    background:#0a1119;
+    border:1px solid var(--line);
     border-radius:13px;
-    padding:13px;
+    padding:14px;
 }
 
-.bet-card.active-bet{
-    border-color:rgba(24,232,138,.35);
-}
-
-.bet-top{
+.bet-head{
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    margin-bottom:12px;
+    justify-content:space-between;
+    margin-bottom:13px;
 }
 
-.bet-title{
-    font-weight:800;
-    font-size:13px;
+.bet-name{
+    font-size:12px;
+    font-weight:900;
 }
 
 .bet-state{
-    color:var(--muted);
-    font-size:10px;
-}
-
-.amount-wrap{
-    display:flex;
-    align-items:center;
-    background:#111925;
-    border:1px solid #263344;
-    border-radius:10px;
-    padding:0 11px;
-}
-
-.amount-wrap input{
-    width:100%;
-    height:44px;
-    border:0;
-    outline:0;
-    background:transparent;
-    color:#fff;
-    font-size:17px;
-    font-weight:800;
-}
-
-.amount-wrap span{
-    color:#8996a7;
-    font-size:11px;
-    font-weight:800;
-}
-
-.quick{
-    display:grid;
-    grid-template-columns:repeat(6,1fr);
-    gap:5px;
-    margin-top:8px;
-}
-
-.quick button,
-.target button{
-    background:#141e2b;
-    color:#aeb9c7;
-    border-radius:7px;
-    padding:7px 3px;
-    font-size:10px;
-    font-weight:800;
-}
-
-.quick button:hover,
-.target button:hover{
-    background:#1b2a3d;
-    color:#fff;
-}
-
-.bet-options{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:7px;
-    margin-top:10px;
-}
-
-.option{
-    background:#101722;
-    border:1px solid var(--border);
-    border-radius:9px;
-    padding:9px;
-}
-
-.option label{
-    display:block;
-    color:var(--muted);
     font-size:9px;
-    margin-bottom:5px;
+    color:#657286;
+    text-transform:uppercase;
+    letter-spacing:.8px;
 }
 
-.option input{
+.amount-row{
+    display:grid;
+    grid-template-columns:38px 1fr 38px;
+    gap:7px;
+}
+
+.amount-row button{
+    height:40px;
+    border-radius:9px;
+    background:#151e2a;
+    border:1px solid #202d3d;
+    color:#b8c4d1;
+    font-weight:900;
+}
+
+.amount-input{
     width:100%;
-    background:transparent;
+    height:40px;
+    background:#080e15;
+    border:1px solid #202d3d;
     color:#fff;
-    border:0;
-    outline:0;
+    border-radius:9px;
+    text-align:center;
+    outline:none;
     font-weight:800;
 }
 
-.target{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
+.amount-input:focus{
+    border-color:#2caa79;
+}
+
+.quick-row{
+    display:flex;
     gap:5px;
     margin-top:7px;
 }
 
+.quick-row button{
+    flex:1;
+    height:27px;
+    border-radius:7px;
+    background:#111a25;
+    color:#728096;
+    font-size:9px;
+    font-weight:800;
+}
+
+.bet-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+    margin-top:9px;
+}
+
+.bet-btn,
+.cash-btn{
+    height:39px;
+    border-radius:9px;
+    font-size:11px;
+    font-weight:900;
+}
+
 .bet-btn{
-    width:100%;
-    margin-top:10px;
-    height:45px;
-    border-radius:10px;
-    background:linear-gradient(135deg,#18e88a,#0dbd70);
-    color:#04150d;
-    font-weight:950;
-    font-size:13px;
+    color:#03140d;
+    background:var(--green);
 }
 
-.bet-btn.cashout{
-    background:linear-gradient(135deg,#ffc857,#ff9e3d);
+.cash-btn{
+    background:#182536;
+    color:#fff;
+    border:1px solid #28394d;
 }
 
-.bet-btn.disabled{
+.cash-btn:disabled,
+.bet-btn:disabled{
     opacity:.4;
-    pointer-events:none;
+    cursor:not-allowed;
 }
 
-/* SIDE */
+.auto-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:10px;
+}
 
-.right-side{
+.auto-label{
+    color:#6c798b;
+    font-size:10px;
+}
+
+.auto-input{
+    width:72px;
+    height:28px;
+    border-radius:7px;
+    border:1px solid #202d3d;
+    background:#080e15;
+    color:#fff;
+    text-align:center;
+    font-size:10px;
+    outline:none;
+}
+
+/* RIGHT */
+
+.side-stack{
     display:flex;
     flex-direction:column;
-    gap:15px;
+    gap:14px;
 }
 
-.side-panel{
+.side-card{
     background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:16px;
-    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:15px;
+    padding:15px;
 }
 
 .side-title{
-    padding:14px;
-    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+}
+
+.side-title h3{
     font-size:13px;
-    font-weight:850;
+    font-weight:900;
+}
+
+.side-title span{
+    color:#5e6b7d;
+    font-size:10px;
 }
 
 .history-list{
-    padding:12px;
     display:flex;
     flex-wrap:wrap;
     gap:6px;
 }
 
-.mult-item{
-    padding:7px 9px;
+.history-pill{
+    padding:6px 8px;
     border-radius:7px;
-    background:#151d28;
-    color:#9ca8b8;
+    background:#111923;
     font-size:10px;
-    font-weight:850;
+    font-weight:800;
 }
 
-.mult-item.low{
+.history-pill.low{
     color:var(--red);
-    background:rgba(255,71,111,.08);
 }
 
-.mult-item.mid{
-    color:var(--blue);
-    background:rgba(61,139,255,.08);
+.history-pill.mid{
+    color:var(--yellow);
 }
 
-.mult-item.good{
+.history-pill.high{
     color:var(--green);
-    background:rgba(24,232,138,.08);
 }
 
-.mult-item.high{
-    color:var(--purple);
-    background:rgba(166,108,255,.1);
-}
-
-.players{
-    max-height:300px;
-    overflow:auto;
+.player-list{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
 }
 
 .player{
-    display:grid;
-    grid-template-columns:1fr auto auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.player-left{
+    display:flex;
+    align-items:center;
     gap:8px;
-    padding:10px 13px;
-    border-bottom:1px solid rgba(255,255,255,.035);
+}
+
+.avatar{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#172130;
+    color:#aebaca;
     font-size:10px;
+    font-weight:900;
 }
 
 .player-name{
-    color:#dbe2ea;
+    font-size:10px;
+    font-weight:700;
 }
 
 .player-bet{
-    color:#8996a7;
+    color:#657286;
+    font-size:9px;
 }
 
-.player-result.win{
+.player-multi{
+    font-size:10px;
+    font-weight:900;
     color:var(--green);
 }
 
-.player-result.loss{
-    color:var(--red);
-}
-
-.address{
-    margin:12px;
-    padding:11px;
-    background:#080d14;
-    border:1px solid var(--border);
-    border-radius:10px;
-    word-break:break-all;
-    color:#aeb9c7;
+.info-line{
+    display:flex;
+    justify-content:space-between;
+    padding:9px 0;
+    border-bottom:1px solid #151e29;
     font-size:10px;
-    line-height:1.5;
 }
 
-.copy-btn{
-    margin:0 12px 12px;
-    width:calc(100% - 24px);
-    background:#151f2c;
-    color:#fff;
-    border:1px solid var(--border);
-    padding:10px;
-    border-radius:9px;
-    font-weight:800;
-    font-size:11px;
+.info-line:last-child{
+    border-bottom:0;
 }
 
-/* CARDS */
+.info-line span:first-child{
+    color:#657286;
+}
+
+.info-line span:last-child{
+    color:#dfe5ec;
+    font-weight:700;
+}
+
+/* GENERAL CARDS */
 
 .cards{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:14px;
 }
 
 .stat-card{
     background:var(--panel);
-    border:1px solid var(--border);
+    border:1px solid var(--line);
     border-radius:14px;
-    padding:16px;
+    padding:18px;
 }
 
 .stat-label{
-    color:var(--muted);
-    font-size:11px;
-    margin-bottom:7px;
+    color:#68768a;
+    font-size:10px;
 }
 
 .stat-value{
-    font-size:21px;
+    margin-top:8px;
+    font-size:22px;
     font-weight:900;
 }
 
-/* TABLE */
+.stat-value.green{
+    color:var(--green);
+}
 
-.table-wrap{
-    overflow-x:auto;
+.table-card{
     background:var(--panel);
-    border:1px solid var(--border);
+    border:1px solid var(--line);
     border-radius:14px;
+    margin-top:14px;
+    overflow:hidden;
+}
+
+.table-scroll{
+    overflow-x:auto;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:650px;
+    min-width:600px;
 }
 
 th,td{
-    padding:12px;
-    border-bottom:1px solid rgba(255,255,255,.04);
+    padding:13px 15px;
     text-align:left;
-    font-size:11px;
+    border-bottom:1px solid #151e29;
+    font-size:10px;
 }
 
 th{
-    color:var(--muted);
-    font-weight:700;
+    color:#637185;
+    font-size:9px;
+    text-transform:uppercase;
 }
 
 td{
     color:#dbe2ea;
 }
 
-/* DEPOSIT */
+.good{
+    color:var(--green)!important;
+}
 
-.deposit-card{
+.bad{
+    color:var(--red)!important;
+}
+
+/* DEPOSIT / WITHDRAW */
+
+.form-card{
     max-width:650px;
     background:var(--panel);
-    border:1px solid var(--border);
+    border:1px solid var(--line);
     border-radius:16px;
     padding:20px;
 }
 
-.network{
-    display:flex;
-    justify-content:space-between;
+.form-card h2{
+    font-size:18px;
+    margin-bottom:5px;
+}
+
+.form-card>p{
+    color:#68768a;
+    font-size:11px;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+.address-box{
+    background:#080e15;
+    border:1px solid #202d3d;
+    border-radius:10px;
     padding:12px;
-    background:#0a1018;
-    border:1px solid var(--border);
-    border-radius:10px;
-    margin-bottom:10px;
-    font-size:12px;
+    margin-bottom:14px;
 }
 
-.network span{
-    color:var(--muted);
+.address-label{
+    color:#647286;
+    font-size:9px;
+    margin-bottom:7px;
 }
 
-.deposit-address{
-    background:#080d14;
-    padding:14px;
-    border-radius:10px;
-    border:1px solid var(--border);
-    font-size:11px;
+.address-row{
+    display:flex;
+    gap:7px;
+    align-items:center;
+}
+
+.address{
+    flex:1;
+    min-width:0;
+    color:#dfe6ee;
+    font-family:monospace;
+    font-size:10px;
     word-break:break-all;
-    line-height:1.5;
-    margin-bottom:8px;
 }
 
-.deposit-note{
-    color:var(--muted);
-    font-size:11px;
-    line-height:1.5;
-    margin:12px 0 17px;
+.copy-btn{
+    background:#172332;
+    color:#fff;
+    border:1px solid #27374a;
+    padding:8px 10px;
+    border-radius:8px;
+    font-size:9px;
+    font-weight:800;
 }
 
 .form-group{
-    margin-top:12px;
+    margin-bottom:13px;
 }
 
 .form-group label{
     display:block;
+    color:#718095;
     font-size:10px;
-    color:var(--muted);
     margin-bottom:6px;
 }
 
-.form-group input{
+.form-input{
     width:100%;
     height:44px;
-    background:#0a1018;
-    border:1px solid var(--border);
+    background:#080e15;
     color:#fff;
+    border:1px solid #202d3d;
     border-radius:9px;
-    outline:0;
     padding:0 12px;
+    outline:none;
+    font-size:12px;
 }
 
-.action{
+.form-input:focus{
+    border-color:#2a9e73;
+}
+
+.form-button{
     width:100%;
-    margin-top:12px;
-    height:45px;
-    border-radius:9px;
+    height:44px;
     background:var(--green);
-    color:#04150d;
-    font-weight:900;
-}
-
-.deposit-status{
-    margin-top:12px;
-    display:none;
-    padding:11px;
+    color:#03140d;
     border-radius:9px;
     font-size:11px;
-    font-weight:800;
+    font-weight:950;
+    margin-top:4px;
 }
 
-.deposit-status.error{
-    display:block;
-    color:var(--red);
-    background:rgba(255,71,111,.08);
+.form-button.withdraw{
+    background:#4d9cff;
+    color:#fff;
 }
 
-.deposit-status.success{
+.notice{
+    background:#0b1520;
+    border:1px solid #1b3041;
+    border-radius:10px;
+    padding:12px;
+    margin-bottom:15px;
+    color:#7e8da0;
+    font-size:10px;
+    line-height:1.55;
+}
+
+.notice strong{
+    color:#dce5ef;
+}
+
+.withdraw-summary{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-bottom:15px;
+}
+
+.summary-box{
+    background:#080e15;
+    border:1px solid #1c2938;
+    border-radius:10px;
+    padding:12px;
+}
+
+.summary-box span{
     display:block;
-    color:var(--green);
-    background:rgba(24,232,138,.08);
+    color:#657286;
+    font-size:9px;
+}
+
+.summary-box strong{
+    display:block;
+    margin-top:5px;
+    font-size:14px;
 }
 
 /* PROFILE */
 
-.profile{
-    max-width:700px;
-    display:grid;
-    grid-template-columns:180px 1fr;
-    gap:15px;
-}
-
-.profile-card,
-.settings-card{
+.profile-card{
+    max-width:650px;
     background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:15px;
-    padding:18px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:20px;
 }
 
-.avatar{
-    width:75px;
-    height:75px;
+.profile-head{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding-bottom:18px;
+    border-bottom:1px solid var(--line);
+}
+
+.profile-avatar{
+    width:60px;
+    height:60px;
     border-radius:50%;
-    background:linear-gradient(135deg,#18e88a,#3d8bff);
+    background:linear-gradient(145deg,#1c2a3b,#0e1722);
+    border:1px solid #2a394c;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:30px;
-    font-weight:900;
-    margin-bottom:15px;
-}
-
-.profile-name{
+    font-size:21px;
     font-weight:900;
 }
 
-.profile-status{
-    color:var(--green);
+.profile-head h2{
+    font-size:17px;
+}
+
+.profile-head p{
+    color:#657286;
     font-size:10px;
     margin-top:4px;
 }
 
-.setting-row{
+.profile-info{
+    margin-top:12px;
+}
+
+.profile-row{
     display:flex;
     justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid #151e29;
+    font-size:11px;
+}
+
+.profile-row span:first-child{
+    color:#657286;
+}
+
+/* SETTINGS */
+
+.settings-card{
+    max-width:650px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+}
+
+.setting{
+    display:flex;
     align-items:center;
-    padding:13px 0;
-    border-bottom:1px solid rgba(255,255,255,.05);
+    justify-content:space-between;
+    padding:16px;
+    border-bottom:1px solid #151e29;
 }
 
-.setting-row:last-child{
-    border:0;
+.setting:last-child{
+    border-bottom:0;
 }
 
-.setting-label{
-    font-size:12px;
+.setting strong{
+    display:block;
+    font-size:11px;
 }
 
-.setting-desc{
-    color:var(--muted);
-    font-size:10px;
-    margin-top:3px;
+.setting small{
+    display:block;
+    color:#657286;
+    font-size:9px;
+    margin-top:4px;
 }
 
-.switch{
+.toggle{
     width:42px;
-    height:23px;
+    height:24px;
     border-radius:20px;
-    background:#273243;
-    position:relative;
+    background:#1a2532;
+    padding:3px;
 }
 
-.switch.on{
-    background:var(--green2);
-}
-
-.switch::after{
-    content:"";
-    position:absolute;
-    width:17px;
-    height:17px;
+.toggle span{
+    display:block;
+    width:18px;
+    height:18px;
     border-radius:50%;
-    background:#fff;
-    top:3px;
-    left:3px;
+    background:#728096;
     transition:.2s;
 }
 
-.switch.on::after{
-    left:22px;
+.toggle.on{
+    background:rgba(24,229,139,.25);
 }
 
-/* NOTIFICATIONS */
-
-.notifications{
-    position:fixed;
-    top:78px;
-    right:15px;
-    z-index:100;
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    pointer-events:none;
-}
-
-.toast{
-    min-width:220px;
-    max-width:300px;
-    background:#111a25;
-    border:1px solid #273547;
-    box-shadow:0 10px 35px rgba(0,0,0,.35);
-    border-radius:10px;
-    padding:11px 13px;
-    font-size:11px;
-    animation:toastIn .25s ease;
-}
-
-.toast strong{
-    display:block;
-    margin-bottom:3px;
-}
-
-.toast.green{
-    border-color:rgba(24,232,138,.35);
-}
-
-.toast.red{
-    border-color:rgba(255,71,111,.35);
-}
-
-@keyframes toastIn{
-    from{opacity:0;transform:translateX(30px)}
-    to{opacity:1;transform:translateX(0)}
+.toggle.on span{
+    transform:translateX(18px);
+    background:var(--green);
 }
 
 /* EMPTY */
 
 .empty{
+    padding:35px 20px;
     text-align:center;
-    color:var(--muted);
-    padding:35px 15px;
-    font-size:12px;
+    color:#627084;
+    font-size:11px;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    max-width:320px;
+    background:#111a25;
+    border:1px solid #29384a;
+    color:#e7edf4;
+    padding:12px 14px;
+    border-radius:10px;
+    font-size:11px;
+    font-weight:700;
+    z-index:5000;
+    transform:translateY(100px);
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+.toast.success{
+    border-color:rgba(24,229,139,.45);
+}
+
+.toast.error{
+    border-color:rgba(255,77,103,.45);
 }
 
 /* MOBILE */
@@ -950,13 +1051,9 @@ td{
         grid-template-columns:1fr;
     }
 
-    .right-side{
+    .side-stack{
         display:grid;
         grid-template-columns:1fr 1fr;
-    }
-
-    .cards{
-        grid-template-columns:repeat(2,1fr);
     }
 }
 
@@ -964,8 +1061,7 @@ td{
     .sidebar{
         transform:translateX(-100%);
         transition:.25s;
-        width:245px;
-        box-shadow:10px 0 35px rgba(0,0,0,.4);
+        box-shadow:15px 0 50px rgba(0,0,0,.35);
     }
 
     .sidebar.open{
@@ -973,7 +1069,6 @@ td{
     }
 
     .main{
-        width:100%;
         margin-left:0;
     }
 
@@ -981,75 +1076,70 @@ td{
         display:block;
     }
 
-    .online{
-        display:none;
-    }
-
     .topbar{
-        padding:0 10px;
-    }
-
-    .balance-box{
-        padding:7px 8px;
-    }
-
-    .deposit-top{
-        padding:8px 10px;
-    }
-
-    .page{
-        padding:12px;
-    }
-
-    .chart{
-        height:330px;
-    }
-
-    .multiplier{
-        font-size:49px;
-    }
-
-    .bet-grid{
-        grid-template-columns:1fr;
-    }
-
-    .right-side{
-        display:flex;
-    }
-
-    .cards{
-        grid-template-columns:1fr 1fr;
+        padding:0 12px;
         gap:8px;
     }
 
-    .profile{
-        grid-template-columns:1fr;
-    }
-}
-
-@media(max-width:430px){
     .balance-label{
         display:none;
     }
 
-    .balance-value{
-        font-size:12px;
+    .deposit-top,
+    .withdraw-top{
+        padding:9px 10px;
+        font-size:10px;
     }
 
-    .chart{
+    .content{
+        padding:12px;
+    }
+
+    .chart-wrap{
+        height:330px;
+    }
+
+    .multiplier{
+        font-size:47px;
+    }
+
+    .bets-area{
+        grid-template-columns:1fr;
+    }
+
+    .side-stack{
+        grid-template-columns:1fr;
+    }
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:430px){
+    .chart-wrap{
         height:300px;
     }
 
     .multiplier{
-        font-size:43px;
+        font-size:41px;
     }
 
-    .quick{
-        grid-template-columns:repeat(3,1fr);
+    .cards{
+        grid-template-columns:1fr;
     }
 
-    .target{
-        grid-template-columns:repeat(5,1fr);
+    .top-actions{
+        gap:5px;
+    }
+
+    .withdraw-top{
+        display:none;
+    }
+
+    .profile-mini{
+        width:34px;
+        height:34px;
     }
 }
 </style>
@@ -1059,583 +1149,880 @@ td{
 
 <div class="app">
 
-<aside class="sidebar" id="sidebar">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
 
-    <div class="logo">
-        <div class="logo-mark">🚀</div>
-        <span>CRASH POINT</span>
-    </div>
-
-    <nav class="nav">
-
-        <button class="active" data-page="home">
-            <span class="nav-icon">⌂</span>
-            Inicio
-        </button>
-
-        <button data-page="games">
-            <span class="nav-icon">🎮</span>
-            Juegos
-        </button>
-
-        <button data-page="mygames">
-            <span class="nav-icon">🎯</span>
-            Mis partidas
-        </button>
-
-        <button data-page="history">
-            <span class="nav-icon">📋</span>
-            Historial
-        </button>
-
-        <button data-page="stats">
-            <span class="nav-icon">📊</span>
-            Estadísticas
-        </button>
-
-        <button data-page="deposit">
-            <span class="nav-icon">💳</span>
-            Agregar saldo
-        </button>
-
-        <button data-page="profile">
-            <span class="nav-icon">👤</span>
-            Perfil
-        </button>
-
-        <button data-page="settings">
-            <span class="nav-icon">⚙️</span>
-            Configuración
-        </button>
-
-    </nav>
-
-</aside>
-
-<main class="main">
-
-<header class="topbar">
-
-    <div class="top-left">
-
-        <button class="mobile-menu" id="mobileMenu">☰</button>
-
-        <div class="online">
-            <span class="online-dot"></span>
-            ONLINE
+        <div class="logo">
+            <div class="logo-icon">🚀</div>
+            <div class="logo-text">CRASH <span>POINT</span></div>
         </div>
 
-    </div>
+        <div class="nav-title">MENÚ</div>
 
-    <div style="display:flex;align-items:center;gap:8px;">
+        <nav class="nav">
 
-        <div class="balance-box">
-            <div class="balance-label">SALDO</div>
-            <div class="balance-value" id="topBalance">0.00 USDT</div>
-        </div>
-
-        <button class="deposit-top" onclick="showPage('deposit')">
-            + SALDO
-        </button>
-
-    </div>
-
-</header>
-
-<section class="page active" id="page-home">
-
-    <div class="game-layout">
-
-        <div class="left-game">
-
-            <div class="crash-panel">
-
-                <div class="crash-header">
-
-                    <div class="round-info">
-                        RONDA <b id="roundNumber">#1001</b>
-                    </div>
-
-                    <div class="status" id="gameStatus">
-                        ESPERANDO
-                    </div>
-
-                </div>
-
-                <div class="chart" id="chart">
-
-                    <div class="countdown" id="countdown"></div>
-
-                    <svg viewBox="0 0 1000 500" preserveAspectRatio="none">
-
-                        <defs>
-                            <linearGradient id="graphGradient" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stop-color="#18e88a"/>
-                                <stop offset="100%" stop-color="#18e88a" stop-opacity="0"/>
-                            </linearGradient>
-                        </defs>
-
-                        <path id="graphFill"></path>
-                        <path id="graphPath"></path>
-
-                    </svg>
-
-                    <div class="rocket" id="rocket">🚀</div>
-
-                    <div class="multiplier" id="multiplier">
-                        1.00x
-                    </div>
-
-                    <div class="crash-message" id="crashMessage">
-                        CRASH
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="bet-panel">
-
-                <div class="bet-grid">
-
-                    <div class="bet-card" id="betCard1">
-
-                        <div class="bet-top">
-                            <div class="bet-title">APUESTA 1</div>
-                            <div class="bet-state" id="betState1">LISTA</div>
-                        </div>
-
-                        <div class="amount-wrap">
-                            <input id="amount1" type="number" min="0.30" max="260" step="0.01" value="0.30">
-                            <span>USDT</span>
-                        </div>
-
-                        <div class="quick">
-                            <button onclick="adjustAmount(1,.5)">½</button>
-                            <button onclick="adjustAmount(1,2)">2x</button>
-                            <button onclick="setAmount(1,10)">10</button>
-                            <button onclick="setAmount(1,25)">25</button>
-                            <button onclick="setAmount(1,50)">50</button>
-                            <button onclick="setMax(1)">MAX</button>
-                        </div>
-
-                        <div class="bet-options">
-
-                            <div class="option">
-                                <label>MODO</label>
-                                <select id="mode1" style="width:100%;background:transparent;border:0;color:white;outline:0;">
-                                    <option value="manual">Manual</option>
-                                    <option value="auto">Auto</option>
-                                </select>
-                            </div>
-
-                            <div class="option">
-                                <label>AUTO CASH-OUT</label>
-                                <input id="auto1" type="number" min="1.01" max="100" step=".01" value="2.00">
-                            </div>
-
-                        </div>
-
-                        <div class="target">
-                            <button onclick="setTarget(1,1.5)">1.5x</button>
-                            <button onclick="setTarget(1,2)">2x</button>
-                            <button onclick="setTarget(1,3)">3x</button>
-                            <button onclick="setTarget(1,5)">5x</button>
-                            <button onclick="setTarget(1,10)">10x</button>
-                        </div>
-
-                        <button class="bet-btn" id="betButton1" onclick="betAction(1)">
-                            APUESTAR
-                        </button>
-
-                    </div>
-
-                    <div class="bet-card" id="betCard2">
-
-                        <div class="bet-top">
-                            <div class="bet-title">APUESTA 2</div>
-                            <div class="bet-state" id="betState2">LISTA</div>
-                        </div>
-
-                        <div class="amount-wrap">
-                            <input id="amount2" type="number" min="0.30" max="260" step="0.01" value="0.30">
-                            <span>USDT</span>
-                        </div>
-
-                        <div class="quick">
-                            <button onclick="adjustAmount(2,.5)">½</button>
-                            <button onclick="adjustAmount(2,2)">2x</button>
-                            <button onclick="setAmount(2,10)">10</button>
-                            <button onclick="setAmount(2,25)">25</button>
-                            <button onclick="setAmount(2,50)">50</button>
-                            <button onclick="setMax(2)">MAX</button>
-                        </div>
-
-                        <div class="bet-options">
-
-                            <div class="option">
-                                <label>MODO</label>
-                                <select id="mode2" style="width:100%;background:transparent;border:0;color:white;outline:0;">
-                                    <option value="manual">Manual</option>
-                                    <option value="auto">Auto</option>
-                                </select>
-                            </div>
-
-                            <div class="option">
-                                <label>AUTO CASH-OUT</label>
-                                <input id="auto2" type="number" min="1.01" max="100" step=".01" value="2.00">
-                            </div>
-
-                        </div>
-
-                        <div class="target">
-                            <button onclick="setTarget(2,1.5)">1.5x</button>
-                            <button onclick="setTarget(2,2)">2x</button>
-                            <button onclick="setTarget(2,3)">3x</button>
-                            <button onclick="setTarget(2,5)">5x</button>
-                            <button onclick="setTarget(2,10)">10x</button>
-                        </div>
-
-                        <button class="bet-btn" id="betButton2" onclick="betAction(2)">
-                            APUESTAR
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <aside class="right-side">
-
-            <div class="side-panel">
-
-                <div class="side-title">
-                    MULTIPLICADORES
-                </div>
-
-                <div class="history-list" id="multHistory"></div>
-
-            </div>
-
-            <div class="side-panel">
-
-                <div class="side-title">
-                    JUGADORES
-                </div>
-
-                <div class="players" id="players"></div>
-
-            </div>
-
-            <div class="side-panel">
-
-                <div class="side-title">
-                    INFORMACIÓN DE RED
-                </div>
-
-                <div class="address">
-                    <b>USDT BEP-20</b><br><br>
-                    0xfaDc8989b805B5606236aa9f0C2D353ac80cB232
-                </div>
-
-                <button class="copy-btn" onclick="copyAddress()">
-                    COPIAR DIRECCIÓN
-                </button>
-
-            </div>
-
-        </aside>
-
-    </div>
-
-</section>
-
-<section class="page" id="page-games">
-
-    <div class="page-title">Juegos</div>
-    <div class="page-subtitle">Selecciona un juego disponible.</div>
-
-    <div class="cards">
-
-        <div class="stat-card" onclick="showPage('home')" style="cursor:pointer">
-            <div style="font-size:30px;margin-bottom:12px">🚀</div>
-            <div class="stat-value" style="font-size:17px">Crash Point</div>
-            <div class="stat-label">Juego principal</div>
-        </div>
-
-    </div>
-
-</section>
-
-<section class="page" id="page-mygames">
-
-    <div class="page-title">Mis partidas</div>
-    <div class="page-subtitle">Tus operaciones recientes.</div>
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>RONDA</th>
-                    <th>APUESTA</th>
-                    <th>RESULTADO</th>
-                    <th>MULT.</th>
-                    <th>GANANCIA</th>
-                </tr>
-            </thead>
-
-            <tbody id="myGamesTable"></tbody>
-
-        </table>
-
-    </div>
-
-</section>
-
-<section class="page" id="page-history">
-
-    <div class="page-title">Historial</div>
-    <div class="page-subtitle">Historial completo de resultados.</div>
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>FECHA</th>
-                    <th>RONDA</th>
-                    <th>APUESTA</th>
-                    <th>RESULTADO</th>
-                    <th>GANANCIA</th>
-                </tr>
-            </thead>
-
-            <tbody id="historyTable"></tbody>
-
-        </table>
-
-    </div>
-
-</section>
-
-<section class="page" id="page-stats">
-
-    <div class="page-title">Estadísticas</div>
-    <div class="page-subtitle">Resumen de actividad.</div>
-
-    <div class="cards">
-
-        <div class="stat-card">
-            <div class="stat-label">APUESTAS</div>
-            <div class="stat-value" id="statBets">0</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">VICTORIAS</div>
-            <div class="stat-value" id="statWins">0</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">DERROTAS</div>
-            <div class="stat-value" id="statLosses">0</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">MEJOR CASH-OUT</div>
-            <div class="stat-value" id="statBest">0.00x</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">TOTAL APOSTADO</div>
-            <div class="stat-value" id="statWagered">0.00</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">RESULTADO TOTAL</div>
-            <div class="stat-value" id="statProfit">0.00</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">MAYOR GANANCIA</div>
-            <div class="stat-value" id="statBigWin">0.00</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">MAYOR APUESTA</div>
-            <div class="stat-value" id="statBigBet">0.00</div>
-        </div>
-
-    </div>
-
-</section>
-
-<section class="page" id="page-deposit">
-
-    <div class="page-title">Agregar saldo</div>
-    <div class="page-subtitle">
-        Utiliza la información mostrada para identificar la red y la dirección.
-    </div>
-
-    <div class="deposit-card">
-
-        <div class="network">
-            <span>Red</span>
-            <b>BNB Smart Chain / BEP-20</b>
-        </div>
-
-        <div class="network">
-            <span>Token</span>
-            <b>USDT</b>
-        </div>
-
-        <div class="deposit-address">
-            0xfaDc8989b805B5606236aa9f0C2D353ac80cB232
-        </div>
-
-        <button class="copy-btn" style="margin:0;width:100%;" onclick="copyAddress()">
-            COPIAR DIRECCIÓN
-        </button>
-
-        <div class="deposit-note">
-            Introduce el identificador de la transacción para solicitar la comprobación.
-            El identificador debe corresponder al formato de una transacción BSC.
-        </div>
-
-        <div class="form-group">
-            <label>CANTIDAD</label>
-            <input id="depositAmount" type="number" min="1" max="260" step="0.01" placeholder="Mínimo 1 USDT">
-        </div>
-
-        <div class="form-group">
-            <label>TX HASH</label>
-            <input id="txHash" type="text" placeholder="0x...">
-        </div>
-
-        <button class="action" onclick="submitDeposit()">
-            VALIDAR DEPÓSITO
-        </button>
-
-        <div class="deposit-status" id="depositStatus"></div>
-
-    </div>
-
-</section>
-
-<section class="page" id="page-profile">
-
-    <div class="page-title">Perfil</div>
-    <div class="page-subtitle">Información de tu cuenta.</div>
-
-    <div class="profile">
-
-        <div class="profile-card">
-
-            <div class="avatar">CP</div>
-
-            <div class="profile-name">
-                Jugador
-            </div>
-
-            <div class="profile-status">
-                ● CUENTA ACTIVA
-            </div>
-
-            <div style="margin-top:20px;color:#7f8da0;font-size:11px;">
-                Saldo
-            </div>
-
-            <div style="font-size:22px;font-weight:900;margin-top:4px;" id="profileBalance">
-                0.00 USDT
-            </div>
-
-        </div>
-
-        <div class="settings-card">
-
-            <div class="setting-row">
-                <div>
-                    <div class="setting-label">Partidas</div>
-                    <div class="setting-desc">Total de apuestas</div>
-                </div>
-                <b id="profileBets">0</b>
-            </div>
-
-            <div class="setting-row">
-                <div>
-                    <div class="setting-label">Victorias</div>
-                    <div class="setting-desc">Cash-outs realizados</div>
-                </div>
-                <b id="profileWins">0</b>
-            </div>
-
-            <div class="setting-row">
-                <div>
-                    <div class="setting-label">Mejor multiplicador</div>
-                    <div class="setting-desc">Mayor cash-out</div>
-                </div>
-                <b id="profileBest">0.00x</b>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section class="page" id="page-settings">
-
-    <div class="page-title">Configuración</div>
-    <div class="page-subtitle">Personaliza tu experiencia.</div>
-
-    <div class="settings-card" style="max-width:650px;">
-
-        <div class="setting-row" onclick="toggleSound()">
-            <div>
-                <div class="setting-label">Sonidos</div>
-                <div class="setting-desc">Sonidos del juego y notificaciones</div>
-            </div>
-
-            <div class="switch on" id="soundSwitch"></div>
-        </div>
-
-        <div class="setting-row" onclick="toggleNotifications()">
-            <div>
-                <div class="setting-label">Notificaciones</div>
-                <div class="setting-desc">Avisos de resultados</div>
-            </div>
-
-            <div class="switch on" id="notificationSwitch"></div>
-        </div>
-
-        <div class="setting-row" onclick="resetData()">
-            <div>
-                <div class="setting-label">Restablecer datos</div>
-                <div class="setting-desc">Reinicia la información almacenada en este dispositivo</div>
-            </div>
-
-            <button style="background:#25131a;color:#ff6c8b;padding:8px 10px;border-radius:7px;font-size:10px;font-weight:800;">
-                RESTABLECER
+            <button class="active" onclick="showPage('home',this)">
+                <span class="nav-icon">⌂</span>
+                <span>Inicio</span>
             </button>
 
+            <button onclick="showPage('games',this)">
+                <span class="nav-icon">🚀</span>
+                <span>Crash</span>
+            </button>
+
+            <button onclick="showPage('mygames',this)">
+                <span class="nav-icon">🎮</span>
+                <span>Mis juegos</span>
+            </button>
+
+            <button onclick="showPage('history',this)">
+                <span class="nav-icon">◷</span>
+                <span>Historial</span>
+            </button>
+
+            <button onclick="showPage('stats',this)">
+                <span class="nav-icon">▥</span>
+                <span>Estadísticas</span>
+            </button>
+
+            <div class="nav-title">CUENTA</div>
+
+            <button onclick="showPage('deposit',this)">
+                <span class="nav-icon">＋</span>
+                <span>Depositar</span>
+            </button>
+
+            <button onclick="showPage('withdraw',this)">
+                <span class="nav-icon">↗</span>
+                <span>Retirar</span>
+            </button>
+
+            <button onclick="showPage('profile',this)">
+                <span class="nav-icon">◉</span>
+                <span>Perfil</span>
+            </button>
+
+            <button onclick="showPage('settings',this)">
+                <span class="nav-icon">⚙</span>
+                <span>Configuración</span>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="network-mini">
+                <div class="network-mini-top">
+                    <span class="dot"></span>
+                    <span>BNB Smart Chain</span>
+                </div>
+                <p>USDT · BEP-20</p>
+            </div>
         </div>
 
-    </div>
+    </aside>
 
-</section>
+    <!-- MAIN -->
+    <main class="main">
 
-</main>
+        <header class="topbar">
+
+            <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+
+            <div class="balance-box">
+                <span class="balance-label">SALDO</span>
+                <span class="balance-value" id="topBalance">0.00 USDT</span>
+            </div>
+
+            <div class="top-actions">
+                <button class="deposit-top" onclick="showPage('deposit')">
+                    + Depositar
+                </button>
+
+                <button class="withdraw-top" onclick="showPage('withdraw')">
+                    Retirar
+                </button>
+
+                <div class="profile-mini">DA</div>
+            </div>
+
+        </header>
+
+        <div class="content">
+
+            <!-- HOME -->
+            <section class="page active" id="page-home">
+
+                <div class="page-title">
+                    <h1>CRASH POINT</h1>
+                    <p>Multiplica tu apuesta antes del Crash.</p>
+                </div>
+
+                <div class="game-layout">
+
+                    <div class="game-main">
+
+                        <div class="game-card">
+
+                            <div class="chart-wrap" id="chartWrap">
+
+                                <div class="chart-grid"></div>
+
+                                <svg id="gameSvg"
+                                     viewBox="0 0 1000 500"
+                                     preserveAspectRatio="none">
+
+                                    <defs>
+                                        <linearGradient id="areaGradient"
+                                                        x1="0"
+                                                        x2="0"
+                                                        y1="0"
+                                                        y2="1">
+                                            <stop offset="0%"
+                                                  stop-color="#18e58b"
+                                                  stop-opacity=".25"/>
+                                            <stop offset="100%"
+                                                  stop-color="#18e58b"
+                                                  stop-opacity="0"/>
+                                        </linearGradient>
+                                    </defs>
+
+                                    <path id="areaPath"
+                                          fill="url(#areaGradient)"
+                                          stroke="none"></path>
+
+                                    <path id="linePath"
+                                          fill="none"
+                                          stroke="#18e58b"
+                                          stroke-width="4"
+                                          stroke-linecap="round"></path>
+                                </svg>
+
+                                <div class="rocket" id="rocket">🚀</div>
+
+                                <div class="multiplier wait"
+                                     id="multiplier">
+                                    1.00x
+                                </div>
+
+                                <div class="round-status"
+                                     id="roundStatus">
+                                    Preparando ronda...
+                                </div>
+
+                                <div class="chart-bottom">
+                                    <span>1.00x</span>
+                                    <span id="roundNumber">#1001</span>
+                                    <span>CRASH POINT</span>
+                                </div>
+
+                            </div>
+
+                            <div class="bets-area">
+
+                                <!-- BET 1 -->
+                                <div class="bet-card">
+
+                                    <div class="bet-head">
+                                        <span class="bet-name">Apuesta 1</span>
+                                        <span class="bet-state"
+                                              id="betState1">
+                                            LISTA
+                                        </span>
+                                    </div>
+
+                                    <div class="amount-row">
+
+                                        <button onclick="changeAmount(1,-0.10)">
+                                            −
+                                        </button>
+
+                                        <input
+                                            id="amount1"
+                                            class="amount-input"
+                                            type="number"
+                                            min="0.30"
+                                            step="0.10"
+                                            value="0.30">
+
+                                        <button onclick="changeAmount(1,0.10)">
+                                            +
+                                        </button>
+
+                                    </div>
+
+                                    <div class="quick-row">
+                                        <button onclick="setAmount(1,.30)">0.30</button>
+                                        <button onclick="setAmount(1,1)">1</button>
+                                        <button onclick="setAmount(1,5)">5</button>
+                                        <button onclick="doubleAmount(1)">2x</button>
+                                    </div>
+
+                                    <div class="bet-actions">
+
+                                        <button class="bet-btn"
+                                                id="betBtn1"
+                                                onclick="betAction(1)">
+                                            APOSTAR
+                                        </button>
+
+                                        <button class="cash-btn"
+                                                id="cashBtn1"
+                                                onclick="cashOut(1)"
+                                                disabled>
+                                            COBRAR
+                                        </button>
+
+                                    </div>
+
+                                    <div class="auto-row">
+                                        <span class="auto-label">
+                                            Auto cobro
+                                        </span>
+
+                                        <input
+                                            class="auto-input"
+                                            id="auto1"
+                                            type="number"
+                                            min="1.01"
+                                            step=".01"
+                                            value="2.00">
+                                    </div>
+
+                                </div>
+
+                                <!-- BET 2 -->
+                                <div class="bet-card">
+
+                                    <div class="bet-head">
+                                        <span class="bet-name">Apuesta 2</span>
+                                        <span class="bet-state"
+                                              id="betState2">
+                                            LISTA
+                                        </span>
+                                    </div>
+
+                                    <div class="amount-row">
+
+                                        <button onclick="changeAmount(2,-0.10)">
+                                            −
+                                        </button>
+
+                                        <input
+                                            id="amount2"
+                                            class="amount-input"
+                                            type="number"
+                                            min="0.30"
+                                            step="0.10"
+                                            value="0.30">
+
+                                        <button onclick="changeAmount(2,0.10)">
+                                            +
+                                        </button>
+
+                                    </div>
+
+                                    <div class="quick-row">
+                                        <button onclick="setAmount(2,.30)">0.30</button>
+                                        <button onclick="setAmount(2,1)">1</button>
+                                        <button onclick="setAmount(2,5)">5</button>
+                                        <button onclick="doubleAmount(2)">2x</button>
+                                    </div>
+
+                                    <div class="bet-actions">
+
+                                        <button class="bet-btn"
+                                                id="betBtn2"
+                                                onclick="betAction(2)">
+                                            APOSTAR
+                                        </button>
+
+                                        <button class="cash-btn"
+                                                id="cashBtn2"
+                                                onclick="cashOut(2)"
+                                                disabled>
+                                            COBRAR
+                                        </button>
+
+                                    </div>
+
+                                    <div class="auto-row">
+                                        <span class="auto-label">
+                                            Auto cobro
+                                        </span>
+
+                                        <input
+                                            class="auto-input"
+                                            id="auto2"
+                                            type="number"
+                                            min="1.01"
+                                            step=".01"
+                                            value="2.00">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="side-stack">
+
+                        <div class="side-card">
+
+                            <div class="side-title">
+                                <h3>Últimos Crash</h3>
+                                <span>En vivo</span>
+                            </div>
+
+                            <div class="history-list"
+                                 id="historyList"></div>
+
+                        </div>
+
+                        <div class="side-card">
+
+                            <div class="side-title">
+                                <h3>Jugadores</h3>
+                                <span id="playerCount">0</span>
+                            </div>
+
+                            <div class="player-list"
+                                 id="playerList"></div>
+
+                        </div>
+
+                        <div class="side-card">
+
+                            <div class="side-title">
+                                <h3>Información</h3>
+                            </div>
+
+                            <div class="info-line">
+                                <span>Red</span>
+                                <span>BSC</span>
+                            </div>
+
+                            <div class="info-line">
+                                <span>Token</span>
+                                <span>USDT</span>
+                            </div>
+
+                            <div class="info-line">
+                                <span>Ronda</span>
+                                <span id="infoRound">#1001</span>
+                            </div>
+
+                            <div class="info-line">
+                                <span>Apuesta mínima</span>
+                                <span>0.30 USDT</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- GAMES -->
+            <section class="page" id="page-games">
+
+                <div class="page-title">
+                    <h1>Crash</h1>
+                    <p>Juega en tiempo real y cobra antes del Crash.</p>
+                </div>
+
+                <div class="game-layout">
+                    <div class="game-main">
+                        <div class="game-card">
+                            <div class="chart-wrap">
+                                <div class="chart-grid"></div>
+
+                                <svg viewBox="0 0 1000 500"
+                                     preserveAspectRatio="none">
+                                    <path id="gameSvg2"
+                                          fill="none"
+                                          stroke="#18e58b"
+                                          stroke-width="4"></path>
+                                </svg>
+
+                                <div class="multiplier green"
+                                     id="gamesMultiplier">
+                                    1.00x
+                                </div>
+
+                                <div class="round-status">
+                                    Usa las apuestas de Inicio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="side-stack">
+                        <div class="side-card">
+                            <div class="side-title">
+                                <h3>Estado</h3>
+                            </div>
+
+                            <div class="info-line">
+                                <span>Ronda</span>
+                                <span id="gamesRound">#1001</span>
+                            </div>
+
+                            <div class="info-line">
+                                <span>Estado</span>
+                                <span id="gamesState">Esperando</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- MY GAMES -->
+            <section class="page" id="page-mygames">
+
+                <div class="page-title">
+                    <h1>Mis juegos</h1>
+                    <p>Resumen de tus apuestas.</p>
+                </div>
+
+                <div class="cards">
+
+                    <div class="stat-card">
+                        <div class="stat-label">APUESTAS</div>
+                        <div class="stat-value"
+                             id="myTotalBets">0</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">GANADAS</div>
+                        <div class="stat-value green"
+                             id="myWins">0</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">PERDIDAS</div>
+                        <div class="stat-value"
+                             id="myLosses">0</div>
+                    </div>
+
+                </div>
+
+                <div class="table-card">
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ronda</th>
+                                    <th>Apuesta</th>
+                                    <th>Crash</th>
+                                    <th>Salida</th>
+                                    <th>Resultado</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="myGamesTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- HISTORY -->
+            <section class="page" id="page-history">
+
+                <div class="page-title">
+                    <h1>Historial</h1>
+                    <p>Últimas rondas y resultados.</p>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ronda</th>
+                                    <th>Crash</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="historyTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- STATS -->
+            <section class="page" id="page-stats">
+
+                <div class="page-title">
+                    <h1>Estadísticas</h1>
+                    <p>Resumen de actividad de tu cuenta.</p>
+                </div>
+
+                <div class="cards">
+
+                    <div class="stat-card">
+                        <div class="stat-label">TOTAL APOSTADO</div>
+                        <div class="stat-value"
+                             id="statWagered">
+                            0.00 USDT
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">TOTAL GANADO</div>
+                        <div class="stat-value green"
+                             id="statWon">
+                            0.00 USDT
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">BALANCE NETO</div>
+                        <div class="stat-value"
+                             id="statNet">
+                            0.00 USDT
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- DEPOSIT -->
+            <section class="page" id="page-deposit">
+
+                <div class="page-title">
+                    <h1>Depositar USDT</h1>
+                    <p>Agrega saldo utilizando BNB Smart Chain.</p>
+                </div>
+
+                <div class="form-card">
+
+                    <h2>Depósito BEP-20</h2>
+
+                    <p>
+                        Envía USDT por la red BNB Smart Chain
+                        a la dirección indicada y después registra
+                        la operación con su hash.
+                    </p>
+
+                    <div class="notice">
+                        <strong>Importante:</strong>
+                        utiliza únicamente USDT sobre BNB Smart Chain
+                        (BEP-20). Enviar otra red o token puede provocar
+                        la pérdida de los fondos.
+                    </div>
+
+                    <div class="address-box">
+
+                        <div class="address-label">
+                            DIRECCIÓN DE DEPÓSITO
+                        </div>
+
+                        <div class="address-row">
+
+                            <div class="address"
+                                 id="depositAddress">
+                                0xfaDc8989b805B5606236aa9f0C2D353ac80cB232
+                            </div>
+
+                            <button class="copy-btn"
+                                    onclick="copyAddress()">
+                                COPIAR
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>CANTIDAD EN USDT</label>
+
+                        <input
+                            class="form-input"
+                            id="depositAmount"
+                            type="number"
+                            min="1"
+                            max="260"
+                            step="0.01"
+                            placeholder="Ej. 10.00">
+                    </div>
+
+                    <div class="form-group">
+                        <label>HASH DE LA TRANSACCIÓN</label>
+
+                        <input
+                            class="form-input"
+                            id="depositHash"
+                            type="text"
+                            placeholder="0x..."
+                            autocomplete="off">
+                    </div>
+
+                    <button class="form-button"
+                            onclick="submitDeposit()">
+                        VALIDAR DEPÓSITO
+                    </button>
+
+                    <div class="table-card"
+                         style="margin-top:16px">
+
+                        <div class="table-scroll">
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Cantidad</th>
+                                        <th>Hash</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="depositTable"></tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- WITHDRAW -->
+            <section class="page" id="page-withdraw">
+
+                <div class="page-title">
+                    <h1>Retirar USDT</h1>
+                    <p>Solicita un retiro de tu saldo disponible.</p>
+                </div>
+
+                <div class="form-card">
+
+                    <h2>Retiro BEP-20</h2>
+
+                    <p>
+                        Indica la cantidad de USDT y la dirección
+                        compatible con BNB Smart Chain donde deseas
+                        recibir el retiro.
+                    </p>
+
+                    <div class="withdraw-summary">
+
+                        <div class="summary-box">
+                            <span>SALDO DISPONIBLE</span>
+                            <strong id="withdrawBalance">
+                                0.00 USDT
+                            </strong>
+                        </div>
+
+                        <div class="summary-box">
+                            <span>RED</span>
+                            <strong>BSC / BEP-20</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="notice">
+                        <strong>Verifica la dirección antes de solicitar.</strong>
+                        Los retiros enviados a una dirección incorrecta
+                        no pueden recuperarse mediante esta interfaz.
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>CANTIDAD EN USDT</label>
+
+                        <input
+                            class="form-input"
+                            id="withdrawAmount"
+                            type="number"
+                            min="0.30"
+                            step="0.01"
+                            placeholder="Ej. 10.00">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>DIRECCIÓN DE DESTINO BEP-20</label>
+
+                        <input
+                            class="form-input"
+                            id="withdrawAddress"
+                            type="text"
+                            placeholder="0x..."
+                            autocomplete="off">
+
+                    </div>
+
+                    <button class="form-button withdraw"
+                            onclick="submitWithdraw()">
+                        SOLICITAR RETIRO
+                    </button>
+
+                    <div class="table-card"
+                         style="margin-top:16px">
+
+                        <div class="table-scroll">
+
+                            <table>
+
+                                <thead>
+                                    <tr>
+                                        <th>Cantidad</th>
+                                        <th>Dirección</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="withdrawTable"></tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- PROFILE -->
+            <section class="page" id="page-profile">
+
+                <div class="page-title">
+                    <h1>Perfil</h1>
+                    <p>Información de tu cuenta.</p>
+                </div>
+
+                <div class="profile-card">
+
+                    <div class="profile-head">
+
+                        <div class="profile-avatar">
+                            DA
+                        </div>
+
+                        <div>
+                            <h2>Usuario</h2>
+                            <p>Cuenta CRASH POINT</p>
+                        </div>
+
+                    </div>
+
+                    <div class="profile-info">
+
+                        <div class="profile-row">
+                            <span>Red</span>
+                            <strong>BNB Smart Chain</strong>
+                        </div>
+
+                        <div class="profile-row">
+                            <span>Token</span>
+                            <strong>USDT</strong>
+                        </div>
+
+                        <div class="profile-row">
+                            <span>Saldo</span>
+                            <strong id="profileBalance">
+                                0.00 USDT
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- SETTINGS -->
+            <section class="page" id="page-settings">
+
+                <div class="page-title">
+                    <h1>Configuración</h1>
+                    <p>Personaliza algunas opciones del juego.</p>
+                </div>
+
+                <div class="settings-card">
+
+                    <div class="setting">
+
+                        <div>
+                            <strong>Sonido</strong>
+                            <small>
+                                Sonidos del juego y notificaciones.
+                            </small>
+                        </div>
+
+                        <button class="toggle"
+                                id="soundToggle"
+                                onclick="toggleSetting('sound')">
+                            <span></span>
+                        </button>
+
+                    </div>
+
+                    <div class="setting">
+
+                        <div>
+                            <strong>Animaciones</strong>
+                            <small>
+                                Animación visual del multiplicador.
+                            </small>
+                        </div>
+
+                        <button class="toggle on"
+                                id="animationToggle"
+                                onclick="toggleSetting('animations')">
+                            <span></span>
+                        </button>
+
+                    </div>
+
+                    <div class="setting">
+
+                        <div>
+                            <strong>Restablecer datos</strong>
+                            <small>
+                                Reinicia el saldo y el historial local.
+                            </small>
+                        </div>
+
+                        <button class="copy-btn"
+                                onclick="resetData()">
+                            RESTABLECER
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
 </div>
 
-<div class="notifications" id="notifications"></div>
+<div class="toast" id="toast"></div>
 
 <script>
 "use strict";
+
+/* =========================================================
+   CRASH POINT
+   ========================================================= */
 
 const ADDRESS =
 "0xfaDc8989b805B5606236aa9f0C2D353ac80cB232";
@@ -1644,144 +2031,224 @@ const MIN_BET = 0.30;
 const MAX_BET = 260;
 const MIN_DEPOSIT = 1;
 
+/*
+   DIFICULTAD
+
+   La distribución está concentrada en multiplicadores bajos.
+   La animación NO utiliza easing de desaceleración.
+*/
+const DIFFICULTY = {
+    minimumCrash:1.01,
+    lowWeight:0.84,
+    mediumWeight:0.13,
+    highWeight:0.03,
+    maximumCrash:32
+};
+
 const STORAGE_KEY = "crash_point_state_v1";
 
 let state = {
-    balance: 0,
-    round: 1001,
-    crashPoint: 1.01,
-    multiplier: 1,
-    phase: "WAITING",
-    history: [],
-    betsHistory: [],
-    deposits: [],
-    stats: {
-        bets: 0,
-        wins: 0,
-        losses: 0,
-        bestCashout: 0,
-        wagered: 0,
-        profit: 0,
-        biggestWin: 0,
-        biggestBet: 0
+    balance:0,
+    round:1001,
+    crashPoint:1.01,
+    multiplier:1,
+    phase:"waiting",
+
+    history:[],
+
+    betsHistory:[],
+
+    deposits:[],
+
+    withdrawals:[],
+
+    stats:{
+        totalBets:0,
+        wins:0,
+        losses:0,
+        wagered:0,
+        won:0
     },
-    settings: {
-        sound: true,
-        notifications: true
+
+    settings:{
+        sound:false,
+        animations:true
     }
 };
 
 let bets = {
-    1: {
-        state:"IDLE",
-        amount:0,
-        mode:"manual",
-        auto:2,
+    1:{
+        amount:0.30,
+        active:false,
         cashed:false,
-        payout:0
+        entry:0,
+        profit:0
     },
-    2: {
-        state:"IDLE",
-        amount:0,
-        mode:"manual",
-        auto:2,
+
+    2:{
+        amount:0.30,
+        active:false,
         cashed:false,
-        payout:0
+        entry:0,
+        profit:0
     }
 };
 
-let timer = null;
-let roundStartedAt = 0;
-let roundDuration = 0;
-let graphPoints = [];
+let roundTimer = null;
+let animationFrame = null;
+let roundStartTime = 0;
+let crashTime = 0;
+let currentPath = [];
+
+let players = [];
+
+/* =========================================================
+   STORAGE
+   ========================================================= */
 
 function loadState(){
 
     try{
 
         const saved =
-            localStorage.getItem(STORAGE_KEY);
+            JSON.parse(localStorage.getItem(STORAGE_KEY));
 
         if(saved){
 
-            const parsed =
-                JSON.parse(saved);
-
             state = {
                 ...state,
-                ...parsed,
+                ...saved,
+
                 stats:{
                     ...state.stats,
-                    ...(parsed.stats || {})
+                    ...(saved.stats || {})
                 },
+
                 settings:{
                     ...state.settings,
-                    ...(parsed.settings || {})
+                    ...(saved.settings || {})
                 }
             };
+
         }
 
     }catch(e){
-        console.log("No se pudo cargar el estado");
+
+        console.log("No se pudo cargar el estado.");
+
     }
 
-    updateAllUI();
 }
 
 function saveState(){
 
-    try{
-        localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(state)
-        );
-    }catch(e){}
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(state)
+    );
+
 }
 
-function money(n){
-    return Number(n || 0).toFixed(2);
-}
+/* =========================================================
+   HELPERS
+   ========================================================= */
 
-function clamp(n,min,max){
-    return Math.max(min,Math.min(max,n));
+function money(value){
+
+    return Number(value || 0).toFixed(2);
+
 }
 
 function random(min,max){
+
     return Math.random()*(max-min)+min;
+
 }
+
+function clamp(value,min,max){
+
+    return Math.max(min,Math.min(max,value));
+
+}
+
+/* =========================================================
+   HARDER CRASH DISTRIBUTION
+   ========================================================= */
 
 function generateCrashPoint(){
 
     const r = Math.random();
 
-    let value;
+    let crash;
 
-    if(r < .27){
-        value = random(1.01,1.35);
-    }else if(r < .50){
-        value = random(1.35,2.00);
-    }else if(r < .68){
-        value = random(2.00,3.20);
-    }else if(r < .80){
-        value = random(3.20,5.00);
-    }else if(r < .90){
-        value = random(5.00,8.00);
-    }else if(r < .965){
-        value = random(8.00,14.00);
-    }else if(r < .99){
-        value = random(14.00,24.00);
-    }else{
-        value = random(24.00,32.00);
+    if(r < DIFFICULTY.lowWeight){
+
+        /*
+          Mayor parte de las rondas:
+          1.01x - 1.75x
+        */
+
+        const x = Math.random();
+
+        crash =
+            1.01 +
+            Math.pow(x,2.15)*0.74;
+
+    }
+    else if(
+        r <
+        DIFFICULTY.lowWeight +
+        DIFFICULTY.mediumWeight
+    ){
+
+        /*
+          Rondas medias:
+          1.75x - 4.50x
+        */
+
+        const x = Math.random();
+
+        crash =
+            1.75 +
+            Math.pow(x,1.45)*2.75;
+
+    }
+    else{
+
+        /*
+          Rondas altas:
+          poco frecuentes.
+        */
+
+        const x = Math.random();
+
+        crash =
+            4.50 +
+            Math.pow(x,1.65)*27.50;
+
     }
 
-    return Number(value.toFixed(2));
+    crash =
+        clamp(
+            crash,
+            DIFFICULTY.minimumCrash,
+            DIFFICULTY.maximumCrash
+        );
+
+    return Number(crash.toFixed(2));
+
 }
 
-function showPage(page){
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
 
-    document
-        .querySelectorAll(".page")
-        .forEach(p=>p.classList.remove("active"));
+function showPage(page,button){
+
+    document.querySelectorAll(".page")
+        .forEach(p=>{
+            p.classList.remove("active");
+        });
 
     const target =
         document.getElementById("page-"+page);
@@ -1790,210 +2257,172 @@ function showPage(page){
         target.classList.add("active");
     }
 
-    document
-        .querySelectorAll(".nav button")
+    document.querySelectorAll(".nav button")
         .forEach(b=>{
-            b.classList.toggle(
-                "active",
-                b.dataset.page===page
-            );
+            b.classList.remove("active");
         });
+
+    if(button){
+        button.classList.add("active");
+    }
+
+    if(page === "withdraw"){
+        updateWithdrawBalance();
+        renderWithdrawals();
+    }
+
+    if(page === "deposit"){
+        renderDeposits();
+    }
 
     document
         .getElementById("sidebar")
         .classList.remove("open");
+
 }
 
-document
-    .querySelectorAll(".nav button")
-    .forEach(button=>{
+function toggleSidebar(){
 
-        button.addEventListener(
-            "click",
-            ()=>{
-                showPage(button.dataset.page);
-            }
-        );
+    document
+        .getElementById("sidebar")
+        .classList.toggle("open");
 
-    });
+}
 
-document
-    .getElementById("mobileMenu")
-    .addEventListener(
-        "click",
-        ()=>{
-            document
-                .getElementById("sidebar")
-                .classList.toggle("open");
-        }
-    );
+/* =========================================================
+   BALANCE
+   ========================================================= */
 
 function updateBalance(){
 
     const value =
         money(state.balance)+" USDT";
 
-    document.getElementById(
-        "topBalance"
-    ).textContent=value;
+    document.getElementById("topBalance")
+        .textContent=value;
 
-    document.getElementById(
-        "profileBalance"
-    ).textContent=value;
+    document.getElementById("profileBalance")
+        .textContent=value;
+
+    updateWithdrawBalance();
+
 }
 
-function getAmount(slot){
+function updateWithdrawBalance(){
 
-    return Number(
-        document.getElementById(
-            "amount"+slot
-        ).value
-    );
+    const el =
+        document.getElementById("withdrawBalance");
+
+    if(el){
+        el.textContent =
+            money(state.balance)+" USDT";
+    }
+
 }
+
+/* =========================================================
+   BET AMOUNTS
+   ========================================================= */
 
 function setAmount(slot,value){
 
-    value = clamp(
-        Number(value)||MIN_BET,
-        MIN_BET,
-        MAX_BET
-    );
+    value =
+        clamp(
+            Number(value)||MIN_BET,
+            MIN_BET,
+            MAX_BET
+        );
+
+    bets[slot].amount =
+        Number(value.toFixed(2));
 
     document.getElementById(
         "amount"+slot
-    ).value=money(value);
+    ).value=bets[slot].amount;
+
 }
 
-function adjustAmount(slot,mult){
-
-    let value =
-        getAmount(slot);
-
-    setAmount(slot,value*mult);
-}
-
-function setMax(slot){
+function changeAmount(slot,delta){
 
     setAmount(
         slot,
-        Math.min(MAX_BET,state.balance)
+        bets[slot].amount+delta
     );
+
 }
 
-function setTarget(slot,value){
+function doubleAmount(slot){
 
-    document.getElementById(
-        "auto"+slot
-    ).value=value.toFixed(2);
+    setAmount(
+        slot,
+        bets[slot].amount*2
+    );
+
 }
 
-function validateBet(slot){
-
-    const amount =
-        getAmount(slot);
-
-    if(!Number.isFinite(amount)){
-        notify(
-            "Apuesta incorrecta",
-            "Introduce una cantidad válida.",
-            "red"
-        );
-        return null;
-    }
-
-    if(amount < MIN_BET){
-
-        notify(
-            "Apuesta mínima",
-            "La apuesta mínima es 0.30 USDT.",
-            "red"
-        );
-
-        return null;
-    }
-
-    if(amount > MAX_BET){
-
-        notify(
-            "Límite de apuesta",
-            "La apuesta máxima es 260 USDT.",
-            "red"
-        );
-
-        return null;
-    }
-
-    if(amount > state.balance){
-
-        notify(
-            "Saldo insuficiente",
-            "No tienes saldo suficiente.",
-            "red"
-        );
-
-        return null;
-    }
-
-    return amount;
-}
+/* =========================================================
+   BETTING
+   ========================================================= */
 
 function betAction(slot){
+
+    if(
+        state.phase !== "waiting" &&
+        state.phase !== "countdown"
+    ){
+
+        toast(
+            "Espera la próxima ronda.",
+            "error"
+        );
+
+        return;
+    }
 
     const bet =
         bets[slot];
 
-    if(state.phase==="RUNNING"){
-
-        if(bet.state==="ACTIVE" &&
-           !bet.cashed){
-
-            cashOut(slot);
-        }
+    if(bet.active){
 
         return;
     }
 
-    if(state.phase!=="WAITING"){
-
-        notify(
-            "Espera la siguiente ronda",
-            "La apuesta estará disponible cuando comience la fase de espera.",
-            "red"
+    const input =
+        document.getElementById(
+            "amount"+slot
         );
-
-        return;
-    }
-
-    if(bet.state==="ACTIVE"){
-        return;
-    }
 
     const amount =
-        validateBet(slot);
+        Number(input.value);
 
-    if(amount===null){
+    if(
+        !Number.isFinite(amount) ||
+        amount < MIN_BET
+    ){
+
+        toast(
+            "La apuesta mínima es 0.30 USDT.",
+            "error"
+        );
+
         return;
     }
 
-    const mode =
-        document.getElementById(
-            "mode"+slot
-        ).value;
+    if(amount > MAX_BET){
 
-    const auto =
-        Number(
-            document.getElementById(
-                "auto"+slot
-            ).value
+        toast(
+            "La apuesta máxima es 260 USDT.",
+            "error"
         );
 
-    if(mode==="auto" &&
-       (!Number.isFinite(auto) || auto<1.01)){
+        return;
+    }
 
-        notify(
-            "Auto cash-out incorrecto",
-            "Introduce un multiplicador válido.",
-            "red"
+    if(amount > state.balance){
+
+        toast(
+            "Saldo insuficiente.",
+            "error"
         );
 
         return;
@@ -2001,112 +2430,133 @@ function betAction(slot){
 
     state.balance -= amount;
 
-    bets[slot] = {
-        state:"ACTIVE",
-        amount:amount,
-        mode:mode,
-        auto:clamp(auto||2,1.01,100),
-        cashed:false,
-        payout:0
-    };
-
-    state.stats.bets++;
+    state.stats.totalBets++;
     state.stats.wagered += amount;
-    state.stats.biggestBet =
-        Math.max(
-            state.stats.biggestBet,
-            amount
-        );
+
+    bet.amount =
+        Number(amount.toFixed(2));
+
+    bet.active=true;
+    bet.cashed=false;
+    bet.entry=1;
+    bet.profit=0;
 
     saveState();
-    updateAllUI();
+    updateBalance();
+    updateBetUI(slot);
 
-    notify(
-        "Apuesta registrada",
-        money(amount)+" USDT",
-        "green"
+    toast(
+        "Apuesta "+slot+" realizada.",
+        "success"
     );
+
 }
 
 function cashOut(slot){
+
+    if(state.phase !== "running"){
+
+        toast(
+            "No puedes cobrar ahora.",
+            "error"
+        );
+
+        return;
+    }
 
     const bet =
         bets[slot];
 
     if(
-        !bet ||
-        bet.state!=="ACTIVE" ||
-        bet.cashed ||
-        state.phase!=="RUNNING"
+        !bet.active ||
+        bet.cashed
     ){
+
         return;
     }
 
-    if(state.multiplier >= state.crashPoint){
+    if(
+        state.multiplier >=
+        state.crashPoint
+    ){
+
         return;
     }
 
-    const multiplier =
-        Number(
-            state.multiplier.toFixed(2)
-        );
+    performCashOut(
+        slot,
+        state.multiplier
+    );
+
+}
+
+function performCashOut(slot,multi){
+
+    const bet =
+        bets[slot];
+
+    if(
+        !bet.active ||
+        bet.cashed
+    ){
+
+        return;
+    }
 
     const payout =
-        Number(
-            (bet.amount*multiplier)
-            .toFixed(2)
-        );
+        bet.amount*multi;
 
     const profit =
-        Number(
-            (payout-bet.amount)
-            .toFixed(2)
-        );
-
-    bet.cashed=true;
-    bet.state="CASHED_OUT";
-    bet.payout=payout;
+        payout-bet.amount;
 
     state.balance += payout;
 
     state.stats.wins++;
-    state.stats.profit += profit;
+    state.stats.won += profit;
 
-    state.stats.bestCashout =
-        Math.max(
-            state.stats.bestCashout,
-            multiplier
-        );
+    bet.cashed=true;
+    bet.active=false;
+    bet.profit=profit;
 
-    state.stats.biggestWin =
-        Math.max(
-            state.stats.biggestWin,
-            profit
-        );
+    state.betsHistory.unshift({
 
-    addBetHistory({
         round:state.round,
+
         amount:bet.amount,
-        result:"GANÓ",
-        multiplier:multiplier,
-        profit:profit
+
+        crash:state.crashPoint,
+
+        exit:Number(multi.toFixed(2)),
+
+        result:profit,
+
+        time:new Date().toLocaleString()
+
     });
 
-    saveState();
-    updateAllUI();
+    if(state.betsHistory.length>100){
+        state.betsHistory.pop();
+    }
 
-    notify(
-        "Cash-out realizado",
-        "+"+money(profit)+" USDT · "+multiplier+"x",
-        "green"
+    saveState();
+    updateBalance();
+    updateBetUI(slot);
+    renderAllTables();
+
+    toast(
+        "Cobraste "+money(payout)+" USDT a "+multi.toFixed(2)+"x.",
+        "success"
     );
 
-    beep("cashout");
 }
 
-function processAutoCashouts(){
+/* =========================================================
+   AUTO CASHOUT
+   ========================================================= */
 
-    if(state.phase!=="RUNNING"){
+function checkAutoCashouts(){
+
+    if(state.phase !== "running"){
         return;
     }
 
@@ -2116,277 +2566,329 @@ function processAutoCashouts(){
             bets[slot];
 
         if(
-            bet.state==="ACTIVE" &&
-            !bet.cashed &&
-            bet.mode==="auto" &&
-            state.multiplier>=bet.auto
+            !bet.active ||
+            bet.cashed
+        ){
+            return;
+        }
+
+        const input =
+            document.getElementById(
+                "auto"+slot
+            );
+
+        const target =
+            Number(input.value);
+
+        if(
+            Number.isFinite(target) &&
+            target > 1 &&
+            state.multiplier >= target
         ){
 
-            cashOut(slot);
+            performCashOut(
+                slot,
+                target
+            );
+
         }
 
     });
+
 }
 
-function resetRoundBets(){
+/* =========================================================
+   BET UI
+   ========================================================= */
 
-    bets={
-        1:{
-            state:"IDLE",
-            amount:0,
-            mode:"manual",
-            auto:2,
-            cashed:false,
-            payout:0
-        },
-        2:{
-            state:"IDLE",
-            amount:0,
-            mode:"manual",
-            auto:2,
-            cashed:false,
-            payout:0
-        }
-    };
+function updateBetUI(slot){
 
-    updateBetUI();
+    const bet =
+        bets[slot];
+
+    const betBtn =
+        document.getElementById(
+            "betBtn"+slot
+        );
+
+    const cashBtn =
+        document.getElementById(
+            "cashBtn"+slot
+        );
+
+    const label =
+        document.getElementById(
+            "betState"+slot
+        );
+
+    if(bet.active){
+
+        betBtn.disabled=true;
+        cashBtn.disabled=false;
+        label.textContent="EN JUEGO";
+
+    }
+    else if(bet.cashed){
+
+        betBtn.disabled=true;
+        cashBtn.disabled=true;
+        label.textContent="COBRADA";
+
+    }
+    else{
+
+        betBtn.disabled=false;
+        cashBtn.disabled=true;
+        label.textContent="LISTA";
+
+    }
+
 }
+
+/* =========================================================
+   ROUND SYSTEM
+   ========================================================= */
 
 function startWaiting(){
 
-    clearInterval(timer);
+    clearInterval(roundTimer);
+    cancelAnimationFrame(animationFrame);
 
-    state.phase="WAITING";
+    state.phase="waiting";
     state.multiplier=1;
 
     state.crashPoint =
         generateCrashPoint();
 
-    resetRoundBets();
+    resetBets();
+
+    updateMultiplier(
+        1,
+        "wait"
+    );
 
     setStatus(
-        "ESPERANDO",
-        ""
+        "Próxima ronda..."
     );
 
-    document.getElementById(
-        "multiplier"
-    ).textContent="1.00x";
+    roundTimer =
+        setTimeout(
+            startCountdown,
+            2500
+        );
 
-    document.getElementById(
-        "multiplier"
-    ).classList.remove("crashed");
-
-    document.getElementById(
-        "crashMessage"
-    ).classList.remove("show");
-
-    document.getElementById(
-        "countdown"
-    ).textContent="Haz tu apuesta";
-
-    clearGraph();
-
-    updateBetUI();
-
-    setTimeout(
-        startCountdown,
-        1800
-    );
 }
 
 function startCountdown(){
 
-    if(state.phase!=="WAITING"){
-        return;
-    }
+    state.phase="countdown";
 
-    let count=3;
+    let seconds=3;
 
     setStatus(
-        "PRÓXIMA RONDA",
-        ""
+        "Comienza en "+seconds
     );
 
-    function tick(){
+    roundTimer =
+        setInterval(()=>{
 
-        if(count<=0){
+            seconds--;
 
-            startRunning();
-            return;
-        }
+            if(seconds<=0){
 
-        document.getElementById(
-            "countdown"
-        ).textContent=
-            "Comienza en "+count;
+                clearInterval(roundTimer);
 
-        beep("count");
+                startRound();
 
-        count--;
+                return;
+            }
 
-        setTimeout(
-            tick,
-            1000
-        );
-    }
+            setStatus(
+                "Comienza en "+seconds
+            );
 
-    tick();
+        },1000);
+
 }
 
-function startRunning(){
+function startRound(){
 
-    state.phase="RUNNING";
+    state.phase="running";
     state.multiplier=1;
 
-    roundStartedAt =
+    state.crashPoint =
+        generateCrashPoint();
+
+    roundStartTime =
         performance.now();
 
-    roundDuration =
-        Math.max(
-            2300,
-            Math.min(
-                17000,
-                2300+
-                Math.log(
-                    state.crashPoint
-                )*3000
-            )
-        );
-
-    setStatus(
-        "EN JUEGO",
-        "running"
-    );
-
-    document.getElementById(
-        "countdown"
-    ).textContent="";
-
-    notify(
-        "Nueva ronda",
-        "Ronda #"+state.round,
-        "green"
-    );
-
-    beep("start");
-
-    timer =
-        requestAnimationFrame(
-            animationLoop
-        );
-}
-
-function animationLoop(now){
-
-    if(state.phase!=="RUNNING"){
-        return;
-    }
-
-    const elapsed =
-        now-roundStartedAt;
-
-    const progress =
-        clamp(
-            elapsed/roundDuration,
-            0,
-            1
-        );
+    /*
+      La duración depende del multiplicador,
+      pero el crecimiento visual es LINEAL.
+      No existe easing que produzca frenado.
+    */
 
     const target =
         state.crashPoint;
 
-    const eased =
-        1-Math.pow(
-            1-progress,
-            2.15
+    const duration =
+        3000 +
+        Math.min(
+            target*520,
+            11500
         );
 
-    state.multiplier =
-        1+
-        (target-1)*eased;
+    crashTime =
+        roundStartTime+duration;
 
-    state.multiplier =
-        Number(
-            state.multiplier.toFixed(2)
-        );
+    currentPath=[];
 
-    drawGraph(progress);
+    setStatus("EN VIVO");
 
-    document.getElementById(
-        "multiplier"
-    ).textContent =
-        state.multiplier.toFixed(2)+"x";
+    animateGame();
 
-    processAutoCashouts();
+}
 
-    updateBetUI();
+function animateGame(){
 
-    if(progress>=1){
-
-        crashRound();
+    if(state.phase !== "running"){
         return;
     }
 
-    timer =
-        requestAnimationFrame(
-            animationLoop
+    const now =
+        performance.now();
+
+    const elapsed =
+        now-roundStartTime;
+
+    const duration =
+        crashTime-roundStartTime;
+
+    const progress =
+        clamp(
+            elapsed/duration,
+            0,
+            1
         );
+
+    /*
+      CRECIMIENTO LINEAL:
+      evita completamente el efecto de
+      desaceleración antes del Crash.
+    */
+
+    const linear =
+        progress;
+
+    /*
+      Curva suave de multiplicador, pero
+      con velocidad visual constante.
+    */
+
+    const target =
+        state.crashPoint;
+
+    let multi;
+
+    if(target <= 1.20){
+
+        multi =
+            1 +
+            (target-1)*linear;
+
+    }
+    else{
+
+        /*
+          Interpolación lineal sobre logaritmo
+          para que los saltos visuales sean
+          uniformes.
+        */
+
+        multi =
+            Math.exp(
+                Math.log(1) +
+                (
+                    Math.log(target) -
+                    Math.log(1)
+                ) * linear
+            );
+
+    }
+
+    multi =
+        Math.min(
+            multi,
+            target
+        );
+
+    state.multiplier =
+        Number(multi.toFixed(2));
+
+    updateMultiplier(
+        state.multiplier,
+        "green"
+    );
+
+    drawGraph(
+        linear,
+        state.multiplier
+    );
+
+    updateGamesMirror();
+
+    checkAutoCashouts();
+
+    if(now >= crashTime){
+
+        state.multiplier =
+            state.crashPoint;
+
+        updateMultiplier(
+            state.crashPoint,
+            "red"
+        );
+
+        drawGraph(
+            1,
+            state.crashPoint
+        );
+
+        crashRound();
+
+        return;
+    }
+
+    animationFrame =
+        requestAnimationFrame(
+            animateGame
+        );
+
 }
+
+/* =========================================================
+   CRASH
+   ========================================================= */
 
 function crashRound(){
 
-    cancelAnimationFrame(timer);
+    cancelAnimationFrame(animationFrame);
 
-    state.phase="CRASHED";
+    state.phase="crashed";
 
-    state.multiplier =
-        state.crashPoint;
-
-    document.getElementById(
-        "multiplier"
-    ).textContent =
-        state.crashPoint.toFixed(2)+"x";
-
-    document.getElementById(
-        "multiplier"
-    ).classList.add("crashed");
-
-    document.getElementById(
-        "crashMessage"
-    ).textContent =
-        "CRASH "+state.crashPoint.toFixed(2)+"x";
-
-    document.getElementById(
-        "crashMessage"
-    ).classList.add("show");
+    updateMultiplier(
+        state.crashPoint,
+        "red"
+    );
 
     setStatus(
-        "CRASH",
-        "crashed"
+        "CRASH · "+state.crashPoint.toFixed(2)+"x"
     );
 
-    document.getElementById(
-        "countdown"
-    ).textContent="";
-
-    settleLostBets();
-
-    addMultiplierHistory(
-        state.crashPoint
-    );
-
-    beep("crash");
-
-    setTimeout(
-        ()=>{
-            finishRound();
-        },
-        1600
-    );
-}
-
-function settleLostBets(){
+    /*
+      Apuestas que quedaron activas
+      se consideran perdidas.
+    */
 
     [1,2].forEach(slot=>{
 
@@ -2394,549 +2896,487 @@ function settleLostBets(){
             bets[slot];
 
         if(
-            bet.state==="ACTIVE" &&
+            bet.active &&
             !bet.cashed
         ){
 
-            bet.state="LOST";
-
             state.stats.losses++;
 
-            state.stats.profit -=
-                bet.amount;
+            state.betsHistory.unshift({
 
-            addBetHistory({
                 round:state.round,
+
                 amount:bet.amount,
-                result:"PERDIÓ",
-                multiplier:state.crashPoint,
-                profit:-bet.amount
+
+                crash:state.crashPoint,
+
+                exit:0,
+
+                result:-bet.amount,
+
+                time:new Date().toLocaleString()
+
             });
+
+            bet.active=false;
+            bet.cashed=false;
+
+            updateBetUI(slot);
 
         }
 
     });
 
+    state.history.unshift({
+
+        round:state.round,
+
+        crash:state.crashPoint,
+
+        time:new Date().toLocaleString()
+
+    });
+
+    if(state.history.length>50){
+        state.history.pop();
+    }
+
     saveState();
-    updateAllUI();
+
+    renderAllTables();
+
+    setTimeout(()=>{
+
+        state.round++;
+
+        updateRoundUI();
+
+        startWaiting();
+
+    },2500);
+
 }
 
-function finishRound(){
+/* =========================================================
+   RESET BETS
+   ========================================================= */
 
-    state.phase="FINISHED";
+function resetBets(){
 
-    setTimeout(
-        ()=>{
-            state.round++;
-            saveState();
-            updateRoundNumber();
-            startWaiting();
-        },
-        350
-    );
+    [1,2].forEach(slot=>{
+
+        bets[slot].active=false;
+        bets[slot].cashed=false;
+        bets[slot].entry=0;
+        bets[slot].profit=0;
+
+        updateBetUI(slot);
+
+    });
+
 }
 
-function clearGraph(){
+/* =========================================================
+   GRAPH
+   ========================================================= */
 
-    graphPoints=[];
+function drawGraph(progress,multi){
 
-    document
-        .getElementById("graphPath")
-        .setAttribute("d","");
+    const path =
+        document.getElementById("linePath");
 
-    document
-        .getElementById("graphFill")
-        .setAttribute("d","");
+    const area =
+        document.getElementById("areaPath");
 
-    document
-        .getElementById("rocket")
-        .style.left="4%";
-
-    document
-        .getElementById("rocket")
-        .style.bottom="6%";
-}
-
-function drawGraph(progress){
+    if(!path || !area){
+        return;
+    }
 
     const width=1000;
     const height=500;
 
-    const points=70;
+    const x =
+        30+(width-80)*progress;
 
-    graphPoints=[];
+    const maxVisual =
+        Math.max(
+            2.5,
+            state.crashPoint
+        );
 
-    for(let i=0;i<points;i++){
+    const normalized =
+        Math.log(Math.max(1,multi)) /
+        Math.log(maxVisual);
 
-        const p =
-            i/(points-1);
+    const y =
+        height-
+        35-
+        normalized*350;
 
-        if(p>progress){
-            break;
-        }
+    currentPath.push({
+        x,
+        y
+    });
 
-        const curve =
-            Math.pow(p,1.75);
-
-        const x =
-            25+
-            p*900;
-
-        const y =
-            470-
-            curve*400;
-
-        const noise =
-            Math.sin(
-                p*17
-            )*3;
-
-        graphPoints.push({
-            x:x,
-            y:y+noise
-        });
+    if(currentPath.length>160){
+        currentPath.shift();
     }
 
-    if(graphPoints.length<2){
+    let d="";
+
+    currentPath.forEach((p,i)=>{
+
+        d +=
+            (i===0?"M":"L")+
+            p.x.toFixed(1)+
+            " "+
+            p.y.toFixed(1)+" ";
+
+    });
+
+    path.setAttribute(
+        "d",
+        d
+    );
+
+    const areaD =
+        d+
+        "L "+
+        x.toFixed(1)+
+        " "+
+        height+
+        " L 30 "+
+        height+
+        " Z";
+
+    area.setAttribute(
+        "d",
+        areaD
+    );
+
+    const rocket =
+        document.getElementById("rocket");
+
+    const wrap =
+        document.getElementById("chartWrap");
+
+    if(rocket && wrap){
+
+        const rect =
+            wrap.getBoundingClientRect();
+
+        rocket.style.left =
+            (
+                30+
+                progress*(
+                    rect.width-70
+                )
+            )+"px";
+
+        rocket.style.top =
+            (
+                rect.height-
+                60-
+                normalized*(
+                    rect.height*.67
+                )
+            )+"px";
+
+    }
+
+}
+
+/* =========================================================
+   MULTIPLIER
+   ========================================================= */
+
+function updateMultiplier(value,type){
+
+    const el =
+        document.getElementById(
+            "multiplier"
+        );
+
+    if(!el){
         return;
     }
 
-    let d =
-        "M "+
-        graphPoints[0].x+
-        " "+
-        graphPoints[0].y;
+    el.textContent =
+        Number(value).toFixed(2)+"x";
 
-    for(let i=1;i<graphPoints.length;i++){
+    el.className =
+        "multiplier "+type;
 
-        d +=
-            " L "+
-            graphPoints[i].x+
-            " "+
-            graphPoints[i].y;
+}
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+function setStatus(text){
+
+    const el =
+        document.getElementById(
+            "roundStatus"
+        );
+
+    if(el){
+        el.textContent=text;
     }
 
-    document
-        .getElementById("graphPath")
-        .setAttribute("d",d);
-
-    const fill =
-        d+
-        " L "+
-        graphPoints[graphPoints.length-1].x+
-        " 500 L 25 500 Z";
-
-    document
-        .getElementById("graphFill")
-        .setAttribute("d",fill);
-
-    const last =
-        graphPoints[
-            graphPoints.length-1
-        ];
-
-    document
-        .getElementById("rocket")
-        .style.left=
-            (last.x/10)+"%";
-
-    document
-        .getElementById("rocket")
-        .style.bottom=
-            ((500-last.y)/5)+"%";
 }
 
-function updateBetUI(){
+/* =========================================================
+   ROUND UI
+   ========================================================= */
 
-    [1,2].forEach(slot=>{
+function updateRoundUI(){
 
-        const bet=bets[slot];
+    const text =
+        "#"+state.round;
 
-        const button =
-            document.getElementById(
-                "betButton"+slot
-            );
+    document.getElementById(
+        "roundNumber"
+    ).textContent=text;
 
-        const stateText =
-            document.getElementById(
-                "betState"+slot
-            );
+    document.getElementById(
+        "infoRound"
+    ).textContent=text;
 
-        const card =
-            document.getElementById(
-                "betCard"+slot
-            );
-
-        card.classList.toggle(
-            "active-bet",
-            bet.state==="ACTIVE"
-        );
-
-        if(state.phase==="RUNNING" &&
-           bet.state==="ACTIVE" &&
-           !bet.cashed){
-
-            button.textContent =
-                "COBRAR "+
-                money(
-                    bet.amount*
-                    state.multiplier
-                )+
-                " USDT";
-
-            button.classList.add(
-                "cashout"
-            );
-
-            button.classList.remove(
-                "disabled"
-            );
-
-            stateText.textContent=
-                "ACTIVA";
-
-        }else{
-
-            button.classList.remove(
-                "cashout"
-            );
-
-            if(
-                bet.state==="CASHED_OUT"
-            ){
-
-                button.textContent=
-                    "COBRADA";
-
-                button.classList.add(
-                    "disabled"
-                );
-
-                stateText.textContent=
-                    "GANÓ";
-
-            }else if(
-                bet.state==="LOST"
-            ){
-
-                button.textContent=
-                    "PERDIÓ";
-
-                button.classList.add(
-                    "disabled"
-                );
-
-                stateText.textContent=
-                    "PERDIÓ";
-
-            }else{
-
-                button.textContent=
-                    "APOSTAR";
-
-                button.classList.remove(
-                    "disabled"
-                );
-
-                stateText.textContent=
-                    "LISTA";
-            }
-        }
-    });
-}
-
-function addMultiplierHistory(value){
-
-    state.history.unshift(
-        Number(value.toFixed(2))
-    );
-
-    state.history =
-        state.history.slice(0,40);
-
-    saveState();
-    renderMultiplierHistory();
-}
-
-function renderMultiplierHistory(){
-
-    const container =
+    const gr =
         document.getElementById(
-            "multHistory"
+            "gamesRound"
         );
 
-    container.innerHTML="";
+    if(gr){
+        gr.textContent=text;
+    }
+
+}
+
+/* =========================================================
+   GAMES MIRROR
+   ========================================================= */
+
+function updateGamesMirror(){
+
+    const multi =
+        document.getElementById(
+            "gamesMultiplier"
+        );
+
+    if(multi){
+
+        multi.textContent =
+            state.multiplier.toFixed(2)+"x";
+
+        multi.className =
+            "multiplier "+
+            (
+                state.phase==="crashed"
+                ?"red"
+                :"green"
+            );
+
+    }
+
+    const stateEl =
+        document.getElementById(
+            "gamesState"
+        );
+
+    if(stateEl){
+
+        const labels={
+            waiting:"Esperando",
+            countdown:"Cuenta atrás",
+            running:"En vivo",
+            crashed:"Crash"
+        };
+
+        stateEl.textContent =
+            labels[state.phase] ||
+            state.phase;
+
+    }
+
+}
+
+/* =========================================================
+   HISTORY
+   ========================================================= */
+
+function renderHistory(){
+
+    const list =
+        document.getElementById(
+            "historyList"
+        );
+
+    if(!list){
+        return;
+    }
 
     if(!state.history.length){
 
-        container.innerHTML=
-            '<div class="empty">Sin resultados todavía.</div>';
+        list.innerHTML=
+            '<div class="empty">Sin rondas todavía.</div>';
 
         return;
     }
 
-    state.history.forEach(value=>{
+    list.innerHTML =
+        state.history
+        .slice(0,18)
+        .map(item=>{
 
-        const el =
-            document.createElement("div");
+            let cls="low";
 
-        el.className="mult-item";
+            if(item.crash>=2){
+                cls="mid";
+            }
 
-        if(value<1.5){
-            el.classList.add("low");
-        }else if(value<3){
-            el.classList.add("mid");
-        }else if(value<10){
-            el.classList.add("good");
-        }else{
-            el.classList.add("high");
-        }
+            if(item.crash>=5){
+                cls="high";
+            }
 
-        el.textContent=
-            value.toFixed(2)+"x";
+            return `
+                <div class="history-pill ${cls}">
+                    ${Number(item.crash).toFixed(2)}x
+                </div>
+            `;
 
-        container.appendChild(el);
-    });
+        })
+        .join("");
+
 }
 
-function addBetHistory(data){
-
-    state.betsHistory.unshift({
-        ...data,
-        time:new Date().toLocaleString()
-    });
-
-    state.betsHistory =
-        state.betsHistory.slice(0,100);
-
-    saveState();
-
-    renderTables();
-}
+/* =========================================================
+   PLAYERS
+   ========================================================= */
 
 function generatePlayers(){
 
     const names=[
-        "Player_72",
-        "RocketX",
-        "Lucky_09",
-        "TraderOne",
-        "Maverick",
-        "NovaX",
-        "Player_184",
-        "FastCash",
-        "SkyUser",
-        "Alpha_7",
-        "MoonRide",
-        "CryptoFan"
+        "Alex",
+        "Mati",
+        "Sofi",
+        "Leo",
+        "Nico",
+        "Luna",
+        "Max",
+        "Dani",
+        "Cris",
+        "Vale",
+        "Sam",
+        "Javi"
     ];
 
-    const container =
-        document.getElementById(
-            "players"
-        );
+    players =
+        names.map((name,index)=>({
 
-    container.innerHTML="";
+            name,
 
-    names
-        .slice(
-            0,
-            8+Math.floor(
-                Math.random()*4
-            )
-        )
-        .forEach(name=>{
+            bet:
+                Number(
+                    random(.30,75).toFixed(2)
+                ),
 
-            const amount =
-                random(.30,80);
+            multi:
+                Number(
+                    random(1.05,3.2).toFixed(2)
+                ),
 
-            const result =
-                state.phase==="RUNNING"
-                    ? "—"
-                    : (
-                        Math.random()>.45
-                        ? random(1.2,7).toFixed(2)+"x"
-                        : "CRASH"
-                    );
+            index
 
-            const row =
-                document.createElement("div");
+        }));
 
-            row.className="player";
+    renderPlayers();
 
-            row.innerHTML=`
-                <div class="player-name">${name}</div>
-                <div class="player-bet">${amount.toFixed(2)}</div>
-                <div class="player-result ${
-                    result==="CRASH"
-                    ? "loss"
-                    : "win"
-                }">${result}</div>
-            `;
-
-            container.appendChild(row);
-        });
 }
 
-function renderTables(){
+function renderPlayers(){
 
-    const myTable =
+    const list =
         document.getElementById(
-            "myGamesTable"
+            "playerList"
         );
 
-    const historyTable =
+    const count =
         document.getElementById(
-            "historyTable"
+            "playerCount"
         );
 
-    if(!state.betsHistory.length){
-
-        myTable.innerHTML=
-            '<tr><td colspan="5" class="empty">No hay partidas todavía.</td></tr>';
-
-        historyTable.innerHTML=
-            '<tr><td colspan="5" class="empty">No hay historial todavía.</td></tr>';
-
+    if(!list){
         return;
     }
 
-    myTable.innerHTML="";
+    count.textContent=
+        players.length;
 
-    state.betsHistory
-        .slice(0,30)
-        .forEach(item=>{
+    list.innerHTML =
+        players
+        .slice(0,7)
+        .map(p=>{
 
-            const tr =
-                document.createElement("tr");
+            const initial =
+                p.name
+                .charAt(0)
+                .toUpperCase();
 
-            const profit =
-                Number(item.profit||0);
+            return `
+                <div class="player">
 
-            tr.innerHTML=`
-                <td>#${item.round}</td>
-                <td>${money(item.amount)}</td>
-                <td>${item.result}</td>
-                <td>${Number(item.multiplier).toFixed(2)}x</td>
-                <td style="color:${
-                    profit>=0
-                    ? "var(--green)"
-                    : "var(--red)"
-                }">
-                    ${profit>=0?"+":""}${money(profit)}
-                </td>
+                    <div class="player-left">
+
+                        <div class="avatar">
+                            ${initial}
+                        </div>
+
+                        <div>
+                            <div class="player-name">
+                                ${p.name}
+                            </div>
+
+                            <div class="player-bet">
+                                ${p.bet.toFixed(2)} USDT
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="player-multi">
+                        ${p.multi.toFixed(2)}x
+                    </div>
+
+                </div>
             `;
 
-            myTable.appendChild(tr);
-        });
+        })
+        .join("");
 
-    historyTable.innerHTML="";
-
-    state.betsHistory
-        .forEach(item=>{
-
-            const tr =
-                document.createElement("tr");
-
-            const profit =
-                Number(item.profit||0);
-
-            tr.innerHTML=`
-                <td>${item.time}</td>
-                <td>#${item.round}</td>
-                <td>${money(item.amount)} USDT</td>
-                <td>${item.result} · ${Number(item.multiplier).toFixed(2)}x</td>
-                <td style="color:${
-                    profit>=0
-                    ? "var(--green)"
-                    : "var(--red)"
-                }">
-                    ${profit>=0?"+":""}${money(profit)}
-                </td>
-            `;
-
-            historyTable.appendChild(tr);
-        });
-}
-
-function updateStats(){
-
-    const s=state.stats;
-
-    document.getElementById(
-        "statBets"
-    ).textContent=s.bets;
-
-    document.getElementById(
-        "statWins"
-    ).textContent=s.wins;
-
-    document.getElementById(
-        "statLosses"
-    ).textContent=s.losses;
-
-    document.getElementById(
-        "statBest"
-    ).textContent=
-        money(s.bestCashout)+"x";
-
-    document.getElementById(
-        "statWagered"
-    ).textContent=
-        money(s.wagered)+" USDT";
-
-    document.getElementById(
-        "statProfit"
-    ).textContent=
-        (s.profit>=0?"+":"")+
-        money(s.profit)+" USDT";
-
-    document.getElementById(
-        "statBigWin"
-    ).textContent=
-        money(s.biggestWin)+" USDT";
-
-    document.getElementById(
-        "statBigBet"
-    ).textContent=
-        money(s.biggestBet)+" USDT";
-
-    document.getElementById(
-        "profileBets"
-    ).textContent=s.bets;
-
-    document.getElementById(
-        "profileWins"
-    ).textContent=s.wins;
-
-    document.getElementById(
-        "profileBest"
-    ).textContent=
-        money(s.bestCashout)+"x";
 }
 
 /* =========================================================
-   DEPÓSITO
-========================================================= */
+   DEPOSITS
+   ========================================================= */
 
-function isValidBscHash(hash){
+function validTxHash(hash){
 
     return /^0x[a-fA-F0-9]{64}$/.test(
         hash.trim()
     );
+
 }
 
 function hashAlreadyUsed(hash){
 
-    const normalizedHash =
-        hash.trim().toLowerCase();
-
     return state.deposits.some(
-        deposit =>
-            String(deposit.hash || "")
-                .trim()
-                .toLowerCase() === normalizedHash
+        item=>
+            item.hash.toLowerCase()===
+            hash.toLowerCase()
     );
+
 }
 
 function submitDeposit(){
@@ -2950,64 +3390,37 @@ function submitDeposit(){
 
     const hash =
         document.getElementById(
-            "txHash"
+            "depositHash"
         ).value.trim();
-
-    const status =
-        document.getElementById(
-            "depositStatus"
-        );
-
-    status.className=
-        "deposit-status";
 
     if(
         !Number.isFinite(amount) ||
-        amount < MIN_DEPOSIT ||
-        amount > MAX_BET
+        amount < MIN_DEPOSIT
     ){
 
-        status.classList.add("error");
-
-        status.textContent=
-            "Depósito incorrecto. La cantidad debe estar entre 1 y 260 USDT.";
-
-        notify(
-            "Depósito incorrecto",
-            "La cantidad debe estar entre 1 y 260 USDT.",
-            "red"
+        toast(
+            "El depósito mínimo es 1 USDT.",
+            "error"
         );
 
         return;
     }
 
-    if(amount <= 0){
+    if(amount > MAX_BET){
 
-        status.classList.add("error");
-
-        status.textContent=
-            "Depósito incorrecto. El monto debe ser mayor que 0.";
-
-        notify(
-            "Depósito incorrecto",
-            "El monto introducido no es válido.",
-            "red"
+        toast(
+            "El máximo permitido es 260 USDT.",
+            "error"
         );
 
         return;
     }
 
-    if(!isValidBscHash(hash)){
+    if(!validTxHash(hash)){
 
-        status.classList.add("error");
-
-        status.textContent=
-            "Depósito incorrecto. El hash no tiene un formato válido para una transacción BEP-20.";
-
-        notify(
-            "Depósito incorrecto",
-            "El hash introducido no es válido.",
-            "red"
+        toast(
+            "Depósito incorrecto. El hash no tiene un formato BEP-20 válido.",
+            "error"
         );
 
         return;
@@ -3015,88 +3428,303 @@ function submitDeposit(){
 
     if(hashAlreadyUsed(hash)){
 
-        status.classList.add("error");
-
-        status.textContent=
-            "Depósito incorrecto. Este hash ya fue utilizado anteriormente.";
-
-        notify(
-            "Hash ya utilizado",
-            "Este TX hash no puede utilizarse nuevamente.",
-            "red"
+        toast(
+            "Este hash ya fue utilizado.",
+            "error"
         );
 
         return;
     }
 
     /*
-       =====================================================
-       ACREDITAR EL DEPÓSITO
-       =====================================================
-
-       Una vez superadas las validaciones locales,
-       el monto se suma inmediatamente al saldo.
+      Registro local del depósito.
     */
 
-    state.balance =
-        Number(
-            (
-                Number(state.balance || 0) +
-                amount
-            ).toFixed(2)
-        );
-
-    /*
-       Registrar el depósito.
-    */
+    state.balance += amount;
 
     state.deposits.unshift({
-        amount:amount,
-        hash:hash,
-        network:"BEP-20",
-        token:"USDT",
-        date:new Date().toLocaleString(),
-        status:"ACREDITADO"
+
+        amount:
+            Number(amount.toFixed(2)),
+
+        hash,
+
+        status:"Acreditado",
+
+        time:new Date().toLocaleString()
+
     });
 
-    state.deposits =
-        state.deposits.slice(0,50);
-
-    /*
-       Guardar saldo y depósito.
-    */
+    if(state.deposits.length>50){
+        state.deposits.pop();
+    }
 
     saveState();
 
-    /*
-       Actualizar inmediatamente el saldo
-       superior y el saldo del perfil.
-    */
-
     updateBalance();
-    updateAllUI();
-
-    status.classList.add("success");
-
-    status.textContent=
-        "Depósito validado correctamente. Se han acreditado "+
-        money(amount)+
-        " USDT a tu saldo.";
-
-    notify(
-        "Depósito acreditado",
-        "+"+money(amount)+" USDT",
-        "green"
-    );
 
     document.getElementById(
         "depositAmount"
     ).value="";
 
     document.getElementById(
-        "txHash"
+        "depositHash"
     ).value="";
+
+    renderDeposits();
+
+    toast(
+        "Depósito registrado: "+
+        money(amount)+
+        " USDT.",
+        "success"
+    );
+
 }
+
+function renderDeposits(){
+
+    const table =
+        document.getElementById(
+            "depositTable"
+        );
+
+    if(!table){
+        return;
+    }
+
+    if(!state.deposits.length){
+
+        table.innerHTML=`
+            <tr>
+                <td colspan="3">
+                    No hay depósitos registrados.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    table.innerHTML =
+        state.deposits
+        .slice(0,30)
+        .map(item=>{
+
+            return `
+                <tr>
+
+                    <td>
+                        ${money(item.amount)} USDT
+                    </td>
+
+                    <td style="font-family:monospace">
+                        ${shortHash(item.hash)}
+                    </td>
+
+                    <td class="good">
+                        ${item.status}
+                    </td>
+
+                </tr>
+            `;
+
+        })
+        .join("");
+
+}
+
+/* =========================================================
+   WITHDRAWALS
+   ========================================================= */
+
+function validWalletAddress(address){
+
+    return /^0x[a-fA-F0-9]{40}$/.test(
+        address.trim()
+    );
+
+}
+
+function submitWithdraw(){
+
+    const amount =
+        Number(
+            document.getElementById(
+                "withdrawAmount"
+            ).value
+        );
+
+    const address =
+        document.getElementById(
+            "withdrawAddress"
+        ).value.trim();
+
+    if(
+        !Number.isFinite(amount) ||
+        amount < MIN_BET
+    ){
+
+        toast(
+            "El retiro mínimo es 0.30 USDT.",
+            "error"
+        );
+
+        return;
+    }
+
+    if(amount > state.balance){
+
+        toast(
+            "Saldo insuficiente para realizar el retiro.",
+            "error"
+        );
+
+        return;
+    }
+
+    if(!validWalletAddress(address)){
+
+        toast(
+            "Dirección BEP-20 incorrecta.",
+            "error"
+        );
+
+        return;
+    }
+
+    /*
+      Se descuenta del saldo al crear
+      la solicitud de retiro.
+    */
+
+    state.balance -= amount;
+
+    state.withdrawals.unshift({
+
+        amount:
+            Number(amount.toFixed(2)),
+
+        address,
+
+        status:"Pendiente",
+
+        time:new Date().toLocaleString()
+
+    });
+
+    if(state.withdrawals.length>50){
+        state.withdrawals.pop();
+    }
+
+    saveState();
+
+    updateBalance();
+
+    document.getElementById(
+        "withdrawAmount"
+    ).value="";
+
+    document.getElementById(
+        "withdrawAddress"
+    ).value="";
+
+    renderWithdrawals();
+
+    toast(
+        "Solicitud de retiro registrada.",
+        "success"
+    );
+
+}
+
+function renderWithdrawals(){
+
+    const table =
+        document.getElementById(
+            "withdrawTable"
+        );
+
+    if(!table){
+        return;
+    }
+
+    if(!state.withdrawals.length){
+
+        table.innerHTML=`
+            <tr>
+                <td colspan="3">
+                    No hay retiros registrados.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    table.innerHTML =
+        state.withdrawals
+        .slice(0,30)
+        .map(item=>{
+
+            return `
+                <tr>
+
+                    <td>
+                        ${money(item.amount)} USDT
+                    </td>
+
+                    <td style="font-family:monospace">
+                        ${shortAddress(item.address)}
+                    </td>
+
+                    <td>
+                        ${item.status}
+                    </td>
+
+                </tr>
+            `;
+
+        })
+        .join("");
+
+}
+
+/* =========================================================
+   SHORTENERS
+   ========================================================= */
+
+function shortHash(hash){
+
+    if(hash.length<16){
+        return hash;
+    }
+
+    return (
+        hash.slice(0,8)+
+        "..."+
+        hash.slice(-8)
+    );
+
+}
+
+function shortAddress(address){
+
+    if(address.length<16){
+        return address;
+    }
+
+    return (
+        address.slice(0,8)+
+        "..."+
+        address.slice(-8)
+    );
+
+}
+
+/* =========================================================
+   COPY ADDRESS
+   ========================================================= */
 
 async function copyAddress(){
 
@@ -3106,189 +3734,260 @@ async function copyAddress(){
             ADDRESS
         );
 
-        notify(
-            "Dirección copiada",
-            "BEP-20 USDT",
-            "green"
+        toast(
+            "Dirección copiada.",
+            "success"
         );
 
     }catch(e){
 
-        notify(
-            "No se pudo copiar",
-            "Mantén pulsada la dirección para copiarla.",
-            "red"
+        toast(
+            "No se pudo copiar automáticamente.",
+            "error"
         );
+
     }
+
 }
 
-function notify(title,message,type="green"){
+/* =========================================================
+   TABLES
+   ========================================================= */
 
-    if(!state.settings.notifications){
-        return;
-    }
+function renderHistoryTable(){
 
-    const container =
+    const table =
         document.getElementById(
-            "notifications"
+            "historyTable"
         );
 
-    const toast =
-        document.createElement("div");
-
-    toast.className=
-        "toast "+type;
-
-    toast.innerHTML=
-        `<strong>${title}</strong>${message}`;
-
-    container.appendChild(toast);
-
-    setTimeout(
-        ()=>{
-            toast.style.opacity="0";
-            toast.style.transform="translateX(20px)";
-
-            setTimeout(
-                ()=>toast.remove(),
-                250
-            );
-        },
-        3000
-    );
-}
-
-let audioContext=null;
-
-function audio(){
-
-    if(!state.settings.sound){
-        return null;
-    }
-
-    try{
-
-        if(!audioContext){
-
-            audioContext =
-                new (
-                    window.AudioContext ||
-                    window.webkitAudioContext
-                )();
-        }
-
-        if(
-            audioContext.state==="suspended"
-        ){
-            audioContext.resume();
-        }
-
-        return audioContext;
-
-    }catch(e){
-
-        return null;
-    }
-}
-
-function beep(type){
-
-    const ctx=audio();
-
-    if(!ctx){
+    if(!table){
         return;
     }
 
-    const osc =
-        ctx.createOscillator();
+    if(!state.history.length){
 
-    const gain =
-        ctx.createGain();
+        table.innerHTML=`
+            <tr>
+                <td colspan="3">
+                    No hay historial.
+                </td>
+            </tr>
+        `;
 
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    let frequency=500;
-    let duration=.08;
-
-    if(type==="count"){
-        frequency=400;
-        duration=.06;
+        return;
     }
 
-    if(type==="start"){
-        frequency=700;
-        duration=.12;
-    }
+    table.innerHTML =
+        state.history
+        .map(item=>{
 
-    if(type==="cashout"){
-        frequency=950;
-        duration=.15;
-    }
+            return `
+                <tr>
 
-    if(type==="crash"){
-        frequency=120;
-        duration=.30;
-    }
+                    <td>
+                        #${item.round}
+                    </td>
 
-    osc.frequency.value=frequency;
+                    <td class="${
+                        item.crash>=2
+                        ?"good"
+                        :"bad"
+                    }">
+                        ${Number(item.crash).toFixed(2)}x
+                    </td>
 
-    gain.gain.setValueAtTime(
-        .0001,
-        ctx.currentTime
-    );
+                    <td>
+                        ${item.time}
+                    </td>
 
-    gain.gain.exponentialRampToValueAtTime(
-        .08,
-        ctx.currentTime+.01
-    );
+                </tr>
+            `;
 
-    gain.gain.exponentialRampToValueAtTime(
-        .0001,
-        ctx.currentTime+duration
-    );
+        })
+        .join("");
 
-    osc.start();
-    osc.stop(
-        ctx.currentTime+duration+.02
-    );
 }
 
-function toggleSound(){
+function renderMyGames(){
 
-    state.settings.sound =
-        !state.settings.sound;
+    const table =
+        document.getElementById(
+            "myGamesTable"
+        );
 
-    document
-        .getElementById("soundSwitch")
-        .classList.toggle(
+    if(!table){
+        return;
+    }
+
+    if(!state.betsHistory.length){
+
+        table.innerHTML=`
+            <tr>
+                <td colspan="5">
+                    Todavía no hay apuestas.
+                </td>
+            </tr>
+        `;
+
+    }else{
+
+        table.innerHTML =
+            state.betsHistory
+            .slice(0,50)
+            .map(item=>{
+
+                const win =
+                    item.result>=0;
+
+                return `
+                    <tr>
+
+                        <td>
+                            #${item.round}
+                        </td>
+
+                        <td>
+                            ${money(item.amount)}
+                        </td>
+
+                        <td>
+                            ${Number(item.crash).toFixed(2)}x
+                        </td>
+
+                        <td>
+                            ${
+                                item.exit
+                                ?Number(item.exit).toFixed(2)+"x"
+                                :"—"
+                            }
+                        </td>
+
+                        <td class="${
+                            win
+                            ?"good"
+                            :"bad"
+                        }">
+                            ${
+                                win
+                                ?"+"+money(item.result)
+                                :money(item.result)
+                            }
+                        </td>
+
+                    </tr>
+                `;
+
+            })
+            .join("");
+
+    }
+
+    document.getElementById(
+        "myTotalBets"
+    ).textContent =
+        state.stats.totalBets;
+
+    document.getElementById(
+        "myWins"
+    ).textContent =
+        state.stats.wins;
+
+    document.getElementById(
+        "myLosses"
+    ).textContent =
+        state.stats.losses;
+
+}
+
+function renderStats(){
+
+    const wagered =
+        state.stats.wagered||0;
+
+    const won =
+        state.stats.won||0;
+
+    document.getElementById(
+        "statWagered"
+    ).textContent =
+        money(wagered)+" USDT";
+
+    document.getElementById(
+        "statWon"
+    ).textContent =
+        money(won)+" USDT";
+
+    document.getElementById(
+        "statNet"
+    ).textContent =
+        money(won-wagered)+" USDT";
+
+}
+
+function renderAllTables(){
+
+    renderHistory();
+    renderHistoryTable();
+    renderMyGames();
+    renderStats();
+    renderDeposits();
+    renderWithdrawals();
+
+}
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+function toggleSetting(setting){
+
+    state.settings[setting] =
+        !state.settings[setting];
+
+    saveState();
+
+    updateSettingsUI();
+
+}
+
+function updateSettingsUI(){
+
+    const sound =
+        document.getElementById(
+            "soundToggle"
+        );
+
+    const animations =
+        document.getElementById(
+            "animationToggle"
+        );
+
+    if(sound){
+
+        sound.classList.toggle(
             "on",
             state.settings.sound
         );
 
-    saveState();
-}
+    }
 
-function toggleNotifications(){
+    if(animations){
 
-    state.settings.notifications =
-        !state.settings.notifications;
-
-    document
-        .getElementById("notificationSwitch")
-        .classList.toggle(
+        animations.classList.toggle(
             "on",
-            state.settings.notifications
+            state.settings.animations
         );
 
-    saveState();
+    }
+
 }
 
 function resetData(){
 
     const ok =
         confirm(
-            "¿Quieres restablecer todos los datos de este dispositivo?"
+            "¿Seguro que quieres restablecer todos los datos locales?"
         );
 
     if(!ok){
@@ -3300,64 +3999,107 @@ function resetData(){
     );
 
     location.reload();
+
 }
 
-function setStatus(text,cls){
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+let toastTimer=null;
+
+function toast(message,type="success"){
 
     const el =
         document.getElementById(
-            "gameStatus"
+            "toast"
         );
 
-    el.textContent=text;
-    el.className="status";
+    clearTimeout(toastTimer);
 
-    if(cls){
-        el.classList.add(cls);
+    el.textContent=message;
+
+    el.className=
+        "toast show "+
+        type;
+
+    toastTimer =
+        setTimeout(()=>{
+
+            el.className=
+                "toast";
+
+        },3000);
+
+}
+
+/* =========================================================
+   SOUND
+   ========================================================= */
+
+function beep(){
+
+    if(!state.settings.sound){
+        return;
     }
+
+    try{
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        const ctx =
+            new AudioContext();
+
+        const oscillator =
+            ctx.createOscillator();
+
+        const gain =
+            ctx.createGain();
+
+        oscillator.frequency.value=440;
+
+        gain.gain.value=.035;
+
+        oscillator.connect(gain);
+        gain.connect(ctx.destination);
+
+        oscillator.start();
+
+        oscillator.stop(
+            ctx.currentTime+.08
+        );
+
+    }catch(e){}
+
 }
 
-function updateRoundNumber(){
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
 
-    document.getElementById(
-        "roundNumber"
-    ).textContent=
-        "#"+state.round;
-}
+function init(){
 
-function updateAllUI(){
+    loadState();
 
     updateBalance();
-    updateRoundNumber();
-    updateBetUI();
-    renderMultiplierHistory();
-    renderTables();
-    updateStats();
 
-    document
-        .getElementById("soundSwitch")
-        .classList.toggle(
-            "on",
-            state.settings.sound
-        );
+    updateRoundUI();
 
-    document
-        .getElementById("notificationSwitch")
-        .classList.toggle(
-            "on",
-            state.settings.notifications
-        );
+    updateSettingsUI();
+
+    renderAllTables();
+
+    generatePlayers();
+
+    startWaiting();
+
 }
 
-loadState();
-
-generatePlayers();
-
-startWaiting();
-
-setInterval(
-    generatePlayers,
-    3500
+document.addEventListener(
+    "DOMContentLoaded",
+    init
 );
 
 </script>
