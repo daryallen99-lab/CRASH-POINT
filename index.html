@@ -2032,17 +2032,21 @@ const MAX_BET = 260;
 const MIN_DEPOSIT = 1;
 
 /*
-   DIFICULTAD
+   DISTRIBUCIÓN DE DIFICULTAD
 
-   La distribución está concentrada en multiplicadores bajos.
-   La animación NO utiliza easing de desaceleración.
+   La mayoría de los Crash quedan en valores bajos.
+   Los valores superiores a 4x son poco frecuentes.
+   Los valores superiores a 10x son extremadamente raros.
+   El máximo absoluto es 38x.
+
+   IMPORTANTE:
+   La distribución es independiente del historial
+   o de las ganancias de un jugador concreto.
 */
+
 const DIFFICULTY = {
     minimumCrash:1.01,
-    lowWeight:0.84,
-    mediumWeight:0.13,
-    highWeight:0.03,
-    maximumCrash:32
+    maximumCrash:38.00
 };
 
 const STORAGE_KEY = "crash_point_state_v1";
@@ -2172,70 +2176,190 @@ function clamp(value,min,max){
 }
 
 /* =========================================================
-   HARDER CRASH DISTRIBUTION
+   NUEVA DISTRIBUCIÓN DE CRASH
    ========================================================= */
 
 function generateCrashPoint(){
 
+    /*
+       Se genera un número aleatorio independiente
+       en cada ronda.
+
+       Rangos y probabilidades aproximadas:
+
+       1.25 - 1.40  -> muy frecuente
+       1.40 - 1.60  -> muy frecuente
+       1.60 - 2.00  -> frecuente
+       2.00 - 2.40  -> ocasional
+       2.40 - 3.00  -> poco frecuente
+       3.00 - 4.00  -> muy poco frecuente
+       4.00 - 5.00  -> extremadamente poco frecuente
+       5.00 - 8.00  -> excepcional
+       8.00 - 10.00 -> extremadamente raro
+       10.00 - 17.00-> extremadamente raro
+       17.00 - 38.00-> extraordinariamente raro
+
+       No existe una secuencia fija.
+       Cada resultado se vuelve a sortear.
+    */
+
     const r = Math.random();
 
-    let crash;
+    let min;
+    let max;
 
-    if(r < DIFFICULTY.lowWeight){
+    if(r < 0.30){
 
         /*
-          Mayor parte de las rondas:
-          1.01x - 1.75x
+          30%
+          1.25 - 1.40
         */
 
-        const x = Math.random();
-
-        crash =
-            1.01 +
-            Math.pow(x,2.15)*0.74;
+        min = 1.25;
+        max = 1.40;
 
     }
-    else if(
-        r <
-        DIFFICULTY.lowWeight +
-        DIFFICULTY.mediumWeight
-    ){
+    else if(r < 0.52){
 
         /*
-          Rondas medias:
-          1.75x - 4.50x
+          22%
+          1.40 - 1.60
         */
 
-        const x = Math.random();
+        min = 1.40;
+        max = 1.60;
 
-        crash =
-            1.75 +
-            Math.pow(x,1.45)*2.75;
+    }
+    else if(r < 0.73){
+
+        /*
+          21%
+          1.60 - 2.00
+        */
+
+        min = 1.60;
+        max = 2.00;
+
+    }
+    else if(r < 0.87){
+
+        /*
+          14%
+          2.00 - 2.40
+        */
+
+        min = 2.00;
+        max = 2.40;
+
+    }
+    else if(r < 0.945){
+
+        /*
+          7.5%
+          2.40 - 3.00
+        */
+
+        min = 2.40;
+        max = 3.00;
+
+    }
+    else if(r < 0.977){
+
+        /*
+          3.2%
+          3.00 - 4.00
+        */
+
+        min = 3.00;
+        max = 4.00;
+
+    }
+    else if(r < 0.989){
+
+        /*
+          1.2%
+          4.00 - 5.00
+        */
+
+        min = 4.00;
+        max = 5.00;
+
+    }
+    else if(r < 0.996){
+
+        /*
+          0.7%
+          5.00 - 8.00
+        */
+
+        min = 5.00;
+        max = 8.00;
+
+    }
+    else if(r < 0.9985){
+
+        /*
+          0.25%
+          8.00 - 10.00
+        */
+
+        min = 8.00;
+        max = 10.00;
+
+    }
+    else if(r < 0.9995){
+
+        /*
+          0.10%
+          10.00 - 17.00
+        */
+
+        min = 10.00;
+        max = 17.00;
 
     }
     else{
 
         /*
-          Rondas altas:
-          poco frecuentes.
+          0.05%
+          17.00 - 38.00
+
+          Extremadamente raro.
         */
 
-        const x = Math.random();
-
-        crash =
-            4.50 +
-            Math.pow(x,1.65)*27.50;
+        min = 17.00;
+        max = 38.00;
 
     }
 
-    crash =
+    /*
+       Distribución interna aleatoria del rango.
+       No se utilizan siempre los mismos decimales.
+    */
+
+    let value =
+        min +
+        Math.random() *
+        (max-min);
+
+    /*
+       Evita que la distribución se concentre
+       siempre en los extremos.
+    */
+
+    value =
+        Number(
+            value.toFixed(2)
+        );
+
+    value =
         clamp(
-            crash,
+            value,
             DIFFICULTY.minimumCrash,
             DIFFICULTY.maximumCrash
         );
 
-    return Number(crash.toFixed(2));
+    return value;
 
 }
 
@@ -2446,11 +2570,17 @@ function betAction(slot){
     updateBetUI(slot);
 
     toast(
-        "Apuesta "+slot+" realizada.",
+        "Apuesta "+slot+" de "+
+        money(amount)+
+        " USDT realizada.",
         "success"
     );
 
 }
+
+/* =========================================================
+   CASH OUT
+   ========================================================= */
 
 function cashOut(slot){
 
@@ -2543,8 +2673,13 @@ function performCashOut(slot,multi){
     updateBetUI(slot);
     renderAllTables();
 
+    beep();
+
     toast(
-        "Cobraste "+money(payout)+" USDT a "+multi.toFixed(2)+"x.",
+        "Has cobrado "+
+        money(payout)+
+        " USDT en la apuesta "+
+        slot+".",
         "success"
     );
 
@@ -2586,9 +2721,20 @@ function checkAutoCashouts(){
             state.multiplier >= target
         ){
 
+            const payout =
+                bet.amount*target;
+
             performCashOut(
                 slot,
                 target
+            );
+
+            toast(
+                "Auto cobro: "+
+                money(payout)+
+                " USDT en la apuesta "+
+                slot+".",
+                "success"
             );
 
         }
@@ -2646,6 +2792,54 @@ function updateBetUI(slot){
 }
 
 /* =========================================================
+   BOTÓN DE COBRO DINÁMICO
+   ========================================================= */
+
+function updateCashButtons(){
+
+    [1,2].forEach(slot=>{
+
+        const button =
+            document.getElementById(
+                "cashBtn"+slot
+            );
+
+        if(!button){
+            return;
+        }
+
+        const bet =
+            bets[slot];
+
+        if(
+            state.phase === "running" &&
+            bet.active &&
+            !bet.cashed
+        ){
+
+            const payout =
+                bet.amount*
+                state.multiplier;
+
+            button.textContent =
+                "COBRAR "+
+                money(payout)+
+                " USDT";
+
+            button.disabled=false;
+
+        }
+        else{
+
+            button.textContent="COBRAR";
+
+        }
+
+    });
+
+}
+
+/* =========================================================
    ROUND SYSTEM
    ========================================================= */
 
@@ -2671,6 +2865,8 @@ function startWaiting(){
         "Próxima ronda..."
     );
 
+    updateCashButtons();
+
     roundTimer =
         setTimeout(
             startCountdown,
@@ -2688,6 +2884,8 @@ function startCountdown(){
     setStatus(
         "Comienza en "+seconds
     );
+
+    updateCashButtons();
 
     roundTimer =
         setInterval(()=>{
@@ -2723,19 +2921,17 @@ function startRound(){
         performance.now();
 
     /*
-      La duración depende del multiplicador,
-      pero el crecimiento visual es LINEAL.
-      No existe easing que produzca frenado.
+      La duración se sortea de forma independiente
+      del punto de Crash.
+
+      Así un Crash alto no implica automáticamente
+      una duración proporcionalmente más larga.
     */
 
-    const target =
-        state.crashPoint;
-
     const duration =
-        3000 +
-        Math.min(
-            target*520,
-            11500
+        random(
+            3500,
+            9500
         );
 
     crashTime =
@@ -2744,6 +2940,8 @@ function startRound(){
     currentPath=[];
 
     setStatus("EN VIVO");
+
+    updateCashButtons();
 
     animateGame();
 
@@ -2772,23 +2970,22 @@ function animateGame(){
         );
 
     /*
-      CRECIMIENTO LINEAL:
-      evita completamente el efecto de
-      desaceleración antes del Crash.
+      Movimiento uniforme.
+      No se utiliza easing de desaceleración.
     */
 
     const linear =
         progress;
 
-    /*
-      Curva suave de multiplicador, pero
-      con velocidad visual constante.
-    */
-
     const target =
         state.crashPoint;
 
     let multi;
+
+    /*
+      La trayectoria del multiplicador crece de forma
+      progresiva y uniforme hasta el valor sorteado.
+    */
 
     if(target <= 1.20){
 
@@ -2798,12 +2995,6 @@ function animateGame(){
 
     }
     else{
-
-        /*
-          Interpolación lineal sobre logaritmo
-          para que los saltos visuales sean
-          uniformes.
-        */
 
         multi =
             Math.exp(
@@ -2830,6 +3021,12 @@ function animateGame(){
         "green"
     );
 
+    /*
+      La línea visual NO revela el punto de Crash.
+      Su altura es decorativa y se mantiene elevada
+      durante la trayectoria.
+    */
+
     drawGraph(
         linear,
         state.multiplier
@@ -2838,6 +3035,8 @@ function animateGame(){
     updateGamesMirror();
 
     checkAutoCashouts();
+
+    updateCashButtons();
 
     if(now >= crashTime){
 
@@ -2853,6 +3052,8 @@ function animateGame(){
             1,
             state.crashPoint
         );
+
+        updateCashButtons();
 
         crashRound();
 
@@ -2882,8 +3083,12 @@ function crashRound(){
     );
 
     setStatus(
-        "CRASH · "+state.crashPoint.toFixed(2)+"x"
+        "CRASH · "+
+        state.crashPoint.toFixed(2)+
+        "x"
     );
+
+    updateCashButtons();
 
     /*
       Apuestas que quedaron activas
@@ -2974,6 +3179,8 @@ function resetBets(){
 
     });
 
+    updateCashButtons();
+
 }
 
 /* =========================================================
@@ -2998,20 +3205,30 @@ function drawGraph(progress,multi){
     const x =
         30+(width-80)*progress;
 
-    const maxVisual =
-        Math.max(
-            2.5,
-            state.crashPoint
-        );
+    /*
+      ALTURA VISUAL INDEPENDIENTE DEL CRASH
 
-    const normalized =
-        Math.log(Math.max(1,multi)) /
-        Math.log(maxVisual);
+      La línea se mantiene alta y su altura
+      no permite deducir cuánto falta para
+      el Crash ni cuál será el multiplicador.
+    */
+
+    const visualWave =
+        Math.sin(
+            progress*Math.PI*2.2
+        )*14;
+
+    const visualLift =
+        335 -
+        progress*135;
 
     const y =
-        height-
-        35-
-        normalized*350;
+        clamp(
+            visualLift+
+            visualWave,
+            115,
+            345
+        );
 
     currentPath.push({
         x,
@@ -3073,13 +3290,25 @@ function drawGraph(progress,multi){
                 )
             )+"px";
 
+        /*
+          El cohete sigue una altura visual elevada,
+          independiente del valor real del Crash.
+        */
+
+        const rocketWave =
+            Math.sin(
+                progress*Math.PI*2.2
+            )*8;
+
         rocket.style.top =
             (
                 rect.height-
-                60-
-                normalized*(
-                    rect.height*.67
-                )
+                55-
+                (
+                    .34+
+                    progress*.28
+                )*rect.height+
+                rocketWave
             )+"px";
 
     }
@@ -3436,10 +3665,6 @@ function submitDeposit(){
         return;
     }
 
-    /*
-      Registro local del depósito.
-    */
-
     state.balance += amount;
 
     state.deposits.unshift({
@@ -3593,11 +3818,6 @@ function submitWithdraw(){
         return;
     }
 
-    /*
-      Se descuenta del saldo al crear
-      la solicitud de retiro.
-    */
-
     state.balance -= amount;
 
     state.withdrawals.unshift({
@@ -3632,7 +3852,9 @@ function submitWithdraw(){
     renderWithdrawals();
 
     toast(
-        "Solicitud de retiro registrada.",
+        "Solicitud de retiro de "+
+        money(amount)+
+        " USDT registrada.",
         "success"
     );
 
@@ -4003,7 +4225,7 @@ function resetData(){
 }
 
 /* =========================================================
-   TOAST
+   TOAST / NOTIFICACIONES
    ========================================================= */
 
 let toastTimer=null;
@@ -4022,6 +4244,8 @@ function toast(message,type="success"){
     el.className=
         "toast show "+
         type;
+
+    el.style.bottom="18px";
 
     toastTimer =
         setTimeout(()=>{
@@ -4094,6 +4318,8 @@ function init(){
     generatePlayers();
 
     startWaiting();
+
+    updateCashButtons();
 
 }
 
