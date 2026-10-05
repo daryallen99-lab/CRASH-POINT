@@ -1529,7 +1529,7 @@ td{
 
         <div class="form-group">
             <label>CANTIDAD</label>
-            <input id="depositAmount" type="number" min="0.30" max="260" step="0.01" placeholder="Ej. 10.00">
+            <input id="depositAmount" type="number" min="1" max="260" step="0.01" placeholder="Mínimo 1 USDT">
         </div>
 
         <div class="form-group">
@@ -1670,6 +1670,9 @@ const ADDRESS =
 
 const MIN_BET = 0.30;
 const MAX_BET = 260;
+
+/* Mínimo para depósitos */
+const MIN_DEPOSIT = 1;
 
 const STORAGE_KEY = "crash_point_state_v1";
 
@@ -3039,10 +3042,33 @@ function updateStats(){
    DEPÓSITO
 ========================================================= */
 
+/*
+   Comprueba que el TX hash tenga el formato estándar
+   de una transacción BSC:
+   0x + 64 caracteres hexadecimales.
+*/
 function isValidBscHash(hash){
 
     return /^0x[a-fA-F0-9]{64}$/.test(
         hash.trim()
+    );
+}
+
+/*
+   Comprueba si el hash ya fue utilizado anteriormente.
+   Se normaliza a minúsculas para impedir que el mismo hash
+   pueda reutilizarse cambiando mayúsculas/minúsculas.
+*/
+function hashAlreadyUsed(hash){
+
+    const normalizedHash =
+        hash.trim().toLowerCase();
+
+    return state.deposits.some(
+        deposit =>
+            String(deposit.hash || "")
+                .trim()
+                .toLowerCase() === normalizedHash
     );
 }
 
@@ -3068,19 +3094,56 @@ function submitDeposit(){
     status.className=
         "deposit-status";
 
+    /*
+       El depósito debe ser un número real,
+       mayor o igual a 1 USDT y no superar
+       el máximo permitido.
+    */
+
     if(
         !Number.isFinite(amount) ||
-        amount<MIN_BET ||
-        amount>MAX_BET
+        amount < MIN_DEPOSIT ||
+        amount > MAX_BET
     ){
 
         status.classList.add("error");
 
         status.textContent=
-            "Depósito incorrecto. La cantidad debe estar entre 0.30 y 260 USDT.";
+            "Depósito incorrecto. La cantidad debe estar entre 1 y 260 USDT.";
+
+        notify(
+            "Depósito incorrecto",
+            "El depósito mínimo es de 1 USDT.",
+            "red"
+        );
 
         return;
     }
+
+    /*
+       Protección adicional contra valores
+       negativos, cero o no válidos.
+    */
+
+    if(amount <= 0){
+
+        status.classList.add("error");
+
+        status.textContent=
+            "Depósito incorrecto. El monto debe ser mayor que 0.";
+
+        notify(
+            "Depósito incorrecto",
+            "El monto introducido no es válido.",
+            "red"
+        );
+
+        return;
+    }
+
+    /*
+       Validación del formato del hash BEP-20.
+    */
 
     if(!isValidBscHash(hash)){
 
@@ -3099,8 +3162,29 @@ function submitDeposit(){
     }
 
     /*
+       Impide utilizar el mismo TX hash más de una vez.
+    */
+
+    if(hashAlreadyUsed(hash)){
+
+        status.classList.add("error");
+
+        status.textContent=
+            "Depósito incorrecto. Este hash ya fue utilizado anteriormente.";
+
+        notify(
+            "Hash ya utilizado",
+            "Este TX hash no puede utilizarse nuevamente.",
+            "red"
+        );
+
+        return;
+    }
+
+    /*
        Registro local de la solicitud.
-       No se acredita saldo automáticamente.
+       El hash queda guardado y no puede volver
+       a utilizarse en esta aplicación.
     */
 
     state.deposits.unshift({
@@ -3127,6 +3211,19 @@ function submitDeposit(){
         money(amount)+" USDT",
         "green"
     );
+
+    /*
+       Limpiar los campos después de registrar
+       correctamente la solicitud.
+    */
+
+    document.getElementById(
+        "depositAmount"
+    ).value="";
+
+    document.getElementById(
+        "txHash"
+    ).value="";
 }
 
 /* =========================================================
